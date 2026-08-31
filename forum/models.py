@@ -35,3 +35,4 @@ class Resposta(models.Model):
     
     def foi_publicado_recentemente(self):
         return self.data_criacao >= timezone.now() - datetime.timedelta(days=1)
+    
