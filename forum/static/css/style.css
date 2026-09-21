@@ -1,0 +1,363 @@
+/* ==========================================================================
+   Variáveis Globais - Paleta Azul Corporativo & Estética Séria
+   ========================================================================== */
+:root {
+    --primary-blue: #1e40af;
+    --primary-dark: #0f172a;
+    --primary-light: #eff6ff;
+    --accent-blue: #2563eb;
+    --bg-body: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.07);
+    --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.1);
+    --radius: 8px;
+    --transition: all 0.2s ease-in-out;
+}
+
+/* Reset básico e tipografia */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Cabeçalho (Header & Nav)
+   ========================================================================== */
+.header {
+    background-color: var(--primary-dark);
+    color: #ffffff;
+    padding: 16px 24px;
+    border-bottom: 3px solid var(--primary-blue);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.header h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #ffffff;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.nav a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav span.separator {
+    color: #475569;
+    font-size: 0.85rem;
+    user-select: none;
+}
+
+/* Botão de Logout sobrio */
+.logout-form {
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-logout {
+    background-color: transparent;
+    border: 1px solid #475569;
+    color: #e2e8f0;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    background-color: #991b1b;
+    border-color: #991b1b;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   Container Principal & Cards
+   ========================================================================== */
+.container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.card h2 {
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 8px;
+}
+
+.text-content p {
+    line-height: 1.65;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+}
+
+/* ==========================================================================
+   Formulários (Login, Registro e Feedback)
+   ========================================================================== */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 380px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    background-color: #ffffff;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Botão Principal */
+.btn-primary {
+    width: 100%;
+    background-color: var(--primary-blue);
+    color: #ffffff;
+    padding: 11px 16px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-primary:active {
+    background-color: #1e40af;
+}
+
+.error-message {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.switch-link {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+.switch-link a {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Grid dos Integrantes
+   ========================================================================== */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.team-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: left;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border-top: 3px solid var(--primary-blue);
+}
+
+.team-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-color);
+    border-top-color: var(--accent-blue);
+}
+
+.team-card h3 {
+    font-size: 1.05rem;
+    color: var(--primary-dark);
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.team-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Área de Feedbacks (Fale Conosco)
+   ========================================================================== */
+.feedback-form {
+    margin-top: 16px;
+}
+
+.feedback-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feedback-item {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--primary-blue);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.feedback-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.feedback-header strong {
+    color: var(--primary-dark);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.feedback-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.feedback-text {
+    color: var(--text-secondary);
+    line-height: 1.55;
+    word-break: break-word;
+    font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   Rodapé
+   ========================================================================== */
+footer {
+    text-align: center;
+    padding: 18px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+}
