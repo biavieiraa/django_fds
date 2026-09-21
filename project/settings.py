@@ -123,7 +123,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+import os
+
+STATIC_URL = '/static/'
+
+# Caminho obrigatório para o Render reunir os ficheiros estáticos compilados
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Diretório de ficheiros estáticos locais do projeto
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 
 STATICFILES_DIRS = [
