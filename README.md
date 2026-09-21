@@ -59,7 +59,7 @@ https://youtu.be/4nRkAsJpJho?si=UtNhVNgx7p2iDae4
 https://youtu.be/9_80bwFltfQ
 
 ### Issues:
-![Print de Issues](./issues.jpeg)
+![Print de Issues](./issue.png)
 
 ## Deployment da Infraestrutura em Produção
 
