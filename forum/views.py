@@ -21,21 +21,21 @@ def register(request):
             
     return render(request, 'forum/register.html', {'error': error})
 
-@login_required
+# Removido o @login_required para permitir acesso público ao testar e estilizar
 def index(request):
     return render(request, 'forum/index.html')
 
-@login_required
 def sobre_nos(request):
     if request.method == 'POST':
         mensagem = request.POST.get('mensagem')
         if mensagem:
-            Feedback.objects.create(usuario=request.user, mensagem=mensagem)
+            # Se o utilizador estiver autenticado usa request.user, caso contrário guarda como None ou anónimo
+            user = request.user if request.user.is_authenticated else None
+            Feedback.objects.create(usuario=user, mensagem=mensagem)
             return redirect('sobre_nos')
             
     feedbacks = Feedback.objects.all().order_by('-data_criacao')
     return render(request, 'forum/sobre_nos.html', {'feedbacks': feedbacks})
 
-@login_required
 def sobre_empresa(request):
     return render(request, 'forum/sobre_empresa.html')
