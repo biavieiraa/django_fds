@@ -94,7 +94,7 @@ if ENVIRONMENT == 'development':
     		}
 	}
 else:
-	import dj_database_url
+	import dj_database_url # type: ignore
 	DATABASES = {
     		'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
 	}
@@ -121,24 +121,15 @@ USE_TZ = True
 
 
 
-STATIC_URL = '/static/'
-
-import os
 
 STATIC_URL = '/static/'
 
-# Caminho obrigatório para o Render reunir os ficheiros estáticos compilados
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Diretório de ficheiros estáticos locais do projeto
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-    BASE_DIR / 'forum' / 'static',  
+    BASE_DIR / 'forum' / 'static',
 ]
 
 DEBUG = True
