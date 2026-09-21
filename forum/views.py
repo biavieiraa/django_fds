@@ -39,3 +39,6 @@ def sobre_nos(request):
 
 def sobre_empresa(request):
     return render(request, 'forum/sobre_empresa.html')
+    
+def objetivo(request):
+    return render(request, 'forum/objetivo.html')
