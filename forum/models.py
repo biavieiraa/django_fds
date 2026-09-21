@@ -36,9 +36,16 @@ class Resposta(models.Model):
 
 
 class Feedback(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     mensagem = models.TextField()
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Feedback de {self.usuario.username}"
+        if self.usuario:
+            return f"Feedback de {self.usuario.username}"
+        return "Feedback anônimo"

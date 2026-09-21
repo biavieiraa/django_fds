@@ -60,7 +60,13 @@
         {% for fb in feedbacks %}
             <div class="feedback-item">
                 <div class="feedback-header">
-                    <strong>{{ fb.usuario.username }}</strong>
+                    <strong>
+                        {% if fb.usuario %}
+                            {{ fb.usuario.username }}
+                        {% else %}
+                            Anônimo
+                        {% endif %}
+                    </strong>
                     <span class="feedback-date">{{ fb.data_criacao|date:"d/m/Y H:i" }}</span>
                 </div>
                 <p class="feedback-text">{{ fb.mensagem }}</p>
