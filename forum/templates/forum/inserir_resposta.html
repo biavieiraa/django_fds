@@ -1,12 +1,22 @@
-{% extends "forum/detalhe.html" %}
+{% extends 'forum/base.html' %}
 
-{% block respostas %}
-<h3>Adicionar resposta</h3>
-<form method="post">
-    {% csrf_token %}
+{% block title %}Fórum MyStackOverflow - Responder Pergunta{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Detalhes da Pergunta</h2>
+    <p style="font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;">Como conectar o Django ao PostgreSQL no Render?</p>
     
-        <textarea rows="6" cols="50" id="texto" name="texto_resposta"></textarea>
-    <p>
-    <input type="submit" name = "salvar_resposta" value="Salvar">
-</form>
+    <hr style="margin-bottom: 20px; border: none; border-top: 1px solid #eee;">
+
+    <h2>Sua Resposta</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="resposta" class="form-control" placeholder="Escreva sua resposta aqui..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">Enviar Resposta</button>
+    </form>
+</div>
 {% endblock %}

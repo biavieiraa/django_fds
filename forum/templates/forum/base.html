@@ -1,21 +1,42 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <title>Exemplo StackOverflow</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FDS Grupo 4{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Fórum MyStackOverflow</h1>
-        <nav>
-            <a href="{% url 'forum:index' %}">Home</a> | 
-            <a href="{% url 'forum:inserir_pergunta' %}">Criar pergunta</a>
-        </nav>
+
+    <header class="header">
+        <div class="header-container">
+            <h1>FDS Grupo 4</h1>
+            {% if user.is_authenticated %}
+            <nav class="nav">
+                <a href="{% url 'index' %}">Início</a>
+                <span class="separator">|</span>
+                <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
+                <span class="separator">|</span>
+                <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
+                <span class="separator">|</span>
+                
+                <form method="post" action="{% url 'logout' %}" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout">Sair</button>
+                </form>
+            </nav>
+            {% endif %}
+        </div>
     </header>
 
     <main class="container">
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
+
+    <footer>
+        <p>&copy; 2026 BZU Tech - Grupo 4</p>
+    </footer>
+
 </body>
 </html>

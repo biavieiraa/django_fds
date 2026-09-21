@@ -1,0 +1,71 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}Fale Conosco - MyStackOverflow{% endblock %}
+
+{% block content %}
+<div class="card text-content" style="margin-bottom: 30px;">
+    <h2>Nossa equipe</h2>
+    
+
+    <div class="team-grid">
+        <div class="team-card">
+            <h3>Beatriz Vieira</h3>
+            <p>bvot@cesar.school</p>
+        </div>
+        <div class="team-card">
+            <h3>Bryan Martins</h3>
+            <p>bmp@cesar.school</p>
+        </div>
+        <div class="team-card">
+            <h3>Gabriella Lima</h3>
+            <p>gla3@cesar.school</p>
+        </div>
+        <div class="team-card">
+            <h3>Gustavo Cavalcanti</h3>
+            <p>gcnf@cesar.school</p>
+        </div>
+        <div class="team-card">
+            <h3>Isabel Lucena</h3>
+            <p>ial2@cesar.school</p>
+        </div>
+        <div class="team-card">
+            <h3>João Henrique</h3>
+            <p>jhmra@cesar.school</p>
+        </div>
+        <div class="team-card">
+            <h3>Heitor Villa Chan</h3>
+            <p>hvccp@cesar.school</p>
+        </div>
+    </div>
+</div>
+
+<div class="card text-content">
+    <h2>Feedbacks</h2>
+    <p>Deixe aqui a sua opinião, dúvida ou sugestão para a nossa equipe!</p>
+
+    <form method="post" action="{% url 'sobre_nos' %}" class="feedback-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="mensagem">Sua Mensagem / Opinião:</label>
+            <textarea name="mensagem" id="mensagem" rows="4" class="form-control" placeholder="Escreva o que achou do site ou deixe sua sugestão..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: auto; padding: 10px 24px;">Enviar Feedback</button>
+    </form>
+
+    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #e2e8f0;">
+
+    <h3>Opiniões e Feedbacks Enviados</h3>
+    <div class="feedback-list">
+        {% for fb in feedbacks %}
+            <div class="feedback-item">
+                <div class="feedback-header">
+                    <strong>{{ fb.usuario.username }}</strong>
+                    <span class="feedback-date">{{ fb.data_criacao|date:"d/m/Y H:i" }}</span>
+                </div>
+                <p class="feedback-text">{{ fb.mensagem }}</p>
+            </div>
+        
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

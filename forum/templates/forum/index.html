@@ -1,22 +1,13 @@
+{% extends 'forum/base.html' %}
 
-{% extends "forum/base.html" %}
+{% block title %}Início - MyStackOverflow{% endblock %}
 
 {% block content %}
-{% if perguntas %}
-    <h2>Últimas perguntas</h2>
-    <ul>
-    {% for pergunta in perguntas %}
-        <li>
-            <a href="{% url 'forum:detalhe' pergunta.id %}">
-                {{ pergunta.titulo }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Nenhuma pergunta disponível.</p>
-{% endif %}
-<a href="{% url 'forum:inserir_pergunta' %}">
-    <button>Nova pergunta</button>
-</a>
+<div class="card text-content">
+    <h2>Início</h2>
+    <p>Bem-vindo ao nosso site!</p>
+    <p>Esse site foi criado com o objetivo de auxiliar empresas a compreenderem e terem maior controle dos dispositivos de IoT utilizados por elas, sugerindo melhorias e oferecendo dados para que, por meio de sua interpretação, possam tomar decisões mais conscientes.
+ </p>
+ 
+</div>
 {% endblock %}

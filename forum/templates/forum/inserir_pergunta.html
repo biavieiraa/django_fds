@@ -1,19 +1,24 @@
-{% extends "forum/base.html" %}
+{% extends 'forum/base.html' %}
+
+{% block title %}Fórum MyStackOverflow - Criar Pergunta{% endblock %}
 
 {% block content %}
-<form name = "form" method="post">
-    {% csrf_token %}
-    <p><label for="titulo">Escreva sua pergunta:</label><br>
-        <input type="text" name="titulo" id="titulo" size="50" maxlength="200">
-    </p>
-    <p><label for="detalhe">Detalhe o problema:<br />
-            <textarea rows="6" cols="50" id="detalhe" name="detalhe"></textarea>
-    </p>
-    <p><label for="tentativa">Escreva o que você já tentou:<br />
-            <textarea rows="6" cols="50" id="tentativa" name="tentativa"></textarea>
-    </p>
+<div class="card">
+    <h2>Criar uma nova pergunta</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="titulo">Título da Pergunta:</label>
+            <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Ex: Como funciona o comando migrate no Django?" required>
+        </div>
 
-    <input type="submit" name="botao_inserir_pergunta" value="Salvar" />
+        <div class="form-group">
+            <label for="descricao">Descrição detalhada:</label>
+            <textarea id="descricao" name="descricao" class="form-control" placeholder="Descreva sua dúvida com detalhes..." required></textarea>
+        </div>
 
-</form>
+        <button type="submit" class="btn-primary">Publicar Pergunta</button>
+    </form>
+</div>
 {% endblock %}
