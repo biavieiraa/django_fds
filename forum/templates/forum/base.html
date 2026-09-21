@@ -5,28 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}FDS Grupo 4{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Parâmetro ?v=2.0 força a atualização do cache no navegador -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2.0">
 </head>
 <body>
 
     <header class="header">
         <div class="header-container">
             <h1>FDS Grupo 4</h1>
-            {% if user.is_authenticated %}
+            
+            <!-- Links visíveis para todos os visitantes -->
             <nav class="nav">
                 <a href="{% url 'index' %}">Início</a>
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
-                <span class="separator">|</span>
-                
-                <form method="post" action="{% url 'logout' %}" class="logout-form">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-logout">Sair</button>
-                </form>
+
+                <!-- Botão de Sair só aparece se o usuário estiver logado -->
+                {% if user.is_authenticated %}
+                    <span class="separator">|</span>
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-logout">Sair</button>
+                    </form>
+                {% else %}
+                    <span class="separator">|</span>
+                    <a href="{% url 'register' %}">Entrar</a>
+                {% endif %}
             </nav>
-            {% endif %}
         </div>
     </header>
 
