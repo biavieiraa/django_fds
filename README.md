@@ -1,38 +1,76 @@
-# ex_django_fds_2026.2
+# BZU TECH — Grupo 3
+
+Este repositório contém a documentação e o acompanhamento das etapas de desenvolvimento do nosso projeto, voltado para soluções de IoT. 
+
+Para a organização das entregas e fluxo de trabalho da equipe, utilizamos a metodologia Scrum no Jira.
+
 ---
 
-## Empresa analisada: Claro
+## Quadro Scrum
 
-### Visão Geral
+O espaço de trabalho foi configurado no modelo Team-Managed com fluxo personalizado de colunas para acompanhar a evolução das tarefas:
 
-1. A Claro é uma das maiores empresas de telecomunicações da América Latina, atuando no Brasil como uma operadora multisserviços que oferece soluções conectadas para pessoas físicas, pequenas empresas e corporações. Provedora de serviços integrados de conectividade e entretenimento, oferecendo telefonia móvel (4G e 5G), internet banda larga de alta velocidade (fibra óptica e cabo), TV por assinatura (cabo e via streaming) e telefonia fixa.
-2. Público-Alvo: Abrange desde o consumidor final (com planos individuais, familiares e pré/pós-pagos) até o mercado corporativo (com serviços de nuvem, segurança digital e dados via Claro Empresas).
+* **To Do**
+* **Em desenvolvimento**
+* **Desenvolvido**
+* **Em validação**
+* **Done**
 
-### Produtos analisados
+---
 
-1. Gestão de conta e consumo de dados em tempo real pelo app Minha Claro.
-2. Acesso a plataformas de entretenimento unificadas via Claro tv+.
-3. Recargas, contratação de pacotes extras e suporte técnico digital.
-4. Planos passaporte para uso de voz e dados no exterior.
+## Backlog do Produto (Desk Research)
 
-### Funcionamento
+Nesta etapa inicial do projeto, registramos no Backlog as Histórias de Usuário voltadas para a nossa equipe de pesquisa e desenvolvimento, além dos itens de documentação:
 
-1. A utilização dos serviços da Claro é centralizada principalmente por meios digitais e pelos equipamentos instalados na residência ou dispositivo móvel do cliente.
-2. Ativação e Uso Móvel: Insira o SIM Card (chip) ou configure o eSIM no smartphone. A rede móvel é detectada automaticamente para chamadas e dados.
-3. Serviços Residenciais (Wi-Fi e TV): O roteador e o decodificador/box da TV são instalados por um técnico. A conexão Wi-Fi é acessada via nome de rede e senha indicados na etiqueta do equipamento.
-5. Gerenciamento pelo App (Minha Claro): Baixe o aplicativo Minha Claro Móvel ou Minha Claro Residencial (disponíveis para iOS e Android), faça login com CPF e senha para visualizar faturas, mudar de plano, consultar consumo de internet ou solicitar visitas técnicas.
+1. **Documento de análise de competidores** (Item de Documentação)
+2. **Analisar os concorrentes de IoT para identificar lacunas**
+3. **Consolidar a Matriz CSD**
+4. **Mapear a jornada das personas para entender suas maiores dores com automação**
+5. **Pesquisar protocolos de comunicação IoT para avaliar a viabilidade técnica do sistema**
+6. **Estruturar as perguntas da pesquisa de campo**
 
-### Pontos Fortes
+### Backlog
+![Backlog do Jira](./backlog.jpeg)
 
-1. Ampla Cobertura e Velocidade: Líder em cobertura e velocidade de internet móvel (4G/5G) em diversas regiões do Brasil, com infraestrutura de fibra de alta capacidade.
-2. Combo e Unificação de Serviços: Facilidade de concentrar móvel, banda larga e TV em uma única fatura, garantindo descontos progressivos (Claro Multi).
-3. Plataforma de Conteúdo (Claro tv+): Excelente integração entre canais de TV aberta/fechada e apps de streaming diretamente no mesmo dispositivo ou aplicativo.
-4. Inovação Tecnológica: Pioneirismo na expansão da rede 5G e em soluções de e-SIM no país.
+---
 
-### Pontos Fracos
+## Sprint 1 — Análise de Concorrentes
 
-1. Atendimento ao Cliente: Relatos recorrentes de instabilidade na resolução de problemas complexos através dos canais de suporte telefônico e do robô virtual.
-2. Faturamento e Cobranças: Reclamações frequentes sobre reajustes anuais acima da expectativa ou alterações de valores no fim do período de fidelidade.
-3. Instabilidade de Sinal Localizada: Em determinadas áreas periféricas ou do interior, a oscilação do sinal de banda larga residencial e móvel ainda pode ser um problema.
-4. Fidelização Rígida: A maioria dos contratos residenciais exige fidelidade de 12 meses, aplicando multas em caso de cancelamento antecipado.
+Na Sprint 1, puxamos a entrega do Documento de análise de competidores e detalhamos o trabalho em subtarefas operacionais:
 
+* Estrutura inicial do documento
+* Análise de concorrentes (NOVUS, Data IoT, etc.)
+* Benchmark
+* Revisão final
+
+Todas as subtarefas foram movimentadas ao longo do fluxo até a coluna **Done** ao final do ciclo.
+
+### Quadro da Sprint 1
+![Quadro do Jira em Execução](./board.jpeg)
+
+
+#### Quadro da Sprint 2
+![Quadro 2 do jira em execução](./board2.jpeg)
+
+### Screencast do sistema em uso
+https://youtu.be/4nRkAsJpJho?si=UtNhVNgx7p2iDae4
+
+### Issues:
+![Print de Issues](./issues.jpeg)
+
+## Deployment da Infraestrutura em Produção
+
+A aplicação foi implantada e está em execução no ambiente de produção.
+
+* **Link do Projeto:** [https://projeto-bia.onrender.com/forum/](https://projeto-bia.onrender.com/forum/)
+* **Plataforma de Hospedagem:** Render
+* **Status:** Online
+
+---
+
+### Instruções de Acesso
+
+1. **Acesso ao Fórum:** 
+   * Navegue até a URL [https://projeto-bia.onrender.com/forum/](https://projeto-bia.onrender.com/forum/) para visualizar as discussões e tópicos ativos.
+2. **Autenticação de Usuário:**
+   * Clique em **Entrar** na navegação principal para realizar o login e obter acesso à criação/edição de conteúdos no fórum.

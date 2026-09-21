@@ -23,7 +23,7 @@
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
 
-                <!-- Botão de Sair só aparece se o usuário estiver logado -->
+                <!-- Botão de Sair só aparece se o utilizador estiver logado -->
                 {% if user.is_authenticated %}
                     <span class="separator">|</span>
                     <form method="post" action="{% url 'logout' %}" class="logout-form">
