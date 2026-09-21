@@ -20,6 +20,8 @@
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
                 <span class="separator">|</span>
+                <a href="{% url 'objetivo' %}">Nosso Objetivo</a>
+                <span class="separator">|</span>
                 
                 <form method="post" action="{% url 'logout' %}" class="logout-form">
                     {% csrf_token %}
