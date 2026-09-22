@@ -30,7 +30,7 @@ Nesta etapa inicial do projeto, registramos no Backlog as Histórias de Usuário
 6. **Estruturar as perguntas da pesquisa de campo**
 
 ### Backlog
-![Backlog do Jira](./backlog.jpeg)
+![Backlog do Jira](./documentos/backlog.jpeg)
 
 ---
 
@@ -46,11 +46,11 @@ Na Sprint 1, puxamos a entrega do Documento de análise de competidores e detalh
 Todas as subtarefas foram movimentadas ao longo do fluxo até a coluna **Done** ao final do ciclo.
 
 ### Quadro da Sprint 1
-![Quadro do Jira em Execução](./board.jpeg)
+![Quadro do Jira em Execução](./documentos/board.jpeg)
 
 
 #### Quadro da Sprint 2
-![Quadro 2 do jira em execução](./board2.jpeg)
+![Quadro 2 do jira em execução](./documentos/board2.jpeg)
 
 ### Screencast do sistema em uso
 https://youtu.be/zXRpmPGV1eA
@@ -59,7 +59,7 @@ https://youtu.be/zXRpmPGV1eA
 https://youtu.be/9_80bwFltfQ
 
 ### Issues:
-![Print de Issues](./issue.png)
+![Print de Issues](./documentos/issue.png)
 
 ## Deployment da Infraestrutura em Produção
 
