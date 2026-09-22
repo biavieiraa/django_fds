@@ -53,7 +53,7 @@ Todas as subtarefas foram movimentadas ao longo do fluxo até a coluna **Done** 
 ![Quadro 2 do jira em execução](./board2.jpeg)
 
 ### Screencast do sistema em uso
-
+https://youtu.be/zXRpmPGV1eA
 
 ### Screencast do código
 https://youtu.be/9_80bwFltfQ
