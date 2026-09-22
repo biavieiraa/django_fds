@@ -74,6 +74,6 @@ A aplicação foi implantada e está em execução no ambiente de produção.
 ### Instruções de Acesso
 
 1. **Acesso ao Fórum:** 
-   * Navegue até a URL [https://projeto-bia.onrender.com/forum/](https://projeto-bia.onrender.com/forum/) para visualizar as discussões e tópicos ativos.
+   * Navegue até a URL https://django-fds-zz2o.onrender.com para visualizar as discussões e tópicos ativos.
 2. **Autenticação de Usuário:**
    * Clique em **Entrar** na navegação principal para realizar o login e obter acesso à criação/edição de conteúdos no fórum.
