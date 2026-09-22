@@ -53,16 +53,19 @@ Todas as subtarefas foram movimentadas ao longo do fluxo até a coluna **Done** 
 ![Quadro 2 do jira em execução](./board2.jpeg)
 
 ### Screencast do sistema em uso
-https://youtu.be/4nRkAsJpJho?si=UtNhVNgx7p2iDae4
+https://youtu.be/zXRpmPGV1eA
+
+### Screencast do código
+https://youtu.be/9_80bwFltfQ
 
 ### Issues:
-![Print de Issues](./issues.jpeg)
+![Print de Issues](./issue.png)
 
 ## Deployment da Infraestrutura em Produção
 
 A aplicação foi implantada e está em execução no ambiente de produção.
 
-* **Link do Projeto:** [https://projeto-bia.onrender.com/forum/](https://projeto-bia.onrender.com/forum/)
+* **Link do Projeto:** https://django-fds-zz2o.onrender.com
 * **Plataforma de Hospedagem:** Render
 * **Status:** Online
 
@@ -71,6 +74,6 @@ A aplicação foi implantada e está em execução no ambiente de produção.
 ### Instruções de Acesso
 
 1. **Acesso ao Fórum:** 
-   * Navegue até a URL [https://projeto-bia.onrender.com/forum/](https://projeto-bia.onrender.com/forum/) para visualizar as discussões e tópicos ativos.
+   * Navegue até a URL https://django-fds-zz2o.onrender.com para visualizar as discussões e tópicos ativos.
 2. **Autenticação de Usuário:**
    * Clique em **Entrar** na navegação principal para realizar o login e obter acesso à criação/edição de conteúdos no fórum.
