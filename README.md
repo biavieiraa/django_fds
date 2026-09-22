@@ -65,7 +65,7 @@ https://youtu.be/9_80bwFltfQ
 
 A aplicação foi implantada e está em execução no ambiente de produção.
 
-* **Link do Projeto:** [https://projeto-bia.onrender.com/forum/](https://projeto-bia.onrender.com/forum/)
+* **Link do Projeto:** https://django-fds-zz2o.onrender.com
 * **Plataforma de Hospedagem:** Render
 * **Status:** Online
 
