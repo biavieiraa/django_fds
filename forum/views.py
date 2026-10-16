@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Feedback  
 from django.shortcuts import render
 from .services import chamar_claude
+from .services import gerar_resposta_brian
+import json
+from django.http import JsonResponse
 
 def register(request):
     error = None
@@ -55,3 +58,18 @@ def ia_chat(request):
         "resposta": resposta_ia,
         "prompt": prompt_usuario
     })
+
+def ia_chat_view(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            user_message = data.get("message", "")
+            
+            # Aqui é onde o Brian processa a mensagem usando a API Key e o system prompt
+            resposta_ia = gerar_resposta_brian(user_message) 
+            
+            return JsonResponse({"reply": resposta_ia})
+        except Exception as e:
+            return JsonResponse({"reply": f"Erro interno: {str(e)}"}, status=500)
+
+    return render(request, 'forum/ia_chat.html')

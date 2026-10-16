@@ -435,3 +435,115 @@ footer {
     border-top: 1px solid var(--border-color);
     margin-top: auto;
 }
+
+/* Container principal do chat */
+.chat-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 12px;
+    background-color: var(--card-bg, #ffffff);
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 15px 20px;
+    background-color: var(--header-bg, #f4f4f4);
+    border-bottom: 1px solid var(--border-color, #ccc);
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.chat-header p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Área de rolagem das mensagens */
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Estilo padrão da linha da mensagem */
+.message {
+    display: flex;
+    width: 100%;
+}
+
+/* Mensagem do Usuário (fica alinhada à direita) */
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-bubble {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 15px 15px 0 15px;
+}
+
+/* Mensagem do Brian (fica alinhada à esquerda) */
+.brian-message {
+    justify-content: flex-start;
+}
+
+.brian-message .message-bubble {
+    background-color: var(--bubble-bg, #e9ecef);
+    color: var(--text-color, #333333);
+    border-radius: 15px 15px 15px 0;
+}
+
+/* O balão em si */
+.message-bubble {
+    max-width: 70%;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* Formulário de envio na parte inferior */
+.chat-input-form {
+    display: flex;
+    padding: 15px;
+    background-color: var(--header-bg, #f4f4f4);
+    border-top: 1px solid var(--border-color, #ccc);
+    gap: 10px;
+}
+
+.chat-input-form input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    background-color: var(--input-bg, #ffffff);
+    color: var(--text-color, #333333);
+}
+
+.btn-send {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-send:hover {
+    background-color: #0056b3;
+}
