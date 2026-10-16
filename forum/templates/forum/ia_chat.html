@@ -7,20 +7,15 @@
 <div class="gemini-chat-container">
     <!-- Área de mensagens -->
     <div class="chat-messages" id="chat-messages">
-        <!-- Mensagem de boas-vindas do Brian (Estilo Gemini) -->
+        <!-- Mensagem inicial de boas-vindas do Brian -->
         <div class="message brian-message">
             <div class="message-text">
                 Olá! Sou o Brian, assistente virtual da BZU Tech. Como posso ajudar-te hoje?
             </div>
-            <div class="message-actions">
-                <button type="button" title="Gosto">👍</button>
-                <button type="button" title="Não gosto">👎</button>
-                <button type="button" title="Copiar">📋</button>
-            </div>
         </div>
     </div>
 
-    <!-- Caixa de entrada flutuante inferior (Estilo Gemini) -->
+    <!-- Caixa de entrada inferior flutuante -->
     <div class="chat-input-wrapper">
         <form id="chat-form" class="gemini-input-form">
             {% csrf_token %}
@@ -28,7 +23,6 @@
             <input type="text" id="user-input" name="message" placeholder="Peça ao Brian..." autocomplete="off" required>
             <div class="input-right-tools">
                 <span class="model-badge">Brian Auto</span>
-                <button type="button" class="btn-mic" title="Áudio">🎤</button>
             </div>
         </form>
         <div class="chat-disclaimer">
@@ -66,7 +60,7 @@
 
             const data = await response.json();
 
-            // 3. Adiciona a resposta do Brian (texto puro à esquerda com botões)
+            // 3. Adiciona a resposta do Brian (texto puro à esquerda)
             if (data.reply) {
                 appendBrianMessage(data.reply);
             } else {
@@ -101,16 +95,7 @@
         textDiv.classList.add('message-text');
         textDiv.textContent = text;
 
-        const actionsDiv = document.createElement('div');
-        actionsDiv.classList.add('message-actions');
-        actionsDiv.innerHTML = `
-            <button type="button" title="Gosto">👍</button>
-            <button type="button" title="Não gosto">👎</button>
-            <button type="button" title="Copiar">📋</button>
-        `;
-
         messageDiv.appendChild(textDiv);
-        messageDiv.appendChild(actionsDiv);
         chatMessages.appendChild(messageDiv);
     }
 
