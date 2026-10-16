@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .models import Feedback  
+from django.shortcuts import render
+from .services import chamar_claude
 
 def register(request):
     error = None
@@ -39,3 +41,17 @@ def sobre_nos(request):
 
 def sobre_empresa(request):
     return render(request, 'forum/sobre_empresa.html')
+
+def ia_chat(request):
+    resposta_ia = None
+    prompt_usuario = ""
+
+    if request.method == "POST":
+        prompt_usuario = request.POST.get("prompt", "")
+        if prompt_usuario:
+            resposta_ia = chamar_claude(prompt_usuario)
+
+    return render(request, "forum/ia_chat.html", {
+        "resposta": resposta_ia,
+        "prompt": prompt_usuario
+    })
