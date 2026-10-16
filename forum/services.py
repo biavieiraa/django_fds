@@ -1,6 +1,6 @@
 import anthropic
 
-API_KEY = "chave"
+API_KEY = "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"
 
 client = anthropic.Anthropic(api_key=API_KEY)
 
