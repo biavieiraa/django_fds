@@ -51,3 +51,9 @@ def chamar_claude(mensagem_usuario):
         ]
     )
     return response.content[0].text
+
+def gerar_resposta_brian(mensagem_usuario):
+    
+    if not mensagem_usuario:
+        return "Olá! Sou o Brian, assistente virtual da BZU Tech. Como posso ajudar?"
+    return f"Brian recebeu sua mensagem: '{mensagem_usuario}'. (Aguardando a Secret Key da API para gerar respostas inteligentes reais!)"
