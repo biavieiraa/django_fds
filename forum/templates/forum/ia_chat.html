@@ -5,25 +5,22 @@
 
 {% block content %}
 <div class="gemini-chat-container">
-    <!-- Área de mensagens -->
+    <!-- Área de mensagens (histórico) -->
     <div class="chat-messages" id="chat-messages">
         <!-- Mensagem inicial de boas-vindas do Brian -->
         <div class="message brian-message">
-            <div class="message-text">
+            <div class="message-bubble">
                 Olá! Sou o Brian, assistente virtual da BZU Tech. Como posso ajudar-te hoje?
             </div>
         </div>
     </div>
 
-    <!-- Caixa de entrada inferior flutuante -->
-    <div class="chat-input-wrapper">
+    <!-- Seção inferior fixa/centralizada -->
+    <div class="chat-bottom-section">
         <form id="chat-form" class="gemini-input-form">
             {% csrf_token %}
-            <button type="button" class="btn-plus" title="Adicionar">+</button>
             <input type="text" id="user-input" name="message" placeholder="Peça ao Brian..." autocomplete="off" required>
-            <div class="input-right-tools">
-                <span class="model-badge">Brian Auto</span>
-            </div>
+            <button type="submit" class="btn-send-icon" title="Enviar">➤</button>
         </form>
         <div class="chat-disclaimer">
             O Brian não é humano. Ele pode cometer erros. Por isso, verifique as respostas.
@@ -31,7 +28,7 @@
     </div>
 </div>
 
-<!-- Script dinâmico em tempo real -->
+<!-- Script de envio em tempo real -->
 <script>
     const chatForm = document.getElementById('chat-form');
     const userInput = document.getElementById('user-input');
@@ -42,13 +39,13 @@
         const messageText = userInput.value.trim();
         if (!messageText) return;
 
-        // 1. Adiciona a mensagem do utilizador (balão arredondado à direita)
-        appendUserMessage(messageText);
+        // 1. Adiciona a mensagem do utilizador à direita
+        appendMessage(messageText, 'user-message');
         userInput.value = '';
         scrollToBottom();
 
         try {
-            // 2. Envia para a view do Django via Fetch API
+            // 2. Envia para o Django via Fetch API
             const response = await fetch("{% url 'ia_chat' %}", {
                 method: "POST",
                 headers: {
@@ -60,42 +57,30 @@
 
             const data = await response.json();
 
-            // 3. Adiciona a resposta do Brian (texto puro à esquerda)
+            // 3. Adiciona a resposta do Brian à esquerda
             if (data.reply) {
-                appendBrianMessage(data.reply);
+                appendMessage(data.reply, 'brian-message');
             } else {
-                appendBrianMessage("Desculpa, ocorreu um erro ao processar a resposta.");
+                appendMessage("Desculpa, ocorreu um erro ao processar a resposta.", 'brian-message');
             }
 
             scrollToBottom();
         } catch (error) {
             console.error("Erro:", error);
-            appendBrianMessage("Erro de ligação ao servidor.");
+            appendMessage("Erro de ligação ao servidor.", 'brian-message');
             scrollToBottom();
         }
     });
 
-    function appendUserMessage(text) {
+    function appendMessage(text, className) {
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', 'user-message');
+        messageDiv.classList.add('message', className);
         
         const bubbleDiv = document.createElement('div');
         bubbleDiv.classList.add('message-bubble');
         bubbleDiv.textContent = text;
 
         messageDiv.appendChild(bubbleDiv);
-        chatMessages.appendChild(messageDiv);
-    }
-
-    function appendBrianMessage(text) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', 'brian-message');
-
-        const textDiv = document.createElement('div');
-        textDiv.classList.add('message-text');
-        textDiv.textContent = text;
-
-        messageDiv.appendChild(textDiv);
         chatMessages.appendChild(messageDiv);
     }
 

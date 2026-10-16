@@ -440,66 +440,70 @@ footer {
 .gemini-chat-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 120px);
-    max-width: 850px;
-    margin: 0 auto;
+    height: calc(100vh - 130px);
+    max-width: 900px;
+    margin: 15px auto;
     background-color: var(--card-bg, #161b22);
     color: var(--text-color, #c9d1d9);
-    font-family: inherit;
     border: 1px solid var(--border-color, #30363d);
     border-radius: 12px;
     overflow: hidden;
 }
 
-/* Área de mensagens */
+/* Área onde as mensagens rolam */
 .chat-messages {
     flex: 1;
     padding: 24px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 20px;
     scroll-behavior: smooth;
 }
 
 .message {
     width: 100%;
     display: flex;
-    flex-direction: column;
 }
 
-/* Mensagem do Utilizador: Balão arredondado (pílula) à direita */
+/* Mensagem do Utilizador (Alinhada à direita, com margem nas bordas) */
 .user-message {
-    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 15px;
 }
 
 .user-message .message-bubble {
-    background-color: #1f6feb;
+    background-color: #1f6feb; /* Azul destacado para o utilizador */
     color: #ffffff;
     padding: 14px 20px;
-    border-radius: 28px;
+    border-radius: 18px 18px 4px 18px;
     max-width: 70%;
     font-size: 1rem;
     line-height: 1.5;
     word-wrap: break-word;
 }
 
-/* Mensagem do Brian: Texto puro à esquerda (sem balão e sem botões) */
+/* Mensagem do Brian (Alinhada à esquerda, com balão em tom azulado do tema) */
 .brian-message {
-    align-items: flex-start;
-    padding-right: 40px;
+    justify-content: flex-start;
+    padding-left: 15px;
 }
 
-.brian-message .message-text {
-    font-size: 1rem;
-    line-height: 1.6;
+.brian-message .message-bubble {
+    background-color: rgba(31, 111, 235, 0.15); /* Tom suave inspirado no azul do fundo */
     color: var(--text-color, #c9d1d9);
+    border: 1px solid var(--border-color, #30363d);
+    padding: 14px 20px;
+    border-radius: 18px 18px 18px 4px;
+    max-width: 70%;
+    font-size: 1rem;
+    line-height: 1.5;
     word-wrap: break-word;
 }
 
-/* Caixa de entrada inferior flutuante */
-.chat-input-wrapper {
-    padding: 12px 24px 16px 24px;
+/* Seção Inferior (Input + Aviso) */
+.chat-bottom-section {
+    padding: 16px 24px 20px 24px;
     background-color: var(--card-bg, #161b22);
     border-top: 1px solid var(--border-color, #30363d);
     display: flex;
@@ -507,27 +511,17 @@ footer {
     align-items: center;
 }
 
+/* Caixa de Input Estilo Pílula Centralizada */
 .gemini-input-form {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 800px;
+    max-width: 750px;
     background-color: var(--input-bg, #0d1117);
     border: 1px solid var(--border-color, #30363d);
     border-radius: 32px;
-    padding: 8px 16px;
-}
-
-.btn-plus {
-    background: none;
-    border: none;
-    color: var(--text-color, #c9d1d9);
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0 12px 0 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 10px 16px;
+    gap: 12px;
 }
 
 .gemini-input-form input {
@@ -537,7 +531,7 @@ footer {
     color: var(--text-color, #c9d1d9);
     font-size: 1rem;
     outline: none;
-    padding: 8px;
+    padding: 4px 8px;
 }
 
 .gemini-input-form input::placeholder {
@@ -545,24 +539,31 @@ footer {
     opacity: 0.5;
 }
 
-.input-right-tools {
+/* Botão de envio discreto */
+.btn-send-icon {
+    background: #1f6feb;
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
 }
 
-.model-badge {
-    font-size: 0.85rem;
-    color: var(--text-color, #c9d1d9);
-    opacity: 0.6;
-    font-weight: 500;
+.btn-send-icon:hover {
+    background: #388bfd;
 }
 
-/* Disclaimer centralizado e com opacidade baixa embaixo da barra */
+/* Aviso de rodapé centralizado, lá embaixo e com opacidade baixa */
 .chat-disclaimer {
     font-size: 0.75rem;
     color: var(--text-color, #c9d1d9);
-    opacity: 0.35;
+    opacity: 0.3; /* Opacidade bem baixa */
     text-align: center;
-    margin-top: 10px;
+    margin-top: 12px;
 }
