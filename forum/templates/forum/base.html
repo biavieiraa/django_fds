@@ -1,38 +1,95 @@
-<header class="header">
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FDS Grupo 3{% endblock %}</title>
+
+    <!-- Incrementado para ?v=4.0 para carregar os novos estilos do switch -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=4.0">
+
+    <!-- Aplica o tema salvo antes de renderizar a página (evita tela branca rápida) -->
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    </script>
+
+</head>
+
+<body>
+    <header class="header">
         <div class="header-container">
             <h1>FDS Grupo 3</h1>
-            
             <!-- Links visíveis para todos os visitantes -->
+
             <nav class="nav">
                 <a href="{% url 'index' %}">Início</a>
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
-                <span class="separator">|</span>
-
-                <!-- Botão de acesso ao Assistente BZU Tech -->
-                <a href="{% url 'ia_chat' %}" class="nav-ia-link">Assistente BZU</a>
-
                 <!-- Autenticação (Entrar / Sair) -->
+
                 {% if user.is_authenticated %}
                     <span class="separator">|</span>
                     <form method="post" action="{% url 'logout' %}" class="logout-form">
                         {% csrf_token %}
                         <button type="submit" class="btn-logout">Sair</button>
                     </form>
+
                 {% else %}
                     <span class="separator">|</span>
                     <a href="{% url 'register' %}">Entrar</a>
                 {% endif %}
 
-                <!-- Switch Deslizante (Modo Escuro / Claro) -->
                 <span class="separator">|</span>
+
                 <button id="theme-toggle" class="theme-switch" type="button" aria-label="Alternar modo escuro" title="Alternar modo escuro">
                     <span class="switch-icon">☀︎</span>
                     <span class="switch-ball"></span>
                     <span class="switch-icon">☾</span>
                 </button>
+
             </nav>
+
         </div>
+
     </header>
+
+
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+
+
+    <footer>
+        <p>&copy; 2026 BZU Tech - Grupo 3</p>
+    </footer>
+
+
+
+    <!-- Script de alternância do Modo Escuro -->
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+
+        toggleBtn.addEventListener('click', () => {
+            let activeTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+    </script>
+
+</body>
+
+</html> 
