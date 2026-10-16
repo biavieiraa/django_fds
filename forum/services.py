@@ -47,8 +47,11 @@ You are Brian, the official virtual assistant for BZU Tecnologia (BZU Tech), an 
 4. *Tone & Style:* Friendly, accessible, professional, and commercial-minded. Keep responses clear and concise.
 """
 
-def gerar_resposta_brian(mensagem_usuario):
-    # Verifica se a chave foi carregada corretamente do arquivo .env
+def chamar_claude(mensagem_usuario):
+    """
+    Envia a mensagem do usuário para a API da Anthropic (Claude)
+    junto com a personalidade do Brian e retorna a resposta gerada.
+    """
     if not os.getenv("ANTHROPIC_API_KEY"):
         return "Erro: A chave ANTHROPIC_API_KEY não foi encontrada no arquivo .env."
 
@@ -65,3 +68,6 @@ def gerar_resposta_brian(mensagem_usuario):
 
     except Exception as e:
         return f"Desculpe, ocorreu um erro técnico ao se comunicar com o Brian: {str(e)}"
+
+# Alias para compatibilidade caso alguma parte do código chame o outro nome
+gerar_resposta_brian = chamar_claude
