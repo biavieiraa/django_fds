@@ -4,31 +4,40 @@
 {% block title %}Brian - Assistente BZU Tech{% endblock %}
 
 {% block content %}
-<div class="chat-wrapper">
-    <div class="chat-header">
-        <h2>🤖 Brian</h2>
-        <p>Assistente virtual oficial da BZU Tech</p>
-    </div>
-
+<div class="gemini-chat-container">
+    <!-- Área de mensagens -->
     <div class="chat-messages" id="chat-messages">
-
+        <!-- Mensagem de boas-vindas do Brian (Estilo Gemini) -->
         <div class="message brian-message">
-            <div class="message-bubble">
-                Olá! Eu sou Brian, o assistente virtual da BZU Tech. Como posso ajudar você e sua empresa com soluções de IoT hoje?
+            <div class="message-text">
+                Olá! Sou o Brian, assistente virtual da BZU Tech. Como posso ajudar-te hoje?
+            </div>
+            <div class="message-actions">
+                <button type="button" title="Gosto">👍</button>
+                <button type="button" title="Não gosto">👎</button>
+                <button type="button" title="Copiar">📋</button>
             </div>
         </div>
-
-
     </div>
 
-    <form id="chat-form" class="chat-input-form">
-        {% csrf_token %}
-        <input type="text" id="user-input" name="message" placeholder="Digite sua mensagem para o Brian..." autocomplete="off" required>
-        <button type="submit" class="btn-send">Enviar</button>
-    </form>
+    <!-- Caixa de entrada flutuante inferior (Estilo Gemini) -->
+    <div class="chat-input-wrapper">
+        <form id="chat-form" class="gemini-input-form">
+            {% csrf_token %}
+            <button type="button" class="btn-plus" title="Adicionar">+</button>
+            <input type="text" id="user-input" name="message" placeholder="Peça ao Brian..." autocomplete="off" required>
+            <div class="input-right-tools">
+                <span class="model-badge">Brian Auto</span>
+                <button type="button" class="btn-mic" title="Áudio">🎤</button>
+            </div>
+        </form>
+        <div class="chat-disclaimer">
+            O Brian não é humano. Ele pode cometer erros. Por isso, verifique as respostas.
+        </div>
+    </div>
 </div>
-{% endblock %}
 
+<!-- Script dinâmico em tempo real -->
 <script>
     const chatForm = document.getElementById('chat-form');
     const userInput = document.getElementById('user-input');
@@ -39,12 +48,13 @@
         const messageText = userInput.value.trim();
         if (!messageText) return;
 
-        appendMessage(messageText, 'user-message');
+        // 1. Adiciona a mensagem do utilizador (balão arredondado à direita)
+        appendUserMessage(messageText);
         userInput.value = '';
-
         scrollToBottom();
 
         try {
+            // 2. Envia para a view do Django via Fetch API
             const response = await fetch("{% url 'ia_chat' %}", {
                 method: "POST",
                 headers: {
@@ -56,24 +66,25 @@
 
             const data = await response.json();
 
+            // 3. Adiciona a resposta do Brian (texto puro à esquerda com botões)
             if (data.reply) {
-                appendMessage(data.reply, 'brian-message');
+                appendBrianMessage(data.reply);
             } else {
-                appendMessage("Desculpe, ocorreu um erro ao processar sua resposta.", 'brian-message');
+                appendBrianMessage("Desculpa, ocorreu um erro ao processar a resposta.");
             }
 
             scrollToBottom();
         } catch (error) {
             console.error("Erro:", error);
-            appendMessage("Erro de conexão com o servidor.", 'brian-message');
+            appendBrianMessage("Erro de ligação ao servidor.");
             scrollToBottom();
         }
     });
 
-    function appendMessage(text, className) {
+    function appendUserMessage(text) {
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', className);
-
+        messageDiv.classList.add('message', 'user-message');
+        
         const bubbleDiv = document.createElement('div');
         bubbleDiv.classList.add('message-bubble');
         bubbleDiv.textContent = text;
@@ -82,7 +93,29 @@
         chatMessages.appendChild(messageDiv);
     }
 
+    function appendBrianMessage(text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'brian-message');
+
+        const textDiv = document.createElement('div');
+        textDiv.classList.add('message-text');
+        textDiv.textContent = text;
+
+        const actionsDiv = document.createElement('div');
+        actionsDiv.classList.add('message-actions');
+        actionsDiv.innerHTML = `
+            <button type="button" title="Gosto">👍</button>
+            <button type="button" title="Não gosto">👎</button>
+            <button type="button" title="Copiar">📋</button>
+        `;
+
+        messageDiv.appendChild(textDiv);
+        messageDiv.appendChild(actionsDiv);
+        chatMessages.appendChild(messageDiv);
+    }
+
     function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 </script>
+{% endblock %}
