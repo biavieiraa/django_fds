@@ -1,4 +1,5 @@
 import os
+import base64
 from dotenv import load_dotenv
 import anthropic
 
@@ -8,6 +9,9 @@ load_dotenv()
 client = anthropic.Anthropic(
     api_key=os.getenv("ANTHROPIC_API_KEY")
 )
+
+TIPOS_IMAGEM = {"image/jpeg", "image/png", "image/gif", "image/webp"}
+MAX_BYTES = 5 * 1024 * 1024  # 5 MB
 
 SYSTEM_PROMPT = """
 You are Brian, the official virtual assistant for BZU Tecnologia (BZU Tech), an expert company in Internet of Things (IoT) solutions integrating hardware, software, and cloud for smart monitoring.
@@ -48,13 +52,47 @@ You are Brian, the official virtual assistant for BZU Tecnologia (BZU Tech), an 
 """
 
 
-def chamar_claude(mensagem_usuario):
+def chamar_claude(mensagem_usuario, arquivo=None):
     """
-    Envia a mensagem do usuário para a API da Anthropic (Claude)
-    junto com a personalidade do Brian e retorna a resposta gerada.
+    Envia a mensagem do usuário (e, opcionalmente, um arquivo) para a API
+    da Anthropic (Claude) junto com a personalidade do Brian e retorna
+    a resposta gerada.
     """
     if not os.getenv("ANTHROPIC_API_KEY"):
         return "Erro: A chave ANTHROPIC_API_KEY não foi encontrada no arquivo .env."
+
+    content = []
+
+    if arquivo:
+        if arquivo.size > MAX_BYTES:
+            return "O arquivo é grande demais (máximo 5 MB)."
+
+        dados = arquivo.read()
+        tipo = arquivo.content_type or ""
+
+        if tipo in TIPOS_IMAGEM or tipo == "application/pdf":
+            bloco = "image" if tipo in TIPOS_IMAGEM else "document"
+            content.append({
+                "type": bloco,
+                "source": {
+                    "type": "base64",
+                    "media_type": tipo,
+                    "data": base64.standard_b64encode(dados).decode(),
+                },
+            })
+        elif tipo.startswith("text/"):
+            texto = dados.decode("utf-8", errors="ignore")
+            content.append({
+                "type": "text",
+                "text": f"Conteúdo do arquivo {arquivo.name}:\n{texto}",
+            })
+        else:
+            return "Tipo de arquivo não suportado. Envie imagem, PDF ou texto."
+
+    content.append({
+        "type": "text",
+        "text": mensagem_usuario or "Analise este arquivo.",
+    })
 
     try:
         response = client.messages.create(
@@ -62,7 +100,7 @@ def chamar_claude(mensagem_usuario):
             max_tokens=1000,
             system=SYSTEM_PROMPT,
             messages=[
-                {"role": "user", "content": mensagem_usuario}
+                {"role": "user", "content": content}
             ]
         )
         return response.content[0].text

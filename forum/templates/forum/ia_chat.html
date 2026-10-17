@@ -19,9 +19,13 @@
     <div class="chat-bottom-section">
         <form id="chat-form" class="gemini-input-form">
             {% csrf_token %}
-            <input type="text" id="user-input" name="message" placeholder="Peça ao Brian..." autocomplete="off" required>
+            <input type="file" id="file-input" name="arquivo"
+                   accept="image/*,.pdf,.txt,.csv" hidden>
+            <button type="button" id="btn-attach" class="btn-send-icon" title="Anexar arquivo">📎</button>
+            <input type="text" id="user-input" name="message" placeholder="Peça ao Brian..." autocomplete="off">
             <button type="submit" class="btn-send-icon" title="Enviar">➤</button>
         </form>
+        <div id="file-name" class="chat-disclaimer" style="display:none;"></div>
         <div class="chat-disclaimer">
             O Brian não é humano. Ele pode cometer erros. Por isso, verifique as respostas.
         </div>
@@ -32,32 +36,51 @@
 <script>
     const chatForm = document.getElementById('chat-form');
     const userInput = document.getElementById('user-input');
+    const fileInput = document.getElementById('file-input');
+    const btnAttach = document.getElementById('btn-attach');
+    const fileNameLabel = document.getElementById('file-name');
     const chatMessages = document.getElementById('chat-messages');
+
+    btnAttach.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', () => {
+        const f = fileInput.files[0];
+        fileNameLabel.style.display = f ? 'block' : 'none';
+        fileNameLabel.textContent = f ? '📎 ' + f.name : '';
+    });
 
     chatForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const messageText = userInput.value.trim();
-        if (!messageText) return;
+        const arquivo = fileInput.files[0];
+        if (!messageText && !arquivo) return;
 
-        // 1. Adiciona a mensagem do utilizador à direita
-        appendMessage(messageText, 'user-message');
+        // 1. Mostra a mensagem do utilizador à direita
+        let textoUsuario = messageText;
+        if (arquivo) textoUsuario += (messageText ? '\n' : '') + '📎 ' + arquivo.name;
+        appendMessage(textoUsuario, 'user-message');
+
+        // 2. Monta o envio (FormData permite mandar texto + arquivo)
+        const formData = new FormData();
+        formData.append('message', messageText);
+        if (arquivo) formData.append('arquivo', arquivo);
+
         userInput.value = '';
+        fileInput.value = '';
+        fileNameLabel.style.display = 'none';
         scrollToBottom();
 
         try {
-            // 2. Envia para o Django via Fetch API
+            // Sem Content-Type: o navegador define sozinho para FormData
             const response = await fetch("{% url 'ia_chat' %}", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": "{{ csrf_token }}"
-                },
-                body: JSON.stringify({ message: messageText })
+                headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                body: formData
             });
 
             const data = await response.json();
 
-            // 3. Adiciona a resposta do Brian à esquerda
+            // 3. Mostra a resposta do Brian à esquerda
             if (data.reply) {
                 appendMessage(data.reply, 'brian-message');
             } else {
@@ -75,9 +98,10 @@
     function appendMessage(text, className) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', className);
-        
+
         const bubbleDiv = document.createElement('div');
         bubbleDiv.classList.add('message-bubble');
+        bubbleDiv.style.whiteSpace = 'pre-wrap';
         bubbleDiv.textContent = text;
 
         messageDiv.appendChild(bubbleDiv);
