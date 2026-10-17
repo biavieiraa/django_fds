@@ -20,7 +20,7 @@ O objetivo do projeto é ajudar os clientes a compreenderem melhor a Internet da
 - **Facilitar a comunicação:** auxiliar os clientes que desejam entrar em contato com a BZU TECH.
 - **Simplificar informações técnicas:** tornar a tecnologia mais compreensível para pessoas que ainda não possuem familiaridade com o assunto.
 
-## Equipe de Desenvolvimento 👩‍💻
+## Equipe de Desenvolvimento
 
 Somos estudantes do **2º período do curso de Ciência da Computação, turma A**, e desenvolvemos este projeto acadêmico para a BZU TECH.
 
