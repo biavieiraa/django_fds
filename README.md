@@ -6,6 +6,34 @@ Para a organização das entregas e fluxo de trabalho da equipe, utilizamos a me
 
 ---
 
+## Sobre o Projeto — Brian
+
+O **Brian** é um chatbot baseado em Inteligência Artificial desenvolvido para a BZU TECH, nossa empresa cliente.
+
+O objetivo do projeto é ajudar os clientes a compreenderem melhor a Internet das Coisas (IoT), explicando seus conceitos, funcionamento e benefícios de maneira simples, acessível e intuitiva.
+
+### Funcionalidades e objetivos
+
+- **Explicar o que é IoT:** apresentar os conceitos e o funcionamento da Internet das Coisas de forma simplificada.
+- **Apresentar os benefícios da IoT:** demonstrar suas vantagens e possíveis aplicações.
+- **Apresentar a BZU TECH:** explicar os serviços oferecidos e os diferenciais da empresa em relação à concorrência.
+- **Facilitar a comunicação:** auxiliar os clientes que desejam entrar em contato com a BZU TECH.
+- **Simplificar informações técnicas:** tornar a tecnologia mais compreensível para pessoas que ainda não possuem familiaridade com o assunto.
+
+## Equipe de Desenvolvimento 👩‍💻
+
+Somos estudantes do **2º período do curso de Ciência da Computação, turma A**, e desenvolvemos este projeto acadêmico para a BZU TECH.
+
+| Integrante | E-mail |
+|---|---|
+| Beatriz Vieira | bvot@cesar.school |
+| Bryan Martins | bmp@cesar.school |
+| Gabriella de Lima | gla3@cesar.school |
+| Gustavo Cavalcanti | gcnf@cesar.school |
+| Heitor Villa-Chan | hvccp@cesar.school |
+| Isabel Lucena | ial2@cesar.school |
+| João Henrique Azevedo | jhmra@cesar.school |
+
 ## Quadro Scrum
 
 O espaço de trabalho foi configurado no modelo Team-Managed com fluxo personalizado de colunas para acompanhar a evolução das tarefas:
