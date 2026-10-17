@@ -4,6 +4,142 @@
 {% block title %}Brian - Assistente BZU Tech{% endblock %}
 
 {% block content %}
+<style>
+    /* Botão de anexar (clipe) */
+    .btn-attach {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: #9aa7bd;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+    }
+    .btn-attach:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+    }
+    .btn-attach svg {
+        width: 22px;
+        height: 22px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    /* Cartão de anexo acima da barra de digitação */
+    .attachment-preview {
+        display: none;
+        align-items: center;
+        gap: 12px;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto 10px auto;
+        padding: 10px 12px;
+        background: #1b2438;
+        border: 1px solid #2f3b57;
+        border-radius: 14px;
+        color: #e6ebf5;
+    }
+    .attachment-preview.visible {
+        display: flex;
+    }
+    .attachment-thumb {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        object-fit: cover;
+        background: #26324d;
+    }
+    .attachment-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #2563eb;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+    .attachment-info {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    .attachment-name {
+        max-width: 260px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .attachment-size {
+        font-size: 12px;
+        color: #9aa7bd;
+    }
+    .attachment-remove {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: #e6ebf5;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .attachment-remove:hover {
+        background: rgba(239, 68, 68, 0.85);
+    }
+
+    /* Cartão de anexo dentro da mensagem enviada */
+    .sent-attachment {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+        padding: 8px 10px;
+        background: rgba(0, 0, 0, 0.22);
+        border-radius: 10px;
+    }
+    .sent-attachment .attachment-thumb,
+    .sent-attachment .attachment-icon {
+        width: 40px;
+        height: 40px;
+    }
+    .sent-attachment .attachment-name {
+        max-width: 220px;
+        font-size: 13px;
+    }
+    .sent-attachment .attachment-size {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    .sent-image {
+        display: block;
+        max-width: 240px;
+        max-height: 200px;
+        margin-bottom: 8px;
+        border-radius: 10px;
+    }
+</style>
+
 <div class="gemini-chat-container">
     <!-- Área de mensagens (histórico) -->
     <div class="chat-messages" id="chat-messages">
@@ -17,15 +153,33 @@
 
     <!-- Seção inferior fixa/centralizada -->
     <div class="chat-bottom-section">
+
+        <!-- Cartão do anexo (aparece acima da barra de digitação) -->
+        <div class="attachment-preview" id="attachment-preview">
+            <img class="attachment-thumb" id="attachment-thumb" alt="" style="display:none;">
+            <div class="attachment-icon" id="attachment-icon" style="display:none;"></div>
+            <div class="attachment-info">
+                <span class="attachment-name" id="attachment-name"></span>
+                <span class="attachment-size" id="attachment-size"></span>
+            </div>
+            <button type="button" class="attachment-remove" id="attachment-remove" title="Remover anexo">✕</button>
+        </div>
+
         <form id="chat-form" class="gemini-input-form">
             {% csrf_token %}
             <input type="file" id="file-input" name="arquivo"
                    accept="image/*,.pdf,.txt,.csv" hidden>
-            <button type="button" id="btn-attach" class="btn-send-icon" title="Anexar arquivo">📎</button>
+
+            <button type="button" id="btn-attach" class="btn-attach" title="Anexar foto ou documento">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+            </button>
+
             <input type="text" id="user-input" name="message" placeholder="Peça ao Brian..." autocomplete="off">
             <button type="submit" class="btn-send-icon" title="Enviar">➤</button>
         </form>
-        <div id="file-name" class="chat-disclaimer" style="display:none;"></div>
+
         <div class="chat-disclaimer">
             O Brian não é humano. Ele pode cometer erros. Por isso, verifique as respostas.
         </div>
@@ -38,15 +192,68 @@
     const userInput = document.getElementById('user-input');
     const fileInput = document.getElementById('file-input');
     const btnAttach = document.getElementById('btn-attach');
-    const fileNameLabel = document.getElementById('file-name');
     const chatMessages = document.getElementById('chat-messages');
 
+    const preview = document.getElementById('attachment-preview');
+    const previewThumb = document.getElementById('attachment-thumb');
+    const previewIcon = document.getElementById('attachment-icon');
+    const previewName = document.getElementById('attachment-name');
+    const previewSize = document.getElementById('attachment-size');
+    const btnRemove = document.getElementById('attachment-remove');
+
+    const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+
+    function formatSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    function fileLabel(file) {
+        const ext = (file.name.split('.').pop() || '').toUpperCase();
+        return ext.length <= 4 ? ext : 'ARQ';
+    }
+
+    function clearAttachment() {
+        fileInput.value = '';
+        preview.classList.remove('visible');
+        previewThumb.style.display = 'none';
+        previewThumb.removeAttribute('src');
+        previewIcon.style.display = 'none';
+        previewName.textContent = '';
+        previewSize.textContent = '';
+    }
+
     btnAttach.addEventListener('click', () => fileInput.click());
+    btnRemove.addEventListener('click', clearAttachment);
 
     fileInput.addEventListener('change', () => {
-        const f = fileInput.files[0];
-        fileNameLabel.style.display = f ? 'block' : 'none';
-        fileNameLabel.textContent = f ? '📎 ' + f.name : '';
+        const file = fileInput.files[0];
+        if (!file) {
+            clearAttachment();
+            return;
+        }
+
+        if (file.size > MAX_BYTES) {
+            alert('O arquivo é grande demais. O limite é 5 MB.');
+            clearAttachment();
+            return;
+        }
+
+        previewName.textContent = file.name;
+        previewSize.textContent = formatSize(file.size);
+
+        if (file.type.startsWith('image/')) {
+            previewThumb.src = URL.createObjectURL(file);
+            previewThumb.style.display = 'block';
+            previewIcon.style.display = 'none';
+        } else {
+            previewIcon.textContent = fileLabel(file);
+            previewIcon.style.display = 'flex';
+            previewThumb.style.display = 'none';
+        }
+
+        preview.classList.add('visible');
     });
 
     chatForm.addEventListener('submit', async function(e) {
@@ -55,10 +262,8 @@
         const arquivo = fileInput.files[0];
         if (!messageText && !arquivo) return;
 
-        // 1. Mostra a mensagem do utilizador à direita
-        let textoUsuario = messageText;
-        if (arquivo) textoUsuario += (messageText ? '\n' : '') + '📎 ' + arquivo.name;
-        appendMessage(textoUsuario, 'user-message');
+        // 1. Mostra a mensagem do utilizador à direita (com o cartão do anexo)
+        appendUserMessage(messageText, arquivo);
 
         // 2. Monta o envio (FormData permite mandar texto + arquivo)
         const formData = new FormData();
@@ -66,8 +271,7 @@
         if (arquivo) formData.append('arquivo', arquivo);
 
         userInput.value = '';
-        fileInput.value = '';
-        fileNameLabel.style.display = 'none';
+        clearAttachment();
         scrollToBottom();
 
         try {
@@ -103,6 +307,60 @@
         bubbleDiv.classList.add('message-bubble');
         bubbleDiv.style.whiteSpace = 'pre-wrap';
         bubbleDiv.textContent = text;
+
+        messageDiv.appendChild(bubbleDiv);
+        chatMessages.appendChild(messageDiv);
+    }
+
+    function appendUserMessage(text, file) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'user-message');
+
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.classList.add('message-bubble');
+
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.classList.add('sent-image');
+                img.src = URL.createObjectURL(file);
+                img.alt = file.name;
+                bubbleDiv.appendChild(img);
+            }
+
+            const card = document.createElement('div');
+            card.classList.add('sent-attachment');
+
+            if (!file.type.startsWith('image/')) {
+                const icon = document.createElement('div');
+                icon.classList.add('attachment-icon');
+                icon.textContent = fileLabel(file);
+                card.appendChild(icon);
+            }
+
+            const info = document.createElement('div');
+            info.classList.add('attachment-info');
+
+            const name = document.createElement('span');
+            name.classList.add('attachment-name');
+            name.textContent = file.name;
+
+            const size = document.createElement('span');
+            size.classList.add('attachment-size');
+            size.textContent = formatSize(file.size);
+
+            info.appendChild(name);
+            info.appendChild(size);
+            card.appendChild(info);
+            bubbleDiv.appendChild(card);
+        }
+
+        if (text) {
+            const textDiv = document.createElement('div');
+            textDiv.style.whiteSpace = 'pre-wrap';
+            textDiv.textContent = text;
+            bubbleDiv.appendChild(textDiv);
+        }
 
         messageDiv.appendChild(bubbleDiv);
         chatMessages.appendChild(messageDiv);
