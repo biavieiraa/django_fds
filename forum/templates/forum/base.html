@@ -31,11 +31,15 @@
             <nav class="nav">
                 <a href="{% url 'index' %}">Início</a>
                 <span class="separator">|</span>
-                <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
+                <a href="{% url 'ia_chat' %}" class="nav-ia-link">Brian</a>
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
                 <span class="separator">|</span>
-                <a href="{% url 'ia_chat' %}" class="nav-ia-link">Brian</a>
+                <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
+                <a href="https://www.bzutech.com.br" target="_blank" rel="noopener noreferrer" 
+                style="background: #0072ff; color: #000; padding: 8px 16px; border-radius: 20px; font-weight: bold; text-decoration: none;">
+                BZU Tech ↗
+                </a>
                 <!-- Autenticação (Entrar / Sair) -->
 
                 {% if user.is_authenticated %}
