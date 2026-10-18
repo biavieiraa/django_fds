@@ -473,7 +473,8 @@ footer {
 }
 
 .user-message .message-bubble {
-    background-color: #1f6feb; /* Azul destacado para o utilizador */
+    background-color: #1f6feb;
+    /* Azul destacado para o utilizador */
     color: #ffffff;
     padding: 14px 20px;
     border-radius: 18px 18px 4px 18px;
@@ -490,7 +491,8 @@ footer {
 }
 
 .brian-message .message-bubble {
-    background-color: rgba(31, 111, 235, 0.15); /* Tom suave inspirado no azul do fundo */
+    background-color: rgba(31, 111, 235, 0.15);
+    /* Tom suave inspirado no azul do fundo */
     color: var(--text-color, #c9d1d9);
     border: 1px solid var(--border-color, #30363d);
     padding: 14px 20px;
@@ -563,8 +565,336 @@ footer {
 .chat-disclaimer {
     font-size: 0.75rem;
     color: var(--text-color, #c9d1d9);
-    opacity: 0.3; /* Opacidade bem baixa */
+    opacity: 0.3;
+    /* Opacidade bem baixa */
     text-align: center;
     margin-top: 12px;
 }
 
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   VARIÁVEIS DE TEMA (MODO CLARO E MODO ESCURO)
+   ========================================================= */
+
+/* Tema Claro (Padrão) */
+:root {
+  --iot-bg-card: #ffffff;
+  --iot-border-card: #e2e8f0;
+  --iot-border-divider: #f1f5f9;
+  --iot-text-main: #0f172a;
+  --iot-text-accent: #0284c7;
+  --iot-text-muted: #64748b;
+  --iot-text-body: #334155;
+  --iot-text-success: #16a34a;
+  --iot-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Modo Escuro Automático (conforme o sistema do usuário) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --iot-bg-card: #161b22;
+    --iot-border-card: #30363d;
+    --iot-border-divider: #21262d;
+    --iot-text-main: #ffffff;
+    --iot-text-accent: #38bdf8;
+    --iot-text-muted: #94a3b8;
+    --iot-text-body: #c9d1d9;
+    --iot-text-success: #22c55e;
+    --iot-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* Suporte se o seu site alternar temas via Classe ou Atributo (Ex: class="dark" ou data-theme="dark") */
+body.dark, [data-theme="dark"], .dark-mode {
+  --iot-bg-card: #161b22;
+  --iot-border-card: #30363d;
+  --iot-border-divider: #21262d;
+  --iot-text-main: #ffffff;
+  --iot-text-accent: #38bdf8;
+  --iot-text-muted: #94a3b8;
+  --iot-text-body: #c9d1d9;
+  --iot-text-success: #22c55e;
+  --iot-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+body.light, [data-theme="light"], .light-mode {
+  --iot-bg-card: #ffffff;
+  --iot-border-card: #e2e8f0;
+  --iot-border-divider: #f1f5f9;
+  --iot-text-main: #0f172a;
+  --iot-text-accent: #0284c7;
+  --iot-text-muted: #64748b;
+  --iot-text-body: #334155;
+  --iot-text-success: #16a34a;
+  --iot-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================================
+   ESTILOS DOS COMPONENTES E CAIXAS (FLEXÍVEIS)
+   ========================================================= */
+
+.iot-container {
+  margin-top: 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.iot-main-title {
+  font-size: 20px;
+  color: var(--iot-text-main);
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+/* Grilhas Flexíveis e Responsivas */
+.iot-grid-cycle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.iot-grid-apps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* Estilo Base dos Cards/Caixas */
+.iot-card {
+  background-color: var(--iot-bg-card);
+  border: 1px solid var(--iot-border-card);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--iot-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.iot-card-compact {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.iot-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.iot-card-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.iot-card-compact .iot-card-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.iot-card-title {
+  font-size: 18px;
+  color: var(--iot-text-accent);
+  margin: 0 0 8px 0;
+  transition: color 0.3s ease;
+}
+
+.iot-card-compact .iot-card-title {
+  font-size: 16px;
+}
+
+.iot-card-desc {
+  font-size: 14px;
+  color: var(--iot-text-muted);
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  transition: color 0.3s ease;
+}
+
+.iot-card-compact .iot-card-desc {
+  font-size: 13px;
+  color: var(--iot-text-body);
+  margin-bottom: 0;
+}
+
+.iot-card-list {
+  font-size: 13px;
+  color: var(--iot-text-body);
+  padding-left: 18px;
+  line-height: 1.6;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.iot-card-list li {
+  margin-bottom: 6px;
+}
+
+.iot-card-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Rodapé das Caixas */
+.iot-card-footer {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--iot-border-divider);
+  font-size: 12px;
+  color: var(--iot-text-accent);
+  font-weight: 600;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.iot-footer-success {
+  color: var(--iot-text-success);
+}
+
+/* Segunda Secção */
+.iot-section {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--iot-border-divider);
+  transition: border-color 0.3s ease;
+}
+
+.iot-section-title {
+  font-size: 22px;
+  margin: 0 0 8px 0;
+  color: var(--iot-text-main);
+  transition: color 0.3s ease;
+}
+
+.iot-section-desc {
+  color: var(--iot-text-muted);
+  font-size: 14px;
+  margin: 0 0 24px 0;
+  transition: color 0.3s ease;
+}
+
+/* =========================================================
+     VARIÁVEIS DE TEMA E ESTILOS DA CAIXA HERO
+     ========================================================= */
+
+  /* Tema Escuro (Padrão) */
+  .hero-card-wrapper {
+    --hero-bg: #161b22;
+    --hero-border: #30363d;
+    --hero-title-color: #38bdf8;
+    --hero-text-color: #94a3b8;
+    --hero-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    margin: 32px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Modo Claro Automático (Sistemas/Navegadores no modo claro) */
+  @media (prefers-color-scheme: light) {
+    .hero-card-wrapper {
+      --hero-bg: #ffffff;
+      --hero-border: #e2e8f0;
+      --hero-title-color: #0284c7;
+      --hero-text-color: #475569;
+      --hero-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  /* Suporte se o seu site alterna temas por classe na página (.light / .dark) */
+  body.light .hero-card-wrapper,
+  .light .hero-card-wrapper,
+  [data-theme="light"] .hero-card-wrapper {
+    --hero-bg: #ffffff;
+    --hero-border: #e2e8f0;
+    --hero-title-color: #0284c7;
+    --hero-text-color: #475569;
+    --hero-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  body.dark .hero-card-wrapper,
+  .dark .hero-card-wrapper,
+  [data-theme="dark"] .hero-card-wrapper {
+    --hero-bg: #161b22;
+    --hero-border: #30363d;
+    --hero-title-color: #38bdf8;
+    --hero-text-color: #94a3b8;
+    --hero-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Layout do Card Principal */
+  .hero-card {
+    background-color: var(--hero-bg);
+    border: 1px solid var(--hero-border);
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: var(--hero-shadow);
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 36px;
+    align-items: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Lado do Texto */
+  .hero-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .hero-card-highlight {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--hero-title-color);
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .hero-card-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--hero-text-color);
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  /* Lado da Imagem */
+  .hero-card-media {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-card-img {
+    width: 100%;
+    height: auto;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* Responsividade para telemóveis e tablets */
+  @media (max-width: 868px) {
+    .hero-card {
+      grid-template-columns: 1fr;
+      padding: 24px;
+      gap: 24px;
+    }
+
+    .hero-card-highlight {
+      font-size: 18px;
+    }
+
+    .hero-card-desc {
+      font-size: 14px;
+    }
+  }

@@ -1,13 +1,147 @@
 {% extends 'forum/base.html' %}
+{% load static %}
 
 {% block title %}Início - MyStackOverflow{% endblock %}
 
 {% block content %}
-<div class="card text-content">
-    <h2>Início</h2>
-    <p>Bem-vindo ao nosso site!</p>
-    <p>Esse site foi criado com o objetivo de auxiliar empresas a compreenderem e terem maior controle dos dispositivos de IoT utilizados por elas, sugerindo melhorias e oferecendo dados para que, por meio de sua interpretação, possam tomar decisões mais conscientes.
- </p>
- 
+    <!-- BLOCO DE ENTRADA DIVIDIDO EM 2 COLUNAS -->
+<div class="hero-card-wrapper">
+  <div class="hero-card">
+    
+    <!-- COLUNA DE TEXTO -->
+    <div class="hero-card-text">
+      <p class="hero-card-highlight">
+        Aprenda como o IoT transforma objetos do dia a dia e da indústria em fontes de dados estratégicos para decisões mais conscientes e sustentáveis.
+      </p>
+      <p class="hero-card-desc">
+        Esse site foi criado com o objetivo de auxiliar empresas a compreenderem e terem maior controle dos dispositivos de IoT utilizados por elas, sugerindo melhorias e oferecendo dados para que, por meio de sua interpretação, possam tomar decisões mais conscientes.
+      </p>
+    </div>
+
+    <!-- COLUNA DA IMAGEM -->
+    <div class="hero-card-media">
+      <img 
+        src="{% static '274a8bf47661434bae51b8dcb8205d34.png' %}" 
+        alt="Ilustração do IoT em Edifício Inteligente" 
+        class="hero-card-img"
+      />
+    </div>
+
+  </div>
+
+<!-- SECÇÃO DOS 3 PILARES DO IOT CONSCIENTE -->
+<div class="iot-container">
+  <h2 class="iot-main-title">Como Funciona o Ciclo de Inteligência em IoT</h2>
+
+  <!-- GRELHA DO CICLO DE INTELIGÊNCIA -->
+  <div class="iot-grid-cycle">
+    
+    <!-- CARD 1: CAPTAÇÃO -->
+    <div class="iot-card">
+      <div class="iot-card-body">
+        <div class="iot-card-icon">📡</div>
+        <h3 class="iot-card-title">1. Captação de Dados</h3>
+        <p class="iot-card-desc">
+          Dispositivos e sensores inteligentes recolhem continuamente variáveis do ambiente e de equipamentos sem necessidade de intervenção humana.
+        </p>
+        <ul class="iot-card-list">
+          <li><strong>Leitura de Sensores:</strong> Monitorização de temperatura, humidade, pressão e vibração.</li>
+          <li><strong>Medição Energética:</strong> Registo de voltagem e picos de consumo elétrico.</li>
+          <li><strong>Conectividade:</strong> Envio seguro através de redes Wi-Fi, 5G ou LoRaWAN.</li>
+        </ul>
+      </div>
+      <div class="iot-card-footer">
+        ✔ Fase de Recolha Bruta
+      </div>
+    </div>
+
+    <!-- CARD 2: INTERPRETAÇÃO -->
+    <div class="iot-card">
+      <div class="iot-card-body">
+        <div class="iot-card-icon">📊</div>
+        <h3 class="iot-card-title">2. Interpretação & Análise</h3>
+        <p class="iot-card-desc">
+          A plataforma centraliza o fluxo de dados brutos e converte estatísticas complexas em relatórios visuais claros e acionáveis.
+        </p>
+        <ul class="iot-card-list">
+          <li><strong>Dashboards Interativos:</strong> Gráficos em tempo real com métricas consolidadas.</li>
+          <li><strong>Análise Preditiva:</strong> Identificação de anomalias antes que ocorram falhas.</li>
+          <li><strong>Alertas Automáticos:</strong> Notificações instantâneas sobre desvios de padrão.</li>
+        </ul>
+      </div>
+      <div class="iot-card-footer">
+        ✔ Transformação em Informação
+      </div>
+    </div>
+
+    <!-- CARD 3: AÇÃO CONSCIENTE -->
+    <div class="iot-card">
+      <div class="iot-card-body">
+        <div class="iot-card-icon">💡</div>
+        <h3 class="iot-card-title">3. Ação Consciente</h3>
+        <p class="iot-card-desc">
+          Com base nos relatórios gerados, os gestores tomam decisões estratégicas que otimizam a operação e promovem a sustentabilidade.
+        </p>
+        <ul class="iot-card-list">
+          <li><strong>Redução de Custos:</strong> Diminuição substancial na manutenção corretiva.</li>
+          <li><strong>Eficiência Energética:</strong> Eliminação de desperdícios operacionais.</li>
+          <li><strong>Decisões Fatuais:</strong> Fim da gestão baseada em estimativas sem dados.</li>
+        </ul>
+      </div>
+      <div class="iot-card-footer iot-footer-success">
+        ✔ Impacto e Otimização Real
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECÇÃO 2: APLICAÇÕES PRÁTICAS -->
+  <section class="iot-section">
+    <h2 class="iot-section-title">O IoT na Prática: Impacto em Diferentes Setores</h2>
+    <p class="iot-section-desc">
+      Veja como o monitoramento inteligente e a interpretação de dados transformam realidades operacionais:
+    </p>
+
+    <div class="iot-grid-apps">
+      
+      <!-- Card 1 -->
+      <div class="iot-card iot-card-compact">
+        <div class="iot-card-icon">🏭</div>
+        <h3 class="iot-card-title">Indústria 4.0</h3>
+        <p class="iot-card-desc">
+          Sensores em máquinas alertam sobre vibrações anómalas e aquecimento, evitando paragens não planeadas na linha de produção.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="iot-card iot-card-compact">
+        <div class="iot-card-icon">⚡</div>
+        <h3 class="iot-card-title">Gestão de Energia</h3>
+        <p class="iot-card-desc">
+          Mapeamento de consumo elétrico em tempo real para desligar automação ociosa e reduzir a pegada de carbono.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="iot-card iot-card-compact">
+        <div class="iot-card-icon">🌱</div>
+        <h3 class="iot-card-title">Agronegócio Inteligente</h3>
+        <p class="iot-card-desc">
+          Medição de humidade e nutrientes do solo para irrigação precisa, economizando água e melhorando a colheita.
+        </p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="iot-card iot-card-compact">
+        <div class="iot-card-icon">🏥</div>
+        <h3 class="iot-card-title">Saúde & Cadeia de Frio</h3>
+        <p class="iot-card-desc">
+          Controlo rigoroso de temperatura no armazenamento de vacinas e medicamentos com alertas instantâneos de falha.
+        </p>
+      </div>
+
+    </div>
+  </section>
 </div>
+
 {% endblock %}
