@@ -3,8 +3,7 @@ import base64
 from dotenv import load_dotenv
 import anthropic
 
-# Carrega as variáveis do arquivo .env criado na raiz do projeto
-load_dotenv()
+load_dotenv(override=True)
 
 client = anthropic.Anthropic(
     api_key=os.getenv("ANTHROPIC_API_KEY")
