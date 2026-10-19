@@ -898,3 +898,7 @@ body.light, [data-theme="light"], .light-mode {
       font-size: 14px;
     }
   }
+
+  .message-bubble {
+    white-space: pre-wrap;
+}
