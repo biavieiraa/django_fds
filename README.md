@@ -10,15 +10,13 @@ Para a organização das entregas e fluxo de trabalho da equipe, utilizamos a me
 
 O **Brian** é um chatbot baseado em Inteligência Artificial desenvolvido para a BZU TECH, nossa empresa cliente.
 
-O objetivo do projeto é ajudar os clientes a compreenderem melhor a Internet das Coisas (IoT), explicando seus conceitos, funcionamento e benefícios de maneira simples, acessível e intuitiva.
+O principal propósito do projeto é tornar a Internet das Coisas (IoT) acessível e simples de entender para qualquer tipo de cliente. A tecnologia da IoT costuma envolver arquiteturas complexas, termos técnicos avançados e conceitos abstratos que podem afastar potenciais parceiros. O Brian surge para eliminar essa barreira de comunicação, traduzindo o funcionamento de hardware, software e nuvem em explicações didáticas, diretas e fundamentadas em analogias do cotidiano.
 
-### Funcionalidades e objetivos
+Além de educar o público sobre conceitos fundamentais, o Brian atua na apresentação detalhada do ecossistema de soluções da BZU TECH. Ele foi estruturado para demonstrar como a empresa entrega uma solução completa de ponta a ponta, que abrange desde os sensores que coletam dados em tempo real até os gateways que processam essas informações com segurança via criptografia em hardware, culminando na plataforma Bzu Cloud para análise, relatórios e alertas automáticos.
 
-- **Explicar o que é IoT:** apresentar os conceitos e o funcionamento da Internet das Coisas de forma simplificada.
-- **Apresentar os benefícios da IoT:** demonstrar suas vantagens e possíveis aplicações.
-- **Apresentar a BZU TECH:** explicar os serviços oferecidos e os diferenciais da empresa em relação à concorrência.
-- **Facilitar a comunicação:** auxiliar os clientes que desejam entrar em contato com a BZU TECH.
-- **Simplificar informações técnicas:** tornar a tecnologia mais compreensível para pessoas que ainda não possuem familiaridade com o assunto.
+O projeto também capacita o assistente para contextualizar o impacto prático da IoT nos mais variados segmentos de mercado. O Brian consegue adaptar sua linguagem para exemplificar ganhos operacionais e redução de custos em cenários reais, como o controle rígido de temperatura na cadeia fria, a automação e medição contínua em utilities, o aumento de eficiência na Indústria 4.0, a gestão inteligente de edifícios, a coleta de dados ambientais no agronegócio e a aplicação de sensoriamento em cidades inteligentes.
+
+Com isso, o Brian transforma a interação inicial do cliente em uma experiência educativa e estratégica, apresentando os diferenciais competitivos da BZU TECH, como a capacidade de criar projetos sob medida (IoT Tailor-Made), alta escalabilidade e ampla conectividade, preparando o terreno de forma natural para que o cliente compreenda o valor da tecnologia antes de ser direcionado às etapas comerciais.
 
 ## Equipe de Desenvolvimento
 
@@ -102,3 +100,8 @@ A aplicação foi implantada e está em execução no ambiente de produção.
    * Navegue até a URL [https://projeto-bia.onrender.com/forum/](https://projeto-bia.onrender.com/forum/) para visualizar as discussões e tópicos ativos.
 2. **Autenticação de Usuário:**
    * Clique em **Entrar** na navegação principal para realizar o login e obter acesso à criação/edição de conteúdos no fórum.
+
+## Escolha das histórias de usuários
+
+Juntos, nos reunimos para decidir quais das 6 histórias de usuário eram mais relevantes e chegamos à essa conclusão:
+https://www.figma.com/board/mO9zr2bNQ32quGHQzpMBIL/Prioriza%C3%A7%C3%A3o-ideias-FDS?node-id=0-1&t=a8loOoZIqqJIy463-1
