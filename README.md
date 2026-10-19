@@ -104,4 +104,5 @@ A aplicação foi implantada e está em execução no ambiente de produção.
 ## Escolha das histórias de usuários
 
 Juntos, nos reunimos para decidir quais das 6 histórias de usuário eram mais relevantes e chegamos à essa conclusão:
+
 https://www.figma.com/board/mO9zr2bNQ32quGHQzpMBIL/Prioriza%C3%A7%C3%A3o-ideias-FDS?node-id=0-1&t=a8loOoZIqqJIy463-1
