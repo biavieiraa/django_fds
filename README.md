@@ -100,7 +100,8 @@ Juntos, nos reunimos para decidir quais das 6 histórias de usuário eram mais r
 
 https://www.figma.com/board/mO9zr2bNQ32quGHQzpMBIL/Prioriza%C3%A7%C3%A3o-ideias-FDS?node-id=0-1&t=a8loOoZIqqJIy463-1
 
-> [!NOTE]
+As três histórias de usuário abaixo foram selecionadas para serem implementadas em nosso site:
+
 > ### 1. Login da Conta
 >
 > **História de Usuário:**  
@@ -129,7 +130,6 @@ https://www.figma.com/board/mO9zr2bNQ32quGHQzpMBIL/Prioriza%C3%A7%C3%A3o-ideias-
 > - **Quando** tento clicar em *"entrar"* com ao menos um campo em branco
 > - **Então** o sistema destaca os campos com uma mensagem abaixo deles de *"preencha esse campo"* e impede o login
 
-> [!TIP]
 > ### 2. Tirar Dúvidas com o Chatbot
 >
 > **História de Usuário:**  
@@ -159,7 +159,6 @@ https://www.figma.com/board/mO9zr2bNQ32quGHQzpMBIL/Prioriza%C3%A7%C3%A3o-ideias-
 > - **Então** o sistema sinaliza que a mensagem não foi entregue
 > - **E** exibe a opção *"tentar novamente"*
 
-> [!IMPORTANT]
 > ### 3. Adicionar Fotos e Documentos no Chat
 >
 > **História de Usuário:**  
@@ -191,6 +190,11 @@ https://www.figma.com/board/mO9zr2bNQ32quGHQzpMBIL/Prioriza%C3%A7%C3%A3o-ideias-
 #### Quadro da Sprint 3
 ![Quadro 3 do jira em execução](./sprint3.png)
 
+</details>
+<details>
+  <summary> Entrega 4 </summary>
+  
+  Em andamento...
 </details>
 
 ## Deployment da Infraestrutura em Produção
