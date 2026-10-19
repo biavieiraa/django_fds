@@ -17,6 +17,8 @@
     --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.1);
     --radius: 8px;
     --transition: all 0.2s ease-in-out;
+        --text-color: #0f172a;
+    --input-bg: #f1f5f9;
 }
 
 /* ==========================================================================
@@ -36,6 +38,8 @@
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.6);
+    --text-color: #c9d1d9;
+    --input-bg: #0d1117;
 }
 
 /* Reset básico e tipografia */
