@@ -1,106 +1,30 @@
 {% extends 'forum/base.html' %}
-{% load static %}
-
-{% block title %}Brian - Assistente BZU Tech{% endblock %}
+{% block title %}Entrar{% endblock %}
 
 {% block content %}
-<div class="chat-wrapper">
-    <div class="chat-header">
-        <h2>🤖 Brian</h2>
-        <p>Assistente virtual oficial da BZU Tech</p>
-    </div>
+<div class="login-wrapper">
+    <div class="card login-card">
+        <h2>Entrar</h2>
 
-    <!-- Área onde as mensagens são acumuladas em tempo real -->
-    <div class="chat-messages" id="chat-messages">
-        <!-- Mensagem inicial de boas-vindas do Brian -->
-        <div class="message brian-message">
-            <div class="message-bubble">
-                Olá! Sou o Brian, assistente virtual da BZU Tech. Como posso ajudar você hoje?
+        {% if form.errors %}
+        <div class="error-message">Usuário ou senha incorretos.</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Usuário</label>
+                <input type="text" name="username" id="id_username" class="form-control" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="id_password">Senha</label>
+                <input type="password" name="password" id="id_password" class="form-control" required>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+
+        <p class="switch-link">Não tem conta? <a href="{% url 'register' %}">Cadastre-se</a></p>
     </div>
-
-    <!-- Formulário de envio -->
-    <form id="chat-form" class="chat-input-form">
-        {% csrf_token %}
-        <input type="text" id="user-input" name="message" placeholder="Digite sua mensagem para o Brian..." autocomplete="off" required>
-        <button type="submit" class="btn-send">Enviar</button>
-    </form>
 </div>
-
-<!-- Script para gerenciar o comportamento idêntico a um chat de IA -->
-<script>
-    const chatForm = document.getElementById('chat-form');
-    const userInput = document.getElementById('user-input');
-    const chatMessages = document.getElementById('chat-messages');
-
-    chatForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const messageText = userInput.value.trim();
-        if (!messageText) return;
-
-        // 1. Adiciona a mensagem do usuário na tela imediatamente
-        appendMessage(messageText, 'user-message');
-        userInput.value = '';
-        scrollToBottom();
-
-        // 2. Opcional: Adicionar indicador de "Digitando..." do Brian
-        const typingId = appendMessage("Brian está digitando...", 'brian-message typing-indicator');
-        scrollToBottom();
-
-        try {
-            // 3. Envia a mensagem para a view do Django via Fetch API
-            const response = await fetch("{% url 'ia_chat' %}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": "{{ csrf_token }}"
-                },
-                body: JSON.stringify({ message: messageText })
-            });
-
-            const data = await response.json();
-
-            // Remove o indicador de digitação
-            const typingElement = document.getElementById(typingId);
-            if (typingElement) typingElement.remove();
-
-            // 4. Adiciona a resposta real do Brian na tela
-            if (data.reply) {
-                appendMessage(data.reply, 'brian-message');
-            } else {
-                appendMessage("Desculpe, ocorreu um erro ao processar sua resposta.", 'brian-message');
-            }
-
-            scrollToBottom();
-        } catch (error) {
-            console.error("Erro:", error);
-            const typingElement = document.getElementById(typingId);
-            if (typingElement) typingElement.remove();
-            
-            appendMessage("Erro de conexão com o servidor.", 'brian-message');
-            scrollToBottom();
-        }
-    });
-
-    function appendMessage(text, className) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', ...className.split(' '));
-        
-        const messageId = 'msg-' + Date.now();
-        messageDiv.id = messageId;
-
-        const bubbleDiv = document.createElement('div');
-        bubbleDiv.classList.add('message-bubble');
-        bubbleDiv.textContent = text;
-
-        messageDiv.appendChild(bubbleDiv);
-        chatMessages.appendChild(messageDiv);
-        return messageId;
-    }
-
-    function scrollToBottom() {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-</script>
 {% endblock %}
