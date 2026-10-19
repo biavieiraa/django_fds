@@ -1,7 +1,10 @@
+
 import os
 import base64
 from dotenv import load_dotenv
+load_dotenv()
 import anthropic
+
 
 load_dotenv(override=True)
 
