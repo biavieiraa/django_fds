@@ -214,5 +214,3 @@ A aplicação foi implantada e está em execução no ambiente de produção.
 2. **Autenticação de Usuário:**
    * Clique em **Entrar** na navegação principal para realizar o login e obter acesso à criação/edição de conteúdos no fórum.
 
-#### Quadro da Sprint 3
-![Quadro 3 do jira em execução](./sprint3.png)
