@@ -4,7 +4,6 @@ import base64
 from dotenv import load_dotenv
 import anthropic
 
-
 load_dotenv(override=True)
 
 client = anthropic.Anthropic(
@@ -114,9 +113,7 @@ def chamar_claude(mensagem_usuario, arquivo=None):
         return texto or "Desculpe, não consegui gerar uma resposta. Pode tentar de novo?"
 
     except Exception as e:
-        print("ERRO API CLAUDE:", repr(e))  # aparece no terminal do runserver
+        print("ERRO API CLAUDE:", repr(e))
         return f"Desculpe, ocorreu um erro técnico ao se comunicar com o Brian: {str(e)}"
 
-
-# Alias para compatibilidade caso alguma parte do código chame o outro nome
 gerar_resposta_brian = chamar_claude

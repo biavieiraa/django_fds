@@ -368,4 +368,225 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 </script>
+{% if not user.is_authenticated %}
+<style>
+    /* ===== Cores do pop-up: MODO CLARO (padrão do site) ===== */
+    .bzu-popup-overlay {
+        --pp-bg: #ffffff;
+        --pp-border: #e2e8f0;
+        --pp-title: #1e40af;
+        --pp-text: #334155;
+        --pp-muted: #64748b;
+        --pp-close-bg: #f1f5f9;
+        --pp-primary: #1e40af;
+        --pp-primary-hover: #2563eb;
+        --pp-robo-fundo: #eff6ff;
+        --pp-robo-detalhe: #93c5fd;
+        --pp-backdrop: rgba(15, 23, 42, 0.45);
+        --pp-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+
+    /* ===== Cores do pop-up: MODO ESCURO ===== */
+    html[data-theme="dark"] .bzu-popup-overlay {
+        --pp-bg: #1e293b;
+        --pp-border: #334155;
+        --pp-title: #60a5fa;
+        --pp-text: #cbd5e1;
+        --pp-muted: #94a3b8;
+        --pp-close-bg: #0f172a;
+        --pp-primary: #3b82f6;
+        --pp-primary-hover: #60a5fa;
+        --pp-robo-fundo: rgba(59, 130, 246, 0.15);
+        --pp-robo-detalhe: #60a5fa;
+        --pp-backdrop: rgba(2, 6, 23, 0.7);
+        --pp-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    /* ===== Layout ===== */
+    .bzu-popup-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: var(--pp-backdrop);
+        backdrop-filter: blur(3px);
+        animation: bzuPopupFade 0.25s ease;
+    }
+    .bzu-popup-overlay.bzu-hidden {
+        display: none;
+    }
+    .bzu-popup-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        width: 100%;
+        max-width: 620px;
+        padding: 36px 40px;
+        background: var(--pp-bg);
+        border: 1px solid var(--pp-border);
+        border-top: 4px solid var(--pp-primary);
+        border-radius: 20px;
+        box-shadow: var(--pp-shadow);
+        animation: bzuPopupUp 0.3s ease;
+    }
+    .bzu-popup-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--pp-border);
+        border-radius: 50%;
+        background: var(--pp-close-bg);
+        color: var(--pp-muted);
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+    .bzu-popup-close:hover {
+        background: var(--pp-primary);
+        border-color: var(--pp-primary);
+        color: #ffffff;
+    }
+
+    /* Robozinho */
+    .bzu-popup-robo {
+        flex-shrink: 0;
+        width: 110px;
+        height: 110px;
+    }
+    .bzu-robo-fundo   { fill: var(--pp-robo-fundo); }
+    .bzu-robo-corpo   { fill: var(--pp-primary); }
+    .bzu-robo-detalhe { fill: var(--pp-robo-detalhe); }
+    .bzu-robo-olho    { fill: #ffffff; }
+    .bzu-robo-antena  { stroke: var(--pp-primary); }
+    .bzu-robo-sorriso { stroke: #ffffff; }
+
+    /* Texto */
+    .bzu-popup-title {
+        margin: 0 0 8px 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--pp-title);
+    }
+    .bzu-popup-text {
+        margin: 0 0 22px 0;
+        font-size: 0.98rem;
+        line-height: 1.5;
+        color: var(--pp-text);
+    }
+
+    /* Botões */
+    .bzu-popup-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .bzu-popup-btn {
+        padding: 10px 20px;
+        border: 1px solid var(--pp-primary);
+        border-radius: 8px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+    .bzu-popup-btn-primary {
+        background: var(--pp-primary);
+        color: #ffffff;
+    }
+    .bzu-popup-btn-primary:hover {
+        background: var(--pp-primary-hover);
+        border-color: var(--pp-primary-hover);
+    }
+    .bzu-popup-btn-secondary {
+        background: transparent;
+        color: var(--pp-primary);
+    }
+    .bzu-popup-btn-secondary:hover {
+        background: var(--pp-robo-fundo);
+    }
+
+    @keyframes bzuPopupFade {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes bzuPopupUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 600px) {
+        .bzu-popup-card {
+            flex-direction: column;
+            padding: 32px 24px;
+            text-align: center;
+        }
+        .bzu-popup-actions {
+            justify-content: center;
+        }
+        .bzu-popup-robo {
+            width: 90px;
+            height: 90px;
+        }
+    }
+</style>
+
+<div class="bzu-popup-overlay" id="bzu-popup" role="dialog" aria-modal="true" aria-labelledby="bzu-popup-title">
+    <div class="bzu-popup-card">
+        <button type="button" class="bzu-popup-close" id="bzu-popup-close" aria-label="Fechar">✕</button>
+
+        <svg class="bzu-popup-robo" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="bzu-robo-fundo" cx="60" cy="60" r="56"/>
+            <line class="bzu-robo-antena" x1="60" y1="22" x2="60" y2="34" stroke-width="4" stroke-linecap="round"/>
+            <circle class="bzu-robo-detalhe" cx="60" cy="19" r="5"/>
+            <rect class="bzu-robo-detalhe" x="22" y="50" width="8" height="16" rx="4"/>
+            <rect class="bzu-robo-detalhe" x="90" y="50" width="8" height="16" rx="4"/>
+            <rect class="bzu-robo-corpo" x="30" y="34" width="60" height="48" rx="14"/>
+            <circle class="bzu-robo-olho" cx="47" cy="56" r="6"/>
+            <circle class="bzu-robo-olho" cx="73" cy="56" r="6"/>
+            <path class="bzu-robo-sorriso" d="M48 70 Q60 78 72 70" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <rect class="bzu-robo-detalhe" x="42" y="86" width="36" height="12" rx="6"/>
+        </svg>
+
+        <div>
+            <h2 class="bzu-popup-title" id="bzu-popup-title">Olá, tudo bem?</h2>
+            <p class="bzu-popup-text">Faça login para aproveitar a experiência completa com o BrIAn, ou continue sem conta, se preferir.</p>
+            <div class="bzu-popup-actions">
+                <a href="{% url 'login' %}?next={% url 'ia_chat' %}" class="bzu-popup-btn bzu-popup-btn-primary">Fazer login</a>
+                <button type="button" class="bzu-popup-btn bzu-popup-btn-secondary" id="bzu-popup-skip">Continuar sem login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const popup = document.getElementById('bzu-popup');
+    if (!popup) return;
+
+    function fecharPopup() {
+        popup.classList.add('bzu-hidden');
+        const campo = document.getElementById('user-input');
+        if (campo) campo.focus();
+    }
+
+    document.getElementById('bzu-popup-close').addEventListener('click', fecharPopup);
+    document.getElementById('bzu-popup-skip').addEventListener('click', fecharPopup);
+    popup.addEventListener('click', function (e) {
+        if (e.target === popup) fecharPopup();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') fecharPopup();
+    });
+})();
+</script>
+{% endif %}
 {% endblock %}
