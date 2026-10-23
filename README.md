@@ -190,18 +190,20 @@ As três histórias de usuário abaixo foram selecionadas para serem implementad
 #### Quadro da Sprint 3
 ![Quadro 3 do jira em execução](./sprint3.png)
 
-</details>
-<details>
-  <summary> Entrega 4 </summary>
-  
-  Em andamento...
-</details>
+## Issues:
+![Print 2 de Issues](./issues3.png)
 
 ## Screencast da interface em uso:
 https://youtu.be/EyBz87j9IGs
 
 ## Screencast código:
 https://youtu.be/gOjhCrq0TuE
+</details>
+<details>
+  <summary> Entrega 4 </summary>
+  
+  Em andamento...
+</details>
 
 ## Deployment da Infraestrutura em Produção
 
