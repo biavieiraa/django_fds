@@ -197,6 +197,12 @@ As três histórias de usuário abaixo foram selecionadas para serem implementad
   Em andamento...
 </details>
 
+## Screencast da interface em uso:
+https://youtu.be/EyBz87j9IGs
+
+## Screencast código:
+https://youtu.be/gOjhCrq0TuE
+
 ## Deployment da Infraestrutura em Produção
 
 A aplicação foi implantada e está em execução no ambiente de produção.
