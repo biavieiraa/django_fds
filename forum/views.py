@@ -4,8 +4,9 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
-from .models import Feedback
-from .services import chamar_claude, gerar_resposta_brian
+from django.views.decorators.http import require_POST
+from .models import Feedback, Conversa, Mensagem
+from .services import chamar_claude, gerar_resposta_brian, ErroBrian
 
 
 def register(request):
@@ -47,21 +48,86 @@ def sobre_empresa(request):
     return render(request, 'forum/sobre_empresa.html')
 
 
+LIMITE_HISTORICO = 20  
+
+def _conversa_ativa(request):
+    """Devolve a conversa da sessão (ou None), garantindo que é do dono certo."""
+    if "conversa_id" not in request.session:
+        if request.user.is_authenticated:
+            ultima = (Conversa.objects.filter(usuario=request.user)
+                      .order_by("-atualizada_em").first())
+            request.session["conversa_id"] = ultima.id if ultima else None
+            return ultima
+        return None
+
+    conversa_id = request.session["conversa_id"]
+    if not conversa_id:
+        return None
+
+    conversa = Conversa.objects.filter(id=conversa_id).first()
+    if conversa is None:
+        return None
+
+    if request.user.is_authenticated:
+        if conversa.usuario_id is None:
+            conversa.usuario = request.user
+            conversa.save(update_fields=["usuario"])
+        elif conversa.usuario_id != request.user.id:
+            return None
+    elif conversa.usuario_id is not None:
+        return None
+
+    return conversa
+
+
 @csrf_protect
 def ia_chat(request):
-    # POST vindo do JavaScript (fetch com FormData: texto + arquivo opcional)
     if request.method == "POST":
+        user_message = request.POST.get("message", "").strip()
+        arquivo = request.FILES.get("arquivo")
+
+        if not user_message and not arquivo:
+            return JsonResponse({"reply": "Envie uma mensagem ou um arquivo."})
+
+        conversa = _conversa_ativa(request)
+        historico = []
+        if conversa:
+            ultimas = list(conversa.mensagens.order_by("-id")[:LIMITE_HISTORICO])
+            ultimas.reverse()
+            historico = [{"role": m.papel, "content": m.texto} for m in ultimas]
+            while historico and historico[0]["role"] != "user":
+                historico.pop(0)  # a API exige começar por "user"
+
         try:
-            user_message = request.POST.get("message", "").strip()
-            arquivo = request.FILES.get("arquivo")
-
-            if not user_message and not arquivo:
-                return JsonResponse({"reply": "Envie uma mensagem ou um arquivo."})
-
-            resposta_ia = chamar_claude(user_message, arquivo)
-            return JsonResponse({"reply": resposta_ia})
+            resposta = chamar_claude(user_message, arquivo, historico)
+        except ErroBrian as e:
+            return JsonResponse({"reply": str(e)})  # erro não vai pro histórico
         except Exception as e:
             return JsonResponse({"reply": f"Erro interno: {str(e)}"}, status=500)
 
-    # GET: apenas renderiza a página do chat
-    return render(request, 'forum/ia_chat.html')
+        if conversa is None:
+            conversa = Conversa.objects.create(
+                usuario=request.user if request.user.is_authenticated else None,
+                titulo=(user_message or "Arquivo enviado")[:60],
+            )
+            request.session["conversa_id"] = conversa.id
+
+        texto_usuario = user_message
+        if arquivo:
+            texto_usuario = f"[Arquivo anexado: {arquivo.name}]\n{user_message}".strip()
+
+        Mensagem.objects.create(conversa=conversa, papel="user", texto=texto_usuario)
+        Mensagem.objects.create(conversa=conversa, papel="assistant", texto=resposta)
+        conversa.save(update_fields=["atualizada_em"])
+
+        return JsonResponse({"reply": resposta})
+
+    conversa = _conversa_ativa(request)
+    mensagens = conversa.mensagens.all() if conversa else []
+    return render(request, "forum/ia_chat.html", {"mensagens": mensagens})
+
+
+@require_POST
+def nova_conversa(request):
+    request.session["conversa_id"] = None
+    return redirect("ia_chat")

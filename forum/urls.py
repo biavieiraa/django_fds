@@ -10,4 +10,5 @@ urlpatterns = [
     path('sobre-nos/', views.sobre_nos, name='sobre_nos'),
     path('sobre-empresa/', views.sobre_empresa, name='sobre_empresa'),
     path('ia/', views.ia_chat, name='ia_chat'),
+    path('ia/nova/', views.nova_conversa, name='nova_conversa'),
 ]

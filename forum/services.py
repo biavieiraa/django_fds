@@ -57,21 +57,19 @@ You are Brian, the official virtual assistant for BZU Tecnologia (BZU Tech), an 
 10. *Sensitive Data:* Do not ask users for sensitive personal information such as documents, passwords, or payment details. For commercial negotiations, refer them to the sales team.
 """
 
+class ErroBrian(Exception):
+    """Erro esperado (arquivo inválido, chave ausente, falha da API)."""
 
-def chamar_claude(mensagem_usuario, arquivo=None):
-    """
-    Envia a mensagem do usuário (e, opcionalmente, um arquivo) para a API
-    da Anthropic (Claude) junto com a personalidade do Brian e retorna
-    a resposta gerada.
-    """
+
+def chamar_claude(mensagem_usuario, arquivo=None, historico=None):
     if not os.getenv("ANTHROPIC_API_KEY"):
-        return "Erro: A chave ANTHROPIC_API_KEY não foi encontrada no arquivo .env."
+        raise ErroBrian("Erro: A chave ANTHROPIC_API_KEY não foi encontrada no arquivo .env.")
 
     content = []
 
     if arquivo:
         if arquivo.size > MAX_BYTES:
-            return "O arquivo é grande demais (máximo 5 MB)."
+            raise ErroBrian("O arquivo é grande demais (máximo 5 MB).")
 
         dados = arquivo.read()
         tipo = arquivo.content_type or ""
@@ -93,27 +91,32 @@ def chamar_claude(mensagem_usuario, arquivo=None):
                 "text": f"Conteúdo do arquivo {arquivo.name}:\n{texto}",
             })
         else:
-            return "Tipo de arquivo não suportado. Envie imagem, PDF ou texto."
+            raise ErroBrian("Tipo de arquivo não suportado. Envie imagem, PDF ou texto.")
 
     content.append({
         "type": "text",
         "text": mensagem_usuario or "Analise este arquivo.",
     })
 
+    # histórico anterior + a mensagem nova
+    mensagens = list(historico or [])
+    mensagens.append({"role": "user", "content": content})
+
     try:
         response = client.messages.create(
             model="claude-haiku-5-5",
             max_tokens=1000,
             system=SYSTEM_PROMPT,
-            messages=[
-                {"role": "user", "content": content}
-            ]
+            messages=mensagens,
         )
-        texto = "".join(bloco.text for bloco in response.content if bloco.type == "text")
-        return texto or "Desculpe, não consegui gerar uma resposta. Pode tentar de novo?"
-
     except Exception as e:
         print("ERRO API CLAUDE:", repr(e))
-        return f"Desculpe, ocorreu um erro técnico ao se comunicar com o Brian: {str(e)}"
+        raise ErroBrian(f"Desculpe, ocorreu um erro técnico ao se comunicar com o Brian: {str(e)}")
+
+    texto = "".join(bloco.text for bloco in response.content if bloco.type == "text")
+    if not texto:
+        raise ErroBrian("Desculpe, não consegui gerar uma resposta. Pode tentar de novo?")
+    return texto
+
 
 gerar_resposta_brian = chamar_claude
