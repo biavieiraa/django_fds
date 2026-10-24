@@ -11,4 +11,6 @@ urlpatterns = [
     path('sobre-empresa/', views.sobre_empresa, name='sobre_empresa'),
     path('ia/', views.ia_chat, name='ia_chat'),
     path('ia/nova/', views.nova_conversa, name='nova_conversa'),
+    path('ia/<int:conversa_id>/', views.abrir_conversa, name='abrir_conversa'),
+    path('ia/<int:conversa_id>/apagar/', views.apagar_conversa, name='apagar_conversa'),
 ]

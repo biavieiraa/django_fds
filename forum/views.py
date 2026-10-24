@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -105,12 +105,14 @@ def ia_chat(request):
         except Exception as e:
             return JsonResponse({"reply": f"Erro interno: {str(e)}"}, status=500)
 
+        criada = False
         if conversa is None:
             conversa = Conversa.objects.create(
                 usuario=request.user if request.user.is_authenticated else None,
                 titulo=(user_message or "Arquivo enviado")[:60],
             )
             request.session["conversa_id"] = conversa.id
+            criada = True
 
         texto_usuario = user_message
         if arquivo:
@@ -120,14 +122,40 @@ def ia_chat(request):
         Mensagem.objects.create(conversa=conversa, papel="assistant", texto=resposta)
         conversa.save(update_fields=["atualizada_em"])
 
-        return JsonResponse({"reply": resposta})
+        return JsonResponse({"reply": resposta, "nova_conversa": criada})
 
+    # GET: renderiza a página com o histórico e a barra lateral
     conversa = _conversa_ativa(request)
     mensagens = conversa.mensagens.all() if conversa else []
-    return render(request, "forum/ia_chat.html", {"mensagens": mensagens})
+    conversas = (
+        Conversa.objects.filter(usuario=request.user).order_by("-atualizada_em")
+        if request.user.is_authenticated else []
+    )
+    return render(request, "forum/ia_chat.html", {
+        "mensagens": mensagens,
+        "conversas": conversas,
+        "conversa_atual_id": conversa.id if conversa else None,
+    })
 
 
 @require_POST
 def nova_conversa(request):
     request.session["conversa_id"] = None
+    return redirect("ia_chat")
+
+
+@login_required(login_url="login")
+def abrir_conversa(request, conversa_id):
+    conversa = get_object_or_404(Conversa, id=conversa_id, usuario=request.user)
+    request.session["conversa_id"] = conversa.id
+    return redirect("ia_chat")
+
+
+@require_POST
+@login_required(login_url="login")
+def apagar_conversa(request, conversa_id):
+    conversa = get_object_or_404(Conversa, id=conversa_id, usuario=request.user)
+    if request.session.get("conversa_id") == conversa.id:
+        request.session["conversa_id"] = None
+    conversa.delete()
     return redirect("ia_chat")

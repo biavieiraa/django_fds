@@ -138,7 +138,182 @@
         margin-bottom: 8px;
         border-radius: 10px;
     }
+
+    /* ===== Layout com barra lateral de conversas (estilo Gemini) ===== */
+    .chat-layout {
+        display: flex;
+        width: 100%;
+        max-width: 1200px;
+        height: calc(100vh - 130px);
+        margin: 15px auto;
+        background-color: var(--card-bg, #161b22);
+        border: 1px solid var(--border-color, #30363d);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .chat-layout .gemini-chat-container {
+        flex: 1;
+        min-width: 0;
+        min-height: 0;
+        height: auto;
+        max-width: none;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+    }
+
+    .chat-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 270px;
+        flex-shrink: 0;
+        padding: 14px 12px;
+        background-color: var(--input-bg, #0d1117);
+        border-right: 1px solid var(--border-color, #30363d);
+        overflow-y: auto;
+    }
+
+    .btn-new-chat {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 10px 16px;
+        border: 1px solid var(--border-color, #30363d);
+        border-radius: 24px;
+        background: transparent;
+        color: var(--text-color, #c9d1d9);
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .btn-new-chat:hover {
+        background: rgba(31, 111, 235, 0.15);
+    }
+
+    .sidebar-title {
+        padding: 4px 12px 0 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-muted, #94a3b8);
+    }
+    .sidebar-empty {
+        padding: 4px 12px;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        color: var(--text-muted, #94a3b8);
+    }
+    .sidebar-empty a {
+        color: var(--primary-blue, #3b82f6);
+        font-weight: 600;
+    }
+
+    .conversation-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    .conversation-item {
+        display: flex;
+        align-items: center;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .conversation-item:hover {
+        background: rgba(127, 127, 127, 0.12);
+    }
+    .conversation-item.active {
+        background: rgba(31, 111, 235, 0.18);
+    }
+    .conversation-link {
+        flex: 1;
+        min-width: 0;
+        padding: 9px 6px 9px 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.92rem;
+        color: var(--text-color, #c9d1d9);
+        text-decoration: none;
+        border-radius: 20px;
+    }
+    .conversation-link:focus-visible {
+        outline: 2px solid var(--primary-blue, #3b82f6);
+        outline-offset: -2px;
+    }
+    .conversation-item form {
+        display: flex;
+    }
+    .conversation-delete {
+        width: 28px;
+        height: 28px;
+        margin-right: 6px;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--text-muted, #94a3b8);
+        font-size: 0.8rem;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.2s, background 0.2s, color 0.2s;
+    }
+    .conversation-item:hover .conversation-delete,
+    .conversation-item.active .conversation-delete,
+    .conversation-delete:focus-visible {
+        opacity: 1;
+    }
+    .conversation-delete:hover {
+        background: rgba(239, 68, 68, 0.85);
+        color: #ffffff;
+    }
+    @media (hover: none) {
+        .conversation-delete { opacity: 1; }
+    }
+
+    /* Celular: a lista de conversas vai para o topo, ocupando pouca altura */
+    @media (max-width: 768px) {
+        .chat-layout {
+            flex-direction: column;
+        }
+        .chat-sidebar {
+            width: 100%;
+            max-height: 32%;
+            border-right: none;
+            border-bottom: 1px solid var(--border-color, #30363d);
+        }
+    }
 </style>
+
+<div class="chat-layout">
+
+    <!-- Barra lateral: nova conversa + lista de conversas -->
+    <aside class="chat-sidebar">
+        <form method="post" action="{% url 'nova_conversa' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-new-chat">+ Nova conversa</button>
+        </form>
+
+        {% if user.is_authenticated %}
+            <div class="sidebar-title">Conversas</div>
+            <nav class="conversation-list">
+                {% for c in conversas %}
+                <div class="conversation-item {% if c.id == conversa_atual_id %}active{% endif %}">
+                    <a href="{% url 'abrir_conversa' c.id %}" class="conversation-link" title="{{ c.titulo }}">{{ c.titulo|default:"Conversa sem título" }}</a>
+                    <form method="post" action="{% url 'apagar_conversa' c.id %}" onsubmit="return confirm('Apagar esta conversa?');">
+                        {% csrf_token %}
+                        <button type="submit" class="conversation-delete" title="Apagar conversa" aria-label="Apagar conversa">✕</button>
+                    </form>
+                </div>
+                {% empty %}
+                <p class="sidebar-empty">Suas conversas aparecem aqui depois da primeira mensagem.</p>
+                {% endfor %}
+            </nav>
+        {% else %}
+            <p class="sidebar-empty">Entre na sua conta para guardar o histórico das conversas. <a href="{% url 'login' %}?next={% url 'ia_chat' %}">Fazer login</a></p>
+        {% endif %}
+    </aside>
 
 <div class="gemini-chat-container">
     <!-- Área de mensagens (histórico) -->
@@ -147,6 +322,12 @@
         <div class="message brian-message">
             <div class="message-bubble">Olá! Sou o BrIAn, assistente virtual da BZU Tech. Como posso te ajudar hoje?</div>
         </div>
+
+        {% for m in mensagens %}
+        <div class="message {% if m.papel == 'user' %}user-message{% else %}brian-message{% endif %}">
+            <div class="message-bubble" style="white-space: pre-wrap;">{{ m.texto }}</div>
+        </div>
+        {% endfor %}
     </div>
 
     <!-- Seção inferior fixa/centralizada -->
@@ -182,6 +363,7 @@
             O Brian não é humano. Ele pode cometer erros. Por isso, verifique as respostas.
         </div>
     </div>
+</div>
 </div>
 
 <!-- Script de envio em tempo real -->
