@@ -49,3 +49,25 @@ class Feedback(models.Model):
         if self.usuario:
             return f"Feedback de {self.usuario.username}"
         return "Feedback anônimo"
+
+
+class Conversa(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    titulo = models.CharField(max_length=100, blank=True)
+    criada_em = models.DateTimeField(auto_now_add=True)
+    atualizada_em = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.titulo or f"Conversa {self.id}"
+
+
+class Mensagem(models.Model):
+    PAPEIS = [("user", "Usuário"), ("assistant", "Brian")]
+
+    conversa = models.ForeignKey(Conversa, related_name="mensagens", on_delete=models.CASCADE)
+    papel = models.CharField(max_length=10, choices=PAPEIS)
+    texto = models.TextField()
+    criada_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["id"]
