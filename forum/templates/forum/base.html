@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Grupo 3{% endblock %}</title>
+    <title>{% block title %}BrIAn{% endblock %}</title>
 
     <!-- Incrementado para ?v=4.0 para carregar os novos estilos do switch -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v=4.0">
@@ -25,21 +25,16 @@
 <body>
     <header class="header">
         <div class="header-container">
-            <h1>Grupo 3</h1>
+            <h1>BrIAn</h1>
             <!-- Links visíveis para todos os visitantes -->
 
             <nav class="nav">
                 <a href="{% url 'index' %}">Início</a>
                 <span class="separator">|</span>
-                <a href="{% url 'ia_chat' %}" class="nav-ia-link">BrIAn</a>
-                <span class="separator">|</span>
                 <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
                 <span class="separator">|</span>
                 <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
-                <a href="https://www.bzutech.com.br" target="_blank" rel="noopener noreferrer" 
-                style="background: #0072ff; color: #000; padding: 8px 16px; border-radius: 20px; font-weight: bold; text-decoration: none;">
-                BZU Tech ↗
-                </a>
+                <span class="separator">|</span>
                 <!-- Autenticação (Entrar / Sair) -->
 
                 {% if user.is_authenticated %}
@@ -61,6 +56,9 @@
                     <span class="switch-ball"></span>
                     <span class="switch-icon">☾</span>
                 </button>
+                
+                <span class="separator">|</span>
+                <a href="{% url 'ia_chat' %}" class="nav-ia-link">BrIAn</a>
 
             </nav>
 
@@ -76,44 +74,37 @@
 
 
 
-    <!-- RODAPÉ PROFISSIONAL BZU TECH -->
-<footer style="margin-top: 64px; padding: 40px 20px 24px 20px; background-color: #161b22; border-top: 1px solid #30363d; color: #94a3b8; font-size: 13px;">
-  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
-    
-    <!-- Coluna 1: Sobre o Projeto -->
-    <div style="flex: 1; min-width: 250px;">
-      <h3 style="color: #ffffff; font-size: 16px; margin-bottom: 12px; font-weight: bold;">Grupo 3 | BZU Tech</h3>
-      <p style="color: #8b949e; line-height: 1.6; font-size: 13px;">
-        Plataforma focada na conscientização, monitorização e gestão inteligente de dispositivos IoT para empresas e organizações.
-      </p>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Coluna da marca -->
+    <div class="footer-brand">
+      <div class="footer-logo"></div> <!-- troque por <img src="{% static 'img/logo.png' %}"> -->
+      <p>Soluções de IoT para coleta<br>de dados operacionais.</p>
     </div>
 
-    <!-- Coluna 2: Navegação Rápida -->
-    <div style="flex: 1; min-width: 180px;">
-      <h4 style="color: #ffffff; font-size: 14px; margin-bottom: 12px;">Navegação</h4>
-      <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
-        <li><a href="{% url 'index' %}" style="color: #8b949e; text-decoration: none;">Início</a></li>
-        <li><a href="{% url 'sobre_empresa' %}" style="color: #8b949e; text-decoration: none;">Sobre a Empresa</a></li>
-        <li><a href="https://www.bzutech.com.br" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; text-decoration: none; font-weight: 600;">Plataforma BZU Tech ↗</a></li>
+    <!-- Coluna Navegação -->
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="{% url 'index' %}" class="active">Início</a></li>
+        <li><a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a></li>
+        <li><a href="{% url 'sobre_nos' %}">Fale Conosco</a></li>
       </ul>
     </div>
 
-    <!-- Coluna 3: Links e Suporte -->
-    <div style="flex: 1; min-width: 180px;">
-      <h4 style="color: #ffffff; font-size: 14px; margin-bottom: 12px;">Suporte</h4>
-      <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
-        <li><a href="#" style="color: #8b949e; text-decoration: none;">Documentação</a></li>
-        <li><a href="{% url 'sobre_nos' %}" style="color: #8b949e; text-decoration: none;">Fale Conosco</a></li>
-        <li><a href="#" style="color: #8b949e; text-decoration: none;">Políticas de Privacidade</a></li>
+    <!-- Coluna Suporte -->
+    <div class="footer-col">
+      <h4>Suporte</h4>
+      <ul>
+        <li><a href="{% url 'sobre_nos' %}">Fale Conosco</a></li>
+        <li><a href="{% url 'sobre_nos' %}">Feedback</a></li>
       </ul>
     </div>
 
   </div>
 
-  <!-- Linha Divisória de Direitos Autorais -->
-  <div style="max-width: 1200px; margin: 32px auto 0 auto; padding-top: 20px; border-top: 1px solid #21262d; text-align: center; color: #6e7681; font-size: 12px;">
-    <p>© 2026 BZU Tech - Grupo 3 | Todos os direitos reservados. Projeto de Conscientização em Internet das Coisas (IoT).</p>
-  </div>
+  <p class="footer-copy">© 2026 BRIAN | Todos os direitos reservados.</p>
 </footer>
 
 
