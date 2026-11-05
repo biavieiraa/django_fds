@@ -1,56 +1,141 @@
-/* ==========================================================================
-   Variáveis Globais - Paleta Azul Corporativo (Modo Claro)
-   ========================================================================== */
 :root {
-    --primary-blue: #1e40af;
-    --primary-dark: #0f172a;
-    --primary-light: #eff6ff;
-    --accent-blue: #2563eb;
-    --bg-body: #f8fafc;
-    --card-bg: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #334155;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
-    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.07);
-    --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.1);
+    /* Marca: laranja */
+    --laranja-900: #4a2315;
+    --laranja-700: #b94a1f;
+    --laranja-500: #f55d22;
+    --laranja-300: #f98c63;
+    --laranja-100: #fdd9cb;
+
+    /* Marca: roxo */
+    --roxo-900: #1a0020;
+    --roxo-800: #2e0a42;
+    --roxo-600: #6a1b7f;
+    --roxo-400: #8c4c9f;
+    --roxo-200: #b085c0;
+
+    /* Texto */
+    --texto-1: #000000;
+    --texto-2: #262626;
+    --texto-3: #404040;
+    --texto-4: #7f7f7f;
+    --texto-5: #bfbfbf;
+    --texto-6: #f6f2fa;
+
+    /* Fontes */
+    --font-display: "Momo Trust Display", "Carlito", sans-serif;
+    --font-heading: "Carlito", "Calibri", sans-serif;
+    --font-body:    "Momo Trust Sans", "Carlito", sans-serif;
+    --font-button:  "Courier Prime", "Courier New", monospace;
+
+    /* Tamanhos (desktop) */
+    --fs-h1: 50px;
+    --fs-h2: 38px;
+    --fs-h3: 32px;
+    --fs-h4: 18px;
+    --fs-body: 16px;
+    --fs-body-sm: 14px;
+
+    /* Provisórios: o guia ainda não definiu */
+    --ls-title: 0;
+    --lh-title: 1.2;
+    --lh-body: 1.6;
+
+    /* Containers */
+    --container-max: 1440px;
+    --container-slim-max: 1164px;
+    --pad-x: 20px;
+    --pad-y: 140px;
+    --pad-y-slim: 60px;
+
+    /* Botões */
+    --btn-fs: 18px;
+    --btn-radius-primary: 4px;
+    --btn-radius-secondary: 0;
+
     --radius: 8px;
     --transition: all 0.2s ease-in-out;
-        --text-color: #0f172a;
-    --input-bg: #f1f5f9;
 }
 
-/* ==========================================================================
-   Modo Escuro (Dark Mode)
-   ========================================================================== */
+/* Tablet */
+@media (max-width: 1024px) {
+    :root {
+        --fs-h1: 40px; --fs-h2: 32px; --fs-h3: 26px; --fs-h4: 18px;
+        --pad-y: 100px; --pad-y-slim: 50px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    :root {
+        --fs-h1: 32px; --fs-h2: 28px; --fs-h3: 22px; --fs-h4: 16px;
+        --pad-y: 80px; --pad-y-slim: 40px;
+    }
+}
+
+/* ===== TEMA CLARO ===== */
+:root {
+    --bg-body: #ffffff;
+    --card-bg: var(--texto-6);
+    --input-bg: #ffffff;
+    --border-color: #e2d6ec;
+    --text-primary: var(--texto-2);
+    --text-secondary: var(--texto-3);
+    --text-muted: var(--texto-4);
+    --text-color: var(--texto-2);
+
+    --brand: var(--laranja-500);
+    --brand-hover: var(--laranja-700);
+    --link: var(--laranja-700);
+    --title-accent: var(--roxo-600);
+
+    --header-bg: var(--roxo-900);
+    --header-text: var(--texto-6);
+    --danger: #c62828;
+
+    --shadow-sm: 0 1px 3px rgba(26, 0, 32, 0.08);
+    --shadow-md: 0 4px 12px rgba(26, 0, 32, 0.12);
+}
+
+/* ===== TEMA ESCURO ===== */
 [data-theme="dark"] {
-    --primary-blue: #3b82f6;
-    --primary-dark: #020617;
-    --primary-light: #1e293b;
-    --accent-blue: #60a5fa;
-    --bg-body: #0f172a;
-    --card-bg: #1e293b;
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --border-color: #334155;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.6);
-    --text-color: #c9d1d9;
-    --input-bg: #0d1117;
+    --bg-body: var(--roxo-900);
+    --card-bg: var(--roxo-800);
+    --input-bg: #1f0529;
+    --border-color: #4a2062;
+    --text-primary: var(--texto-6);
+    --text-secondary: var(--texto-5);
+    --text-muted: #a99bb5;
+    --text-color: var(--texto-6);
+
+    --brand: var(--laranja-500);
+    --brand-hover: var(--laranja-300);
+    --link: var(--laranja-300);
+    --title-accent: var(--roxo-200);
+
+    --header-bg: #10001a;
+    --danger: #ff8a80;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.55);
 }
 
-/* Reset básico e tipografia */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+/* Nomes antigos (apontam para os novos; apague no passo 9) */
+:root {
+    --primary-blue: var(--brand);
+    --accent-blue: var(--brand-hover);
+    --primary-dark: var(--header-bg);
+    --primary-light: var(--card-bg);
 }
+
+/* ===== BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+button, input, textarea, select { font-family: inherit; }
 
 body {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
     background-color: var(--bg-body);
     color: var(--text-primary);
     min-height: 100vh;
@@ -59,6 +144,13 @@ body {
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+h1 { font-family: var(--font-display); font-size: var(--fs-h1); font-weight: 400; line-height: var(--lh-title); letter-spacing: var(--ls-title); }
+h2 { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 400; line-height: var(--lh-title); letter-spacing: var(--ls-title); }
+h3 { font-family: var(--font-heading); font-size: var(--fs-h3); font-weight: 700; line-height: var(--lh-title); }
+h4 { font-family: var(--font-heading); font-size: var(--fs-h4); font-weight: 700; line-height: var(--lh-title); }
+
+a { color: var(--link); }
 
 /* ==========================================================================
    Cabeçalho (Header & Nav)
