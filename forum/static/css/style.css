@@ -238,45 +238,22 @@ a { color: var(--link); }
 }
 .btn-logout:hover { background: var(--laranja-500); border-color: var(--laranja-500); color: #fff; }
 
-/* ==========================================================================
-   Container Principal & Cards
-   ========================================================================== */
+/* ===== CONTAINERS ===== */
 .container {
-    max-width: 1000px;
     width: 100%;
-    margin: 30px auto;
-    padding: 0 20px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--pad-y) var(--pad-x);
     flex: 1;
 }
-
-.card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    padding: 30px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
+.container--slim {
+    max-width: var(--container-slim-max);
+    padding-top: var(--pad-y-slim);
+    padding-bottom: var(--pad-y-slim);
 }
-
-.card:hover {
-    box-shadow: var(--shadow-md);
-}
-
-.card h2 {
-    margin-bottom: 16px;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 8px;
-}
-
-.text-content p {
-    line-height: 1.65;
-    margin-bottom: 12px;
-    color: var(--text-secondary);
-    font-size: 0.98rem;
+.container--chat {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 /* ==========================================================================
