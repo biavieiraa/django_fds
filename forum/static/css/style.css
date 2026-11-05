@@ -152,22 +152,19 @@ h4 { font-family: var(--font-heading); font-size: var(--fs-h4); font-weight: 700
 
 a { color: var(--link); }
 
-/* ==========================================================================
-   Cabeçalho (Header & Nav)
-   ========================================================================== */
+/* ===== CABEÇALHO ===== */
 .header {
-    background-color: var(--primary-dark);
-    color: #ffffff;
-    padding: 16px 24px;
-    border-bottom: 3px solid var(--primary-blue);
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 16px var(--pad-x);
+    border-bottom: 3px solid var(--brand);
     box-shadow: var(--shadow-sm);
     position: sticky;
     top: 0;
     z-index: 100;
 }
-
 .header-container {
-    max-width: 1000px;
+    max-width: var(--container-max);
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -175,50 +172,36 @@ a { color: var(--link); }
     flex-wrap: wrap;
     gap: 15px;
 }
-
 .header h1 {
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    color: #ffffff;
+    font-size: 28px;
+    color: var(--header-text);
 }
-
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
+.nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 .nav a {
-    color: #cbd5e1;
+    color: var(--texto-5);
     text-decoration: none;
     padding: 8px 14px;
-    font-size: 0.9rem;
+    font-size: var(--fs-body-sm);
     font-weight: 500;
     border-radius: var(--radius);
     transition: var(--transition);
 }
-
-.nav a:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.08);
+.nav a:hover { color: #fff; background-color: rgba(255, 255, 255, 0.1); }
+.nav a.nav-ia-link {
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--font-button);
+    font-weight: 700;
 }
+.nav a.nav-ia-link:hover { background: var(--brand-hover); }
+.nav span.separator { color: var(--roxo-400); font-size: 0.85rem; user-select: none; }
 
-.nav span.separator {
-    color: #475569;
-    font-size: 0.85rem;
-    user-select: none;
-}
-
-/* ==========================================================================
-   Switch Deslizante (Modo Escuro / Claro)
-   ========================================================================== */
+/* Switch claro/escuro */
 .theme-switch {
     position: relative;
-    width: 50px;
-    height: 26px;
-    background-color: #475569;
-    border: 1px solid #64748b;
+    width: 50px; height: 26px;
+    background-color: var(--roxo-400);
+    border: 1px solid var(--roxo-200);
     border-radius: 20px;
     padding: 0 5px;
     cursor: pointer;
@@ -228,59 +211,32 @@ a { color: var(--link); }
     transition: background-color 0.3s ease, border-color 0.3s ease;
     outline: none;
 }
-
-.theme-switch .switch-icon {
-    font-size: 11px;
-    user-select: none;
-    line-height: 1;
-    z-index: 1;
-}
-
+.theme-switch .switch-icon { font-size: 11px; user-select: none; line-height: 1; z-index: 1; color: #fff; }
 .theme-switch .switch-ball {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #ffffff;
+    position: absolute; top: 2px; left: 2px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+[data-theme="dark"] .theme-switch { background-color: var(--roxo-600); border-color: var(--roxo-400); }
+[data-theme="dark"] .theme-switch .switch-ball { transform: translateX(24px); }
 
-/* Estado Ativado (Modo Escuro) */
-[data-theme="dark"] .theme-switch {
-    background-color: #2563eb;
-    border-color: #3b82f6;
-}
-
-[data-theme="dark"] .theme-switch .switch-ball {
-    transform: translateX(24px);
-}
-
-/* Botão de Logout */
-.logout-form {
-    display: inline-flex;
-    align-items: center;
-}
-
+/* Botão Sair */
+.logout-form { display: inline-flex; align-items: center; }
 .btn-logout {
-    background-color: transparent;
-    border: 1px solid #475569;
-    color: #e2e8f0;
-    padding: 6px 14px;
-    border-radius: var(--radius);
-    font-weight: 500;
-    font-size: 0.85rem;
+    background: transparent;
+    border: 2px solid var(--laranja-300);
+    color: var(--laranja-300);
+    padding: 5px 14px;
+    border-radius: var(--btn-radius-secondary);
+    font-family: var(--font-button);
+    font-weight: 700;
+    font-size: var(--fs-body-sm);
     cursor: pointer;
     transition: var(--transition);
 }
-
-.btn-logout:hover {
-    background-color: #991b1b;
-    border-color: #991b1b;
-    color: #ffffff;
-}
+.btn-logout:hover { background: var(--laranja-500); border-color: var(--laranja-500); color: #fff; }
 
 /* ==========================================================================
    Container Principal & Cards
