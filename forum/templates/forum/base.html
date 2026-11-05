@@ -29,53 +29,41 @@
     <header class="header">
         <div class="header-container">
             <h1>BrIAn</h1>
-            <!-- Links visíveis para todos os visitantes -->
 
+            <!-- Links de navegação e ações centralizadas/direita -->
             <nav class="nav">
                 <a href="{% url 'index' %}">Início</a>
-                <span class="separator">|</span>
                 <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
-                <span class="separator">|</span>
                 <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
-                <span class="separator">|</span>
-                <!-- Autenticação (Entrar / Sair) -->
 
+                <!-- Autenticação (Entrar / Sair) -->
                 {% if user.is_authenticated %}
-                    <span class="separator">|</span>
                     <form method="post" action="{% url 'logout' %}" class="logout-form">
                         {% csrf_token %}
                         <button type="submit" class="btn-logout">Sair</button>
                     </form>
-
                 {% else %}
-                    <span class="separator">|</span>
                     <a href="{% url 'login' %}">Entrar</a>
                 {% endif %}
 
-                <span class="separator">|</span>
-
-                <button id="theme-toggle" class="theme-switch" type="button" aria-label="Alternar modo escuro" title="Alternar modo escuro">
+                <!-- Switch de tema antigo -->
+                <button id="theme-toggle" class="theme-switch" type="button" aria-label="Alternar tema" title="Alternar tema">
                     <span class="switch-icon">☀︎</span>
                     <span class="switch-ball"></span>
                     <span class="switch-icon">☾</span>
                 </button>
                 
-                <span class="separator">|</span>
+                <!-- Link BrIAn / IA -->
                 <a href="{% url 'ia_chat' %}" class="nav-ia-link">BrIAn</a>
-
             </nav>
 
         </div>
-
     </header>
 
-
-
-        <main class="container {% block container_class %}{% endblock %}">
+    <main class="container {% block container_class %}{% endblock %}">
         {% block content %}{% endblock %}
     </main>
-
-
+</body>
 
 <footer class="footer">
   <div class="footer-container">
