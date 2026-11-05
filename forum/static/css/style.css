@@ -354,94 +354,35 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .switch-link a { color: var(--link); font-weight: 600; text-decoration: none; }
 .switch-link a:hover { text-decoration: underline; }
 
-/* ==========================================================================
-   Grid dos Integrantes
-   ========================================================================== */
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-    margin-top: 20px;
-}
-
+/* ===== EQUIPE E FEEDBACKS ===== */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 20px; }
 .team-card {
-    background: var(--card-bg);
+    background: var(--bg-body);
     border: 1px solid var(--border-color);
+    border-top: 3px solid var(--brand);
     border-radius: var(--radius);
     padding: 20px;
-    text-align: left;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
-    border-top: 3px solid var(--primary-blue);
 }
+.team-card:hover { box-shadow: var(--shadow-md); }
+.team-card h3 { font-size: var(--fs-h4); color: var(--text-primary); margin-bottom: 4px; }
+.team-card p { font-size: var(--fs-body-sm); color: var(--text-secondary); }
 
-.team-card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--border-color);
-    border-top-color: var(--accent-blue);
-}
-
-.team-card h3 {
-    font-size: 1.05rem;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-    font-weight: 700;
-}
-
-.team-card p {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-}
-
-.feedback-form {
-    margin-top: 16px;
-}
-
-.feedback-list {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
+.feedback-form { margin-top: 16px; }
+.feedback-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
 .feedback-item {
-    background: var(--card-bg);
+    background: var(--bg-body);
     border: 1px solid var(--border-color);
-    border-left: 3px solid var(--primary-blue);
+    border-left: 3px solid var(--brand);
     border-radius: var(--radius);
     padding: 16px 18px;
     box-shadow: var(--shadow-sm);
-    transition: var(--transition);
 }
-
-.feedback-item:hover {
-    box-shadow: var(--shadow-md);
-}
-
-.feedback-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.feedback-header strong {
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-.feedback-date {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-.feedback-text {
-    color: var(--text-secondary);
-    line-height: 1.55;
-    word-break: break-word;
-    font-size: 0.92rem;
-}
+.feedback-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.feedback-header strong { color: var(--text-primary); font-size: var(--fs-body); }
+.feedback-date { font-size: 0.8rem; color: var(--text-muted); }
+.feedback-text { color: var(--text-secondary); line-height: 1.55; word-break: break-word; font-size: var(--fs-body-sm); }
 
 /* ==========================================================================
    Rodapé
