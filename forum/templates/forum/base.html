@@ -9,8 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}BrIAn{% endblock %}</title>
 
-    <!-- Incrementado para ?v=4.0 para carregar os novos estilos do switch -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=4.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&family=Courier+Prime:wght@400;700&family=Momo+Trust+Display&family=Momo+Trust+Sans&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.0">
 
     <!-- Aplica o tema salvo antes de renderizar a página (evita tela branca rápida) -->
     <script>
