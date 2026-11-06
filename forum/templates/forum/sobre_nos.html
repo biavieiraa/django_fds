@@ -1,74 +1,144 @@
-
 {% extends 'forum/base.html' %}
 
 {% block title %}Fale Conosco - BrIAn{% endblock %}
 {% block container_class %}container--slim{% endblock %}
 
 {% block content %}
-<div class="card text-content" style="margin-bottom: 30px;">
-    <h2>Nossa equipe</h2>
-    
 
-    <div class="team-grid">
-        <div class="team-card">
-            <h3>Beatriz Vieira</h3>
-            <p>bvot@cesar.school</p>
-        </div>
-        <div class="team-card">
-            <h3>Bryan Martins</h3>
-            <p>bmp@cesar.school</p>
-        </div>
-        <div class="team-card">
-            <h3>Gabriella Lima</h3>
-            <p>gla3@cesar.school</p>
-        </div>
-        <div class="team-card">
-            <h3>Gustavo Cavalcanti</h3>
-            <p>gcnf@cesar.school</p>
-        </div>
-        <div class="team-card">
-            <h3>Isabel Lucena</h3>
-            <p>ial2@cesar.school</p>
-        </div>
-        <div class="team-card">
-            <h3>João Henrique</h3>
-            <p>jhmra@cesar.school</p>
-        </div>
-        <div class="team-card">
-            <h3>Heitor Villa-chan</h3>
-            <p>hvccp@cesar.school</p>
-        </div>
-                <div class="team-card">
-            <h3>Bianca Ávila</h3>
-            <p>bgap@cesar.school</p>
-        </div>
-                <div class="team-card">
-            <h3>Gabriela Cardoso</h3>
-            <p>gasc@cesar.school</p>
-        </div>
-                <div class="team-card">
-            <h3>Sophia Coutinho</h3>
-            <p>scl2@cesar.school</p>
-        </div>
+<!-- ========== TOPO ========== -->
+<section class="equipe-topo">
+    <div class="equipe-topo__texto">
+        <h1>Essa é a equipe que faz o BRIAN funcionar</h1>
+        <p>
+            Somos uma equipe de estudantes de ciência da computação e de design,
+            abertos a projetos e feedbacks sobre o BRIAN.
+        </p>
     </div>
-</div>
 
-<div class="card text-content">
-    <h2>Feedbacks</h2>
-    <p>Deixe aqui a sua opinião, dúvida ou sugestão para a nossa equipe!</p>
+    <!-- Quando tiverem a foto da equipe, troque este bloco por uma tag img usando static -->
+    <div class="equipe-topo__midia" aria-hidden="true">
+        <svg viewBox="0 0 120 120" class="equipe-topo__icone">
+            <circle cx="40" cy="44" r="14" />
+            <circle cx="80" cy="44" r="14" />
+            <path d="M14 96c4-18 16-26 26-26s22 8 26 26" />
+            <path d="M54 96c4-18 16-26 26-26s22 8 26 26" />
+        </svg>
+    </div>
+</section>
 
-    <form method="post" action="{% url 'sobre_nos' %}" class="feedback-form">
+<!-- ========== MEMBROS ========== -->
+<section class="equipe-membros">
+    <div class="equipe-circulo equipe-circulo--rosa" aria-hidden="true"></div>
+    <div class="equipe-circulo equipe-circulo--roxo" aria-hidden="true"></div>
+
+    <h2 class="equipe-titulo">Conheça cada membro</h2>
+
+    <div class="membros-grid">
+        <article class="membro">
+            <div class="membro__foto membro__foto--laranja" aria-hidden="true">BV</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Beatriz Vieira</h3>
+                <a href="mailto:bvot@cesar.school">bvot@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--roxo" aria-hidden="true">BM</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Bryan Martins</h3>
+                <a href="mailto:bmp@cesar.school">bmp@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--laranja" aria-hidden="true">GL</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Gabriella Lima</h3>
+                <a href="mailto:gla3@cesar.school">gla3@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--roxo" aria-hidden="true">GC</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Gustavo Cavalcanti</h3>
+                <a href="mailto:gcnf@cesar.school">gcnf@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--laranja" aria-hidden="true">IL</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Isabel Lucena</h3>
+                <a href="mailto:ial2@cesar.school">ial2@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--roxo" aria-hidden="true">JH</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>João Henrique</h3>
+                <a href="mailto:jhmra@cesar.school">jhmra@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--laranja" aria-hidden="true">HV</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Heitor Villa-chan</h3>
+                <a href="mailto:hvccp@cesar.school">hvccp@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--roxo" aria-hidden="true">BÁ</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Bianca Ávila</h3>
+                <a href="mailto:bgap@cesar.school">bgap@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--laranja" aria-hidden="true">GC</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Gabriela Cardoso</h3>
+                <a href="mailto:gasc@cesar.school">gasc@cesar.school</a>
+            </div>
+        </article>
+
+        <article class="membro">
+            <div class="membro__foto membro__foto--roxo" aria-hidden="true">SC</div>
+            <div class="membro__corpo">
+                <span class="membro__curso">ciência da computação</span>
+                <h3>Sophia Coutinho</h3>
+                <a href="mailto:scl2@cesar.school">scl2@cesar.school</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- ========== FEEDBACKS ========== -->
+<section class="equipe-feedback">
+    <h2 class="equipe-titulo">Feedbacks</h2>
+    <p class="equipe-intro">Deixe aqui a sua opinião, dúvida ou sugestão para a nossa equipe!</p>
+
+    <form method="post" action="{% url 'sobre_nos' %}" class="equipe-form">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="mensagem">Sua Mensagem / Opinião:</label>
-            <textarea name="mensagem" id="mensagem" rows="4" class="form-control" placeholder="Escreva o que achou do site ou deixe sua sugestão..." required></textarea>
-        </div>
-        <button type="submit" class="btn-primary" style="width: auto; padding: 10px 24px;">Enviar Feedback</button>
+        <label for="mensagem" class="equipe-sr">Sua mensagem</label>
+        <textarea name="mensagem" id="mensagem" rows="6" class="form-control" placeholder="Escreva aqui sua dúvida, sugestão, pedido, etc..." required></textarea>
+        <button type="submit" class="equipe-btn equipe-btn--cheio equipe-form__enviar">Enviar</button>
     </form>
 
-    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #e2e8f0;">
-
-    <h3>Opiniões e Feedbacks Enviados</h3>
+    <h3 class="equipe-feedback__subtitulo">Opiniões e feedbacks enviados</h3>
     <div class="feedback-list">
         {% for fb in feedbacks %}
             <div class="feedback-item">
@@ -84,8 +154,307 @@
                 </div>
                 <p class="feedback-text">{{ fb.mensagem }}</p>
             </div>
-        
+        {% empty %}
+            <p class="equipe-intro">Ainda não há feedbacks. Seja o primeiro a deixar o seu!</p>
         {% endfor %}
     </div>
-</div>
+</section>
+
+<!-- ========== FINAL ========== -->
+<section class="equipe-final">
+    <h2 class="equipe-titulo">Veja o nosso projeto!</h2>
+    <p class="equipe-intro">
+        Fornecemos um chat de IA contextualizado com os seus serviços, métricas, orçamentos
+        e produtos. Tudo isso disponível para seu potencial cliente entender melhor a
+        proposta de valor da sua empresa.
+    </p>
+    <div class="equipe-final__botoes">
+        <a href="{% url 'ia_chat' %}" class="equipe-btn equipe-btn--cheio">Teste o BRIAN</a>
+        <a href="https://www.bzutech.com.br/" class="equipe-btn equipe-btn--contorno" target="_blank" rel="noopener">Site da Bzu</a>
+    </div>
+</section>
+
+<style>
+    /* Usa as variáveis do style.css (cores, fontes e modo escuro já vêm de lá) */
+
+    /* ---------- Títulos e textos ---------- */
+    .equipe-titulo {
+        color: var(--laranja-700);
+        margin-bottom: 12px;
+    }
+
+    [data-theme="dark"] .equipe-titulo {
+        color: var(--laranja-300);
+    }
+
+    .equipe-intro {
+        max-width: 70ch;
+        color: var(--text-secondary);
+        line-height: var(--lh-body);
+    }
+
+    .equipe-sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    /* ---------- Topo ---------- */
+    .equipe-topo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 48px;
+    }
+
+    .equipe-topo__texto h1 {
+        color: var(--text-primary);
+        margin-bottom: 16px;
+    }
+
+    .equipe-topo__texto p {
+        color: var(--text-secondary);
+        max-width: 50ch;
+    }
+
+    .equipe-topo__midia {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 16 / 10;
+        background: var(--laranja-500);
+        border-radius: var(--radius);
+    }
+
+    .equipe-topo__midia img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--radius);
+    }
+
+    .equipe-topo__icone {
+        width: 34%;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 6;
+        stroke-linecap: round;
+    }
+
+    /* ---------- Membros ---------- */
+    .equipe-membros {
+        position: relative;
+        margin-top: 120px;
+    }
+
+    .equipe-membros > *:not(.equipe-circulo) {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Círculos decorativos do fundo */
+    .equipe-circulo {
+        position: absolute;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .equipe-circulo--rosa {
+        right: -12%;
+        top: -60px;
+        width: 620px;
+        background: var(--laranja-100);
+        opacity: 0.8;
+    }
+
+    .equipe-circulo--roxo {
+        left: -8%;
+        bottom: -80px;
+        width: 280px;
+        background: var(--roxo-200);
+    }
+
+    [data-theme="dark"] .equipe-circulo--rosa { background: var(--laranja-900); }
+    [data-theme="dark"] .equipe-circulo--roxo { background: var(--roxo-600); }
+
+    .membros-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 32px;
+    }
+
+    .membro {
+        background: var(--bg-body);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        transition: var(--transition);
+    }
+
+    .membro:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
+    }
+
+    /* Área da foto: mostra as iniciais até colocarem as fotos */
+    .membro__foto {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 16 / 9;
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 40px;
+        letter-spacing: 2px;
+    }
+
+    .membro__foto--laranja { background: var(--laranja-500); }
+    .membro__foto--roxo { background: var(--roxo-600); }
+
+    .membro__foto img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .membro__corpo {
+        padding: 16px 20px 20px;
+    }
+
+    .membro__curso {
+        display: block;
+        font-family: "Courier Prime", monospace;
+        font-size: 13px;
+        color: var(--laranja-500);
+        margin-bottom: 4px;
+    }
+
+    .membro__corpo h3 {
+        font-size: var(--fs-h4);
+        color: var(--text-primary);
+        margin-bottom: 6px;
+    }
+
+    .membro__corpo a {
+        font-size: var(--fs-body-sm);
+        color: var(--text-muted);
+        text-decoration: none;
+        word-break: break-all;
+    }
+
+    .membro__corpo a:hover {
+        color: var(--link);
+        text-decoration: underline;
+    }
+
+    /* ---------- Feedbacks ---------- */
+    .equipe-feedback {
+        margin-top: 140px;
+    }
+
+    .equipe-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 420px;
+        margin: 32px auto 0;
+    }
+
+    .equipe-form textarea {
+        min-height: 160px;
+    }
+
+    .equipe-form__enviar {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .equipe-feedback__subtitulo {
+        margin-top: 56px;
+        font-size: var(--fs-h4);
+        color: var(--text-primary);
+    }
+
+    /* ---------- Final ---------- */
+    .equipe-final {
+        margin-top: 140px;
+    }
+
+    .equipe-final__botoes {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 32px;
+    }
+
+    /* ---------- Botões ---------- */
+    .equipe-btn {
+        display: inline-block;
+        min-width: 150px;
+        padding: 11px 24px;
+        font-family: var(--font-button);
+        font-size: var(--btn-fs);
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .equipe-btn--cheio {
+        background: var(--brand);
+        border: 2px solid var(--brand);
+        border-radius: var(--btn-radius-primary);
+        color: #fff;
+    }
+
+    .equipe-btn--cheio:hover {
+        background: var(--brand-hover);
+        border-color: var(--brand-hover);
+    }
+
+    .equipe-btn--contorno {
+        background: transparent;
+        border: 2px solid var(--roxo-600);
+        border-radius: var(--btn-radius-secondary);
+        color: var(--roxo-600);
+    }
+
+    .equipe-btn--contorno:hover {
+        background: var(--roxo-600);
+        color: #fff;
+    }
+
+    [data-theme="dark"] .equipe-btn--contorno {
+        border-color: var(--roxo-200);
+        color: var(--roxo-200);
+    }
+
+    [data-theme="dark"] .equipe-btn--contorno:hover {
+        background: var(--roxo-200);
+        color: var(--roxo-900);
+    }
+
+    /* ---------- Tablet ---------- */
+    @media (max-width: 900px) {
+        .equipe-topo { grid-template-columns: 1fr; }
+        .membros-grid { grid-template-columns: repeat(2, 1fr); }
+        .equipe-circulo--rosa { width: 400px; }
+    }
+
+    /* ---------- Celular ---------- */
+    @media (max-width: 640px) {
+        .membros-grid { grid-template-columns: 1fr; }
+        .equipe-membros { margin-top: 80px; }
+        .equipe-feedback, .equipe-final { margin-top: 90px; }
+        .equipe-circulo--roxo { width: 160px; }
+    }
+</style>
+
 {% endblock %}

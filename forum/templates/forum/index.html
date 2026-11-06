@@ -1,4 +1,3 @@
-
 {% extends 'forum/base.html' %}
 {% load static %}
 
@@ -56,119 +55,344 @@
 
 </section>
 
-<!-- SECÇÃO DOS 3 PILARES DO IOT CONSCIENTE -->
-<div class="iot-container">
-    <h2 class="iot-main-title">Como Funciona o Ciclo de Inteligência em IoT</h2>
+<style>
+    /* ---------- Cores (modo claro, como no Figma) ---------- */
+    .brian-hero {
+        --brian-fundo: #f6f0f8;
+        --brian-titulo: #b5381c;
+        --brian-texto: #4a4453;
+        --brian-frase: #1d1a22;
+        --brian-rosa: #f6cfc5;
+        --brian-rosa-texto: #b5381c;
+        --brian-roxo: #ad7fb3;
+        --brian-roxo-texto: #4e0f5e;
+        --brian-laranja: #e04e22;
+        --brian-laranja-hover: #c7411a;
+        --brian-contorno: #5b1a6b;
 
-    <!-- GRELHA DO CICLO DE INTELIGÊNCIA -->
-    <div class="iot-grid-cycle">
+        background: var(--brian-fundo);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        padding: 40px;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
 
-        <!-- CARD 1: CAPTAÇÃO -->
-        <div class="iot-card">
-            <div class="iot-card-body">
-                <div class="iot-card-icon">📡</div>
-                <h3 class="iot-card-title">1. Captação de Dados</h3>
-                <p class="iot-card-desc">
-                    Dispositivos e sensores inteligentes recolhem continuamente variáveis do ambiente e de equipamentos sem necessidade de intervenção humana.
-                </p>
-                <ul class="iot-card-list">
-                    <li><strong>Leitura de Sensores:</strong> Monitorização de temperatura, humidade, pressão e vibração.</li>
-                    <li><strong>Medição Energética:</strong> Registo de voltagem e picos de consumo elétrico.</li>
-                    <li><strong>Conectividade:</strong> Envio seguro através de redes Wi-Fi, 5G ou LoRaWAN.</li>
-                </ul>
-            </div>
-            <div class="iot-card-footer">
-                ✔ Fase de Recolha Bruta
-            </div>
-        </div>
+    /* ---------- Cores (modo escuro, segue o botão ☀︎/☾) ---------- */
+    [data-theme="dark"] .brian-hero {
+        --brian-fundo: var(--card-bg);
+        --brian-titulo: #ff7a52;
+        --brian-texto: #cbd5e1;
+        --brian-frase: #f8fafc;
+        --brian-rosa: #5a2b24;
+        --brian-rosa-texto: #ffb8a3;
+        --brian-roxo: #4b2e55;
+        --brian-roxo-texto: #ecc9f3;
+        --brian-laranja: #e8572b;
+        --brian-laranja-hover: #ff6a3a;
+        --brian-contorno: #d6a6de;
+    }
 
-        <!-- CARD 2: INTERPRETAÇÃO -->
-        <div class="iot-card">
-            <div class="iot-card-body">
-                <div class="iot-card-icon">📊</div>
-                <h3 class="iot-card-title">2. Interpretação & Análise</h3>
-                <p class="iot-card-desc">
-                    A plataforma centraliza o fluxo de dados brutos e converte estatísticas complexas em relatórios visuais claros e acionáveis.
-                </p>
-                <ul class="iot-card-list">
-                    <li><strong>Dashboards Interativos:</strong> Gráficos em tempo real com métricas consolidadas.</li>
-                    <li><strong>Análise Preditiva:</strong> Identificação de anomalias antes que ocorram falhas.</li>
-                    <li><strong>Alertas Automáticos:</strong> Notificações instantâneas sobre desvios de padrão.</li>
-                </ul>
-            </div>
-            <div class="iot-card-footer">
-                ✔ Transformação em Informação
-            </div>
-        </div>
+    /* ---------- Introdução ---------- */
+    .brian-hero-intro h2 {
+        color: var(--brian-titulo);
+        font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 12px;
+    }
 
-        <!-- CARD 3: AÇÃO CONSCIENTE -->
-        <div class="iot-card">
-            <div class="iot-card-body">
-                <div class="iot-card-icon">💡</div>
-                <h3 class="iot-card-title">3. Ação Consciente</h3>
-                <p class="iot-card-desc">
-                    Com base nos relatórios gerados, os gestores tomam decisões estratégicas que otimizam a operação e promovem a sustentabilidade.
-                </p>
-                <ul class="iot-card-list">
-                    <li><strong>Redução de Custos:</strong> Diminuição substancial na manutenção corretiva.</li>
-                    <li><strong>Eficiência Energética:</strong> Eliminação de desperdícios operacionais.</li>
-                    <li><strong>Decisões Fatuais:</strong> Fim da gestão baseada em estimativas sem dados.</li>
-                </ul>
-            </div>
-            <div class="iot-card-footer iot-footer-success">
-                ✔ Impacto e Otimização Real
-            </div>
-        </div>
+    .brian-hero-intro p {
+        color: var(--brian-texto);
+        line-height: 1.6;
+        max-width: 70ch;
+    }
 
-    </div>
+    /* ---------- Área dos balões: um embaixo do outro ---------- */
+    .brian-chat-animation {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;          /* espaço igual entre os balões */
+        margin-top: 40px;
+        padding: 0 8%;      /* mesma distância das bordas esquerda e direita */
+    }
 
-    <!-- SECÇÃO 2: APLICAÇÕES PRÁTICAS -->
-    <section class="iot-section">
-        <h2 class="iot-section-title">O IoT na Prática: Impacto em Diferentes Setores</h2>
-        <p class="iot-section-desc">
-            Veja como o monitoramento inteligente e a interpretação de dados transformam realidades operacionais:
-        </p>
+    .floating-bubble {
+        width: clamp(180px, 28vw, 260px);
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+        padding: 0 32px;
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        font-weight: 700;
+        line-height: 1.35;
+        opacity: 0;
+        transform: scale(0);
+    }
 
-        <div class="iot-grid-apps">
+    /* Bloco de texto dentro do balão (mantém os espaços entre as palavras) */
+    .floating-bubble .bolha-conteudo {
+        display: block;
+        width: 100%;
+    }
 
-            <!-- Card 1 -->
-            <div class="iot-card iot-card-compact">
-                <div class="iot-card-icon">🏭</div>
-                <h3 class="iot-card-title">Indústria 4.0</h3>
-                <p class="iot-card-desc">
-                    Sensores em máquinas alertam sobre vibrações anómalas e aquecimento, evitando paragens não planeadas na linha de produção.
-                </p>
-            </div>
+    /* Balões rosa: à esquerda, canto reto embaixo à esquerda */
+    .bubble-left,
+    .bubble-left-second {
+        align-self: flex-start;
+        background: var(--brian-rosa);
+        color: var(--brian-rosa-texto);
+        border-radius: 50% 50% 50% 0;
+        transform-origin: bottom left;
+        --desloc: 120%;
+    }
 
-            <!-- Card 2 -->
-            <div class="iot-card iot-card-compact">
-                <div class="iot-card-icon">⚡</div>
-                <h3 class="iot-card-title">Gestão de Energia</h3>
-                <p class="iot-card-desc">
-                    Mapeamento de consumo elétrico em tempo real para desligar automação ociosa e reduzir a pegada de carbono.
-                </p>
-            </div>
+    /* Balão roxo: à direita, canto reto embaixo à direita */
+    .bubble-right {
+        align-self: flex-end;
+        background: var(--brian-roxo);
+        color: var(--brian-roxo-texto);
+        border-radius: 50% 50% 0 50%;
+        transform-origin: bottom right;
+        --desloc: -120%;
+    }
 
-            <!-- Card 3 -->
-            <div class="iot-card iot-card-compact">
-                <div class="iot-card-icon">🌱</div>
-                <h3 class="iot-card-title">Agronegócio Inteligente</h3>
-                <p class="iot-card-desc">
-                    Medição de humidade e nutrientes do solo para irrigação precisa, economizando água e melhorando a colheita.
-                </p>
-            </div>
+    /* Entrada: começa pequeno, deslocado, e cresce até o lugar */
+    .floating-bubble.is-entrando {
+        animation: bolha-entra 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+    }
 
-            <!-- Card 4 -->
-            <div class="iot-card iot-card-compact">
-                <div class="iot-card-icon">🏥</div>
-                <h3 class="iot-card-title">Saúde & Cadeia de Frio</h3>
-                <p class="iot-card-desc">
-                    Controlo rigoroso de temperatura no armazenamento de vacinas e medicamentos com alertas instantâneos de falha.
-                </p>
-            </div>
+    @keyframes bolha-entra {
+        0%   { opacity: 0; transform: translateX(var(--desloc)) scale(0.2); }
+        30%  { opacity: 1; }
+        100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
 
-        </div>
-    </section>
-</div>
+    /* Saída: encolhe e some */
+    .floating-bubble.is-saindo {
+        animation: bolha-sai 0.4s ease forwards;
+    }
+
+    @keyframes bolha-sai {
+        from { opacity: 1; transform: scale(1); }
+        to   { opacity: 0; transform: scale(0.6); }
+    }
+
+    /* Letras aparecendo uma a uma */
+    .floating-bubble .palavra {
+        white-space: nowrap;
+    }
+
+    .floating-bubble .letra {
+        opacity: 0;
+        animation: letra-aparece 0.25s ease forwards;
+        animation-delay: calc(500ms + var(--i) * 50ms);
+    }
+
+    @keyframes letra-aparece {
+        to { opacity: 1; }
+    }
+
+    /* ---------- Frase com palavra trocando ---------- */
+    .brian-hero-final {
+        margin-top: 24px;
+        padding: 40px 0 8px;
+        text-align: center;
+    }
+
+    .brian-hero-final h2 {
+        color: var(--brian-frase);
+        font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        line-height: 1.3;
+    }
+
+    .changing-words {
+        display: inline-grid;
+        justify-items: start;
+        vertical-align: bottom;
+        overflow: hidden;
+        text-align: left;
+    }
+
+    .changing-words span {
+        grid-area: 1 / 1;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .changing-words span:nth-child(odd)  { color: var(--brian-laranja); }
+    .changing-words span:nth-child(even) { color: var(--brian-roxo-texto); }
+
+    .changing-words span.is-ativa {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .changing-words span.is-saindo {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    /* ---------- Botões ---------- */
+    .brian-hero-buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 32px;
+    }
+
+    .brian-btn-primary,
+    .brian-btn-secondary {
+        display: inline-block;
+        min-width: 150px;
+        padding: 12px 24px;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .brian-btn-primary {
+        background: var(--brian-laranja);
+        border: 2px solid var(--brian-laranja);
+        color: #ffffff;
+    }
+
+    .brian-btn-primary:hover {
+        background: var(--brian-laranja-hover);
+        border-color: var(--brian-laranja-hover);
+    }
+
+    .brian-btn-secondary {
+        background: transparent;
+        border: 2px solid var(--brian-contorno);
+        color: var(--brian-contorno);
+    }
+
+    .brian-btn-secondary:hover {
+        background: var(--brian-contorno);
+        color: var(--brian-fundo);
+    }
+
+    /* ---------- Celular ---------- */
+    @media (max-width: 700px) {
+        .brian-hero { padding: 28px 20px; }
+        .brian-chat-animation { padding: 0; gap: 20px; }
+        .floating-bubble { padding: 0 22px; }
+    }
+</style>
+
+<script>
+(function () {
+    const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    /* ---------- Pop-up dos balões ---------- */
+    const bolhas = Array.from(document.querySelectorAll('.brian-chat-animation .floating-bubble'));
+
+    // Guarda o texto original de cada balão
+    bolhas.forEach((b) => {
+        b.dataset.texto = b.textContent.trim();
+        b.textContent = '';
+    });
+
+    // Quebra o texto em letras, agrupadas por palavra
+    function prepararTexto(bolha) {
+        bolha.textContent = '';
+
+        // Um único elemento dentro do balão, para os espaços não sumirem
+        const conteudo = document.createElement('span');
+        conteudo.className = 'bolha-conteudo';
+        bolha.appendChild(conteudo);
+
+        const palavras = bolha.dataset.texto.split(' ');
+        let i = 0;
+
+        palavras.forEach((palavra, indice) => {
+            const spanPalavra = document.createElement('span');
+            spanPalavra.className = 'palavra';
+
+            for (const caractere of palavra) {
+                const letra = document.createElement('span');
+                letra.className = 'letra';
+                letra.style.setProperty('--i', i++);
+                letra.textContent = caractere;
+                spanPalavra.appendChild(letra);
+            }
+
+            conteudo.appendChild(spanPalavra);
+            if (indice < palavras.length - 1) {
+                conteudo.appendChild(document.createTextNode(' '));
+                i++;
+            }
+        });
+
+        return i;
+    }
+
+    async function rodarBolhas() {
+        if (!bolhas.length) return;
+
+        while (true) {
+            // Mostra um balão de cada vez, e eles ficam na tela
+            for (const bolha of bolhas) {
+                const totalLetras = prepararTexto(bolha);
+
+                bolha.classList.remove('is-saindo');
+                void bolha.offsetWidth;
+                bolha.classList.add('is-entrando');
+
+                // tempo de crescer + digitar + pequena pausa antes do próximo
+                await esperar(600 + totalLetras * 50 + 600);
+            }
+
+            // Com todos na tela, espera um pouco
+            await esperar(2500);
+
+            // Todos somem juntos
+            bolhas.forEach((b) => {
+                b.classList.remove('is-entrando');
+                b.classList.add('is-saindo');
+            });
+            await esperar(600);
+            bolhas.forEach((b) => b.classList.remove('is-saindo'));
+        }
+    }
+
+    const area = document.querySelector('.brian-chat-animation');
+    if (area) {
+        const observador = new IntersectionObserver((entradas) => {
+            if (entradas[0].isIntersecting) {
+                observador.disconnect();
+                rodarBolhas();
+            }
+        }, { threshold: 0.2 });
+        observador.observe(area);
+    }
+
+    /* ---------- Palavra trocando ---------- */
+    const palavras = document.querySelectorAll('.changing-words span');
+
+    if (palavras.length) {
+        let atual = 0;
+        palavras[0].classList.add('is-ativa');
+
+        setInterval(() => {
+            const saindo = palavras[atual];
+            atual = (atual + 1) % palavras.length;
+            const entrando = palavras[atual];
+
+            saindo.classList.remove('is-ativa');
+            saindo.classList.add('is-saindo');
+            entrando.classList.add('is-ativa');
+
+            setTimeout(() => saindo.classList.remove('is-saindo'), 550);
+        }, 2500);
+    }
+})();
+</script>
 
 {% endblock %}
