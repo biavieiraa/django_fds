@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&family=Courier+Prime:wght@400;700&family=Momo+Trust+Display&family=Momo+Trust+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.1">
 
     <!-- Aplica o tema salvo antes de renderizar a página (evita tela branca rápida) -->
     <script>
@@ -29,34 +29,46 @@
     <header class="header">
         <div class="header-container">
             <h1>BrIAn</h1>
-
-            <!-- Links de navegação e ações centralizadas/direita -->
             <nav class="nav">
-                <a href="{% url 'index' %}">Início</a>
-                <a href="{% url 'sobre_empresa' %}">Sobre a Empresa</a>
-                <a href="{% url 'sobre_nos' %}">Fale Conosco</a>
-
-                <!-- Autenticação (Entrar / Sair) -->
-                {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'logout' %}" class="logout-form">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-logout">Sair</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}">Entrar</a>
-                {% endif %}
-
-                <!-- Switch de tema antigo -->
+                {% url 'index' as url_index %}
+                {% url 'sobre_empresa' as url_empresa %}
+                {% url 'sobre_nos' as url_contato %}
+                
+                <div class="nav-links">
+                    <a href="{{ url_index }}" {% if request.path == url_index %}class="active"{% endif %}>Início</a>
+                    <a href="{{ url_empresa }}" {% if request.path == url_empresa %}class="active"{% endif %}>Sobre a Bzu</a>
+                    <a href="{{ url_contato }}" {% if request.path == url_contato %}class="active"{% endif %}>Fale Conosco</a>
+                </div>
+                
                 <button id="theme-toggle" class="theme-switch" type="button" aria-label="Alternar tema" title="Alternar tema">
-                    <span class="switch-icon">☀︎</span>
                     <span class="switch-ball"></span>
-                    <span class="switch-icon">☾</span>
                 </button>
                 
-                <!-- Link BrIAn / IA -->
-                <a href="{% url 'ia_chat' %}" class="nav-ia-link">BrIAn</a>
-            </nav>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-entrar"><span>Sair</span></button>
+                </form>
+                {% else %}
+                <a href="{% url 'login' %}" class="nav-entrar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 7.13193V6.61204C7 4.46614 7 3.3932 7.6896 2.79511C8.37919 2.19703 9.44136 2.34877 11.5657 2.65224L15.8485 3.26408C18.3047 3.61495 19.5327 3.79039 20.2664 4.63628C21 5.48217 21 6.72271 21 9.20377V14.7962C21 17.2773 21 18.5178 20.2664 19.3637C19.5327 20.2096 18.3047 20.385 15.8485 20.7359L11.5657 21.3478C9.44136 21.6512 8.37919 21.803 7.6896 21.2049C7  twenty-one .6068   seven .5339   seven .388V seventeen .066" stroke-width=" twenty-one " stroke="currentColor"/>
+                        <path d="M16 12L16.7809 11.3753L17.2806 12L16.7809 12.6247L16 12ZM4 13C3.44771 13 3 12.5523 3 12C3 11.4477 3.44771 11 4 11V12V13ZM12 7L12.7809 6.3753L16.7809 11.3753L16 12L15.2191 12.6247L11.2191 7.6247L12 7ZM16 12L16.7809 12.6247L12.7809 17.6247L12 17L11.2191 16.3753L15.2191 11.3753L16 12ZM16 12V13H4V12V11H16V12Z" fill="currentColor"/>
+                    </svg>
+                    <span>Entrar</span>
+                </a>
+                {% endif %}
 
+                <a href="{% url 'ia_chat' %}" class="brian-btn" aria-label="Abrir chat do BrIAn">
+                    <span class="pilula">
+                    <svg class="icone" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 17.5C0 7.83502 7.83502 0 17.5 0C27.165 0 35 7.83502 35 17.5C35 27.165 27.165 35 17.5 35H0V17.5Z" fill="#F25C27"/>
+                        <path d="M35 24.5C35 20.9101 32.0899 18 28.5 18C24.9101 18 22 20.9101 22 24.5C22 28.0899 24.9101 31 28.5 31H35V24.5Z" fill="#2C2C2C"/>
+                    </svg>
+                    <span class="texto">BrIAn</span>
+                    </span>
+                </a>
+            </nav>
         </div>
     </header>
 
