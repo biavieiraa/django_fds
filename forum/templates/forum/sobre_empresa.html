@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block title %}Sobre a Empresa - BZU Tech{% endblock %}
-{% block container_class %}container--slim{% endblock %}
 
 {% block content %}
 <div class="card text-content">
@@ -12,7 +11,14 @@
 
 <section class="casos-bzu">
     <div class="card casos-bzu__cabecalho">
-        <h2>Experiências com a Bzu Tech</h2>
+        <h2>Quem já usa IoT com a BZU</h2>
+        <div class="text-content">
+            <p>
+                Sensores ligados à internet medem o que acontece num lugar, como temperatura,
+                umidade ou qualidade do ar, e mandam essas informações para uma tela em tempo real.
+                Veja como isso já funciona em empresas daqui de Pernambuco.
+            </p>
+        </div>
     </div>
 
     <article class="card caso-bzu">
@@ -32,7 +38,7 @@
 
     <article class="card caso-bzu">
         <div class="caso-bzu__imagem">
-            <img src="{% static 'lafepe.jpg' %}" alt="Logo da LAFEPE">
+            <img src="{% static 'lafepe.jpg' %}" alt="Logo do LAFEPE">
         </div>
         <div class="caso-bzu__texto text-content">
             <h3>LAFEPE</h3>
@@ -48,7 +54,7 @@
 
     <article class="card caso-bzu">
         <div class="caso-bzu__imagem">
-            <img src="{% static 'smartlet.jpg' %}" alt="Logo da Smartlet">
+            <img src="{% static 'smartlet.jpg' %}" alt="Smartlet no Recife Antigo">
         </div>
         <div class="caso-bzu__texto text-content">
             <h3>Smartlet</h3>
@@ -79,4 +85,79 @@
     </article>
 </section>
 
+<style>
+    /* Usa as variáveis do style.css do site, então troca sozinho no modo claro/escuro */
+    .casos-bzu {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 32px;
+    }
+
+    .casos-bzu__cabecalho p {
+        margin-bottom: 0;
+    }
+
+    .caso-bzu {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        padding: 24px;
+    }
+
+    /* A cada empresa, inverte: texto à esquerda, imagem à direita */
+    .caso-bzu:nth-of-type(even) {
+        flex-direction: row-reverse;
+    }
+
+    /* Imagem quadrada, ocupando o quadro inteiro */
+    .caso-bzu__imagem {
+        flex: 0 0 220px;
+        aspect-ratio: 1 / 1;
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .caso-bzu__imagem img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .caso-bzu__texto {
+        flex: 1;
+    }
+
+    .caso-bzu__texto h3 {
+        margin-bottom: 8px;
+        color: var(--primary-blue);
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        transition: color 0.3s ease;
+    }
+
+    .caso-bzu__texto p {
+        margin-bottom: 0;
+    }
+
+    /* No celular, empilha: imagem em cima, texto embaixo */
+    @media (max-width: 700px) {
+        .caso-bzu,
+        .caso-bzu:nth-of-type(even) {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+        }
+
+        .caso-bzu__imagem {
+            flex: none;
+            width: 100%;
+            max-width: 220px;
+            margin: 0 auto;
+        }
+    }
+</style>
 {% endblock %}
