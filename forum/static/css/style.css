@@ -1140,3 +1140,31 @@ body:has(.container--chat) { background-color: var(--chat-page-bg); }
 }
 .btn-quiz:hover { background: var(--brand-hover); }
 }
+
+/* ===== QUIZ DENTRO DO CHAT ===== */
+button.btn-quiz { width: 100%; border: none; cursor: pointer; font-family: inherit; }
+
+.quiz-chat-opcoes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+}
+.quiz-chat-opcao {
+    padding: 10px 16px;
+    background: var(--bg-body);
+    color: var(--text-primary);
+    border: 1px solid var(--brand);
+    border-radius: 18px;
+    font-family: inherit;
+    font-size: var(--fs-body-sm);
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.quiz-chat-opcao:hover { background: var(--brand); color: #fff; }
+
+.btn-attach:disabled,
+.btn-send-icon:disabled,
+.gemini-input-form input:disabled { opacity: 0.5; cursor: not-allowed; }
