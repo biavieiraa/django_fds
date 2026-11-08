@@ -23,7 +23,7 @@ def register(request):
         else:
             user = User.objects.create_user(username=usuario, password=senha)
             login(request, user)
-            return redirect('quiz')
+            return redirect('ia_chat')
 
     return render(request, 'forum/register.html', {'error': error})
 
@@ -122,6 +122,23 @@ def quiz(request):
     return render(request, "forum/quiz.html", contexto)
 
 
+@require_POST
+def quiz_enviar(request):
+    total = 0
+    for p in PERGUNTAS:
+        try:
+            total += p["opcoes"][int(request.POST.get(p["id"]))][1]
+        except (TypeError, ValueError, IndexError):
+            return JsonResponse({"erro": "Responda todas as perguntas."}, status=400)
+
+    perfil = calcular_perfil(total)
+    request.session["quiz_perfil"] = perfil
+    if request.user.is_authenticated:
+        QuizResultado.objects.create(usuario=request.user, pontuacao=total, perfil=perfil)
+
+    return JsonResponse({"perfil": perfil, **PERFIS_INFO[perfil]})
+
+
 @csrf_protect
 def ia_chat(request):
     if request.method == "POST":
@@ -180,6 +197,8 @@ def ia_chat(request):
         "conversa_atual_id": conversa.id if conversa else None,
         "perfil": perfil,
         "perfil_titulo": PERFIS_INFO.get(perfil, {}).get("titulo"),
+        "perguntas": _perguntas_para_template(),
+        "iniciar_quiz": perfil is None and not mensagens,
     })
 
 
