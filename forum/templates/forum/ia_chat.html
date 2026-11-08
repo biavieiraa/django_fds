@@ -14,6 +14,7 @@
             {% csrf_token %}
             <button type="submit" class="btn-new-chat">+ Nova conversa</button>
         </form>
+        <a href="{% url 'quiz' %}" class="btn-quiz">{% if perfil %}Seu perfil: {{ perfil_titulo }} · Refazer quiz{% else %}Fazer o quiz{% endif %}</a>
 
         <div class="sidebar-title">Histórico de conversas</div>
 
@@ -43,6 +44,11 @@
         <div class="message brian-message">
             <div class="message-bubble">Olá! Sou o BrIAn, assistente virtual da BZU Tech. Como posso te ajudar hoje?</div>
         </div>
+                {% if not perfil %}
+        <div class="message brian-message">
+            <div class="message-bubble">Antes de começarmos: que tal um quiz rápido de 6 perguntas? Assim eu adapto minhas explicações para você. <a href="{% url 'quiz' %}">Fazer o quiz</a></div>
+        </div>
+        {% endif %}
 
         {% for m in mensagens %}
         <div class="message {% if m.papel == 'user' %}user-message{% else %}brian-message{% endif %}">
