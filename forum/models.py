@@ -82,6 +82,7 @@ class QuizResultado(models.Model):
     pontuacao = models.PositiveIntegerField()
     perfil = models.CharField(max_length=20, choices=PERFIS)
     criado_em = models.DateTimeField(auto_now_add=True)
+    contexto = models.JSONField(default=dict, blank=True)
 
     class Meta:
         ordering = ["-criado_em"]
