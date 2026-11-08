@@ -5,8 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
-from .models import Feedback, Conversa, Mensagem
+from .models import Feedback, Conversa, Mensagem, QuizResultado
 from .services import chamar_claude, gerar_resposta_brian, ErroBrian
+from .quiz import PERGUNTAS, PERFIS_INFO, calcular_perfil
 
 
 def register(request):
@@ -22,7 +23,7 @@ def register(request):
         else:
             user = User.objects.create_user(username=usuario, password=senha)
             login(request, user)
-            return redirect('index')
+            return redirect('ia_chat')
 
     return render(request, 'forum/register.html', {'error': error})
 
@@ -79,6 +80,64 @@ def _conversa_ativa(request):
 
     return conversa
 
+def _perfil_atual(request):
+    """Perfil do quiz: último resultado no banco (logado) ou na sessão (visitante)."""
+    if request.user.is_authenticated:
+        ultimo = QuizResultado.objects.filter(usuario=request.user).first()
+        if ultimo:
+            return ultimo.perfil
+    return request.session.get("quiz_perfil")
+
+
+def _perguntas_para_template():
+    return [
+        {
+            "id": p["id"],
+            "texto": p["texto"],
+            "opcoes": [{"valor": i, "texto": texto} for i, (texto, _) in enumerate(p["opcoes"])],
+        }
+        for p in PERGUNTAS
+    ]
+
+
+def quiz(request):
+    contexto = {"perguntas": _perguntas_para_template()}
+
+    if request.method == "POST":
+        total = 0
+        for p in PERGUNTAS:
+            try:
+                total += p["opcoes"][int(request.POST.get(p["id"]))][1]
+            except (TypeError, ValueError, IndexError):
+                contexto["error"] = "Responda todas as perguntas para ver seu resultado."
+                return render(request, "forum/quiz.html", contexto)
+
+        perfil = calcular_perfil(total)
+        request.session["quiz_perfil"] = perfil
+        if request.user.is_authenticated:
+            QuizResultado.objects.create(usuario=request.user, pontuacao=total, perfil=perfil)
+
+        contexto["resultado"] = {"perfil": perfil, **PERFIS_INFO[perfil]}
+
+    return render(request, "forum/quiz.html", contexto)
+
+
+@require_POST
+def quiz_enviar(request):
+    total = 0
+    for p in PERGUNTAS:
+        try:
+            total += p["opcoes"][int(request.POST.get(p["id"]))][1]
+        except (TypeError, ValueError, IndexError):
+            return JsonResponse({"erro": "Responda todas as perguntas."}, status=400)
+
+    perfil = calcular_perfil(total)
+    request.session["quiz_perfil"] = perfil
+    if request.user.is_authenticated:
+        QuizResultado.objects.create(usuario=request.user, pontuacao=total, perfil=perfil)
+
+    return JsonResponse({"perfil": perfil, **PERFIS_INFO[perfil]})
+
 
 @csrf_protect
 def ia_chat(request):
@@ -99,7 +158,7 @@ def ia_chat(request):
                 historico.pop(0)  # a API exige começar por "user"
 
         try:
-            resposta = chamar_claude(user_message, arquivo, historico)
+            resposta = chamar_claude(user_message, arquivo, historico, _perfil_atual(request))
         except ErroBrian as e:
             return JsonResponse({"reply": str(e)})  # erro não vai pro histórico
         except Exception as e:
@@ -131,10 +190,15 @@ def ia_chat(request):
         Conversa.objects.filter(usuario=request.user).order_by("-atualizada_em")
         if request.user.is_authenticated else []
     )
+    perfil = _perfil_atual(request)
     return render(request, "forum/ia_chat.html", {
         "mensagens": mensagens,
         "conversas": conversas,
         "conversa_atual_id": conversa.id if conversa else None,
+        "perfil": perfil,
+        "perfil_titulo": PERFIS_INFO.get(perfil, {}).get("titulo"),
+        "perguntas": _perguntas_para_template(),
+        "iniciar_quiz": perfil is None and not mensagens,
     })
 
 

@@ -1,0 +1,46 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}BrIAn - Quiz{% endblock %}
+{% block container_class %}container--slim{% endblock %}
+
+{% block content %}
+<div class="quiz-wrapper">
+
+  {% if resultado %}
+    <div class="card quiz-resultado">
+      <p class="quiz-selo">Seu perfil</p>
+      <h2>{{ resultado.titulo }}</h2>
+      <p>{{ resultado.descricao }}</p>
+      <div class="quiz-acoes">
+        <a href="{% url 'ia_chat' %}" class="btn-primary quiz-btn">Conversar com o BrIAn</a>
+        <a href="{% url 'quiz' %}" class="btn-secondary quiz-btn">Refazer quiz</a>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="card">
+      <h2>Vamos te conhecer melhor</h2>
+      <p class="quiz-intro">São só 6 perguntas rápidas. Com as respostas, o BrIAn adapta a conversa para o seu nível de conhecimento em IoT.</p>
+
+      {% if error %}<div class="error-message">{{ error }}</div>{% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        {% for p in perguntas %}
+        <fieldset class="quiz-pergunta">
+          <legend>{{ forloop.counter }}. {{ p.texto }}</legend>
+          {% for o in p.opcoes %}
+          <label class="quiz-opcao">
+            <input type="radio" name="{{ p.id }}" value="{{ o.valor }}" required>
+            <span>{{ o.texto }}</span>
+          </label>
+          {% endfor %}
+        </fieldset>
+        {% endfor %}
+        <button type="submit" class="btn-primary">Ver meu resultado</button>
+      </form>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

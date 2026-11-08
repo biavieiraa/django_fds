@@ -14,6 +14,7 @@
             {% csrf_token %}
             <button type="submit" class="btn-new-chat">+ Nova conversa</button>
         </form>
+        <button type="button" id="btn-quiz" class="btn-quiz">{% if perfil %}Seu perfil: {{ perfil_titulo }} · Refazer quiz{% else %}Fazer o quiz{% endif %}</button>
 
         <div class="sidebar-title">Histórico de conversas</div>
 
@@ -43,6 +44,7 @@
         <div class="message brian-message">
             <div class="message-bubble">Olá! Sou o BrIAn, assistente virtual da BZU Tech. Como posso te ajudar hoje?</div>
         </div>
+
 
         {% for m in mensagens %}
         <div class="message {% if m.papel == 'user' %}user-message{% else %}brian-message{% endif %}">
@@ -270,6 +272,141 @@
     function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+</script>
+{{ perguntas|json_script:"quiz-perguntas" }}
+
+<script>
+(function () {
+    const PERGUNTAS = JSON.parse(document.getElementById('quiz-perguntas').textContent);
+    const QUIZ_URL = "{% url 'quiz_enviar' %}";
+    const AUTOMATICO = "{{ iniciar_quiz|yesno:'true,false' }}" === "true";
+    const btnQuiz = document.getElementById('btn-quiz');
+    const btnEnviar = chatForm.querySelector('.btn-send-icon');
+    const placeholderOriginal = userInput.placeholder;
+
+    let respostas = {};
+    let indice = 0;
+    let emAndamento = false;
+
+    function bloquearChat(bloquear) {
+        userInput.disabled = bloquear;
+        btnEnviar.disabled = bloquear;
+        btnAttach.disabled = bloquear;
+        userInput.placeholder = bloquear
+            ? 'Responda o quiz acima para continuar...'
+            : placeholderOriginal;
+    }
+
+    // Mensagem do BrIAn com botões de resposta
+    function mensagemComBotoes(texto, botoes) {
+        const msg = document.createElement('div');
+        msg.classList.add('message', 'brian-message');
+
+        const bolha = document.createElement('div');
+        bolha.classList.add('message-bubble');
+        bolha.textContent = texto;
+
+        const lista = document.createElement('div');
+        lista.classList.add('quiz-chat-opcoes');
+
+        botoes.forEach(function (b) {
+            const el = document.createElement('button');
+            el.type = 'button';
+            el.classList.add('quiz-chat-opcao');
+            el.textContent = b.texto;
+            el.addEventListener('click', function () {
+                lista.remove();
+                appendMessage(b.texto, 'user-message');
+                b.acao();
+            });
+            lista.appendChild(el);
+        });
+
+        bolha.appendChild(lista);
+        msg.appendChild(bolha);
+        chatMessages.appendChild(msg);
+        scrollToBottom();
+    }
+
+    function iniciarQuiz() {
+        if (emAndamento) return;
+        emAndamento = true;
+        respostas = {};
+        indice = 0;
+        bloquearChat(true);
+        mensagemComBotoes(
+            'Antes de começarmos, quero te conhecer melhor. São ' + PERGUNTAS.length +
+            ' perguntas rápidas e, com as respostas, eu adapto minhas explicações ao seu nível em IoT.',
+            [
+                { texto: 'Vamos lá', acao: mostrarPergunta },
+                { texto: 'Agora não', acao: pularQuiz }
+            ]
+        );
+    }
+
+    function mostrarPergunta() {
+        const p = PERGUNTAS[indice];
+        mensagemComBotoes(
+            'Pergunta ' + (indice + 1) + ' de ' + PERGUNTAS.length + '\n' + p.texto,
+            p.opcoes.map(function (o) {
+                return { texto: o.texto, acao: function () { responder(p, o); } };
+            })
+        );
+    }
+
+    function responder(p, o) {
+        respostas[p.id] = o.valor;
+        indice += 1;
+        if (indice < PERGUNTAS.length) {
+            mostrarPergunta();
+        } else {
+            finalizar();
+        }
+    }
+
+    function pularQuiz() {
+        emAndamento = false;
+        bloquearChat(false);
+        appendMessage('Sem problema! Pode me perguntar o que quiser. Se mudar de ideia, use o botão "Fazer o quiz" na lateral.', 'brian-message');
+        scrollToBottom();
+        try { sessionStorage.setItem('quizPulado', '1'); } catch (e) {}
+    }
+
+    async function finalizar() {
+        const dados = new FormData();
+        Object.keys(respostas).forEach(function (id) { dados.append(id, respostas[id]); });
+
+        try {
+            const resp = await fetch(QUIZ_URL, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                body: dados
+            });
+            const res = await resp.json();
+            if (!resp.ok) throw new Error(res.erro || 'erro');
+
+            appendMessage(
+                'Pronto! Seu perfil é: ' + res.titulo + '.\n' + res.descricao +
+                '\n\nAgora pode me perguntar o que quiser sobre a BZU e IoT.',
+                'brian-message'
+            );
+            btnQuiz.textContent = 'Seu perfil: ' + res.titulo + ' · Refazer quiz';
+        } catch (e) {
+            appendMessage('Não consegui salvar seu quiz agora. Tente de novo pelo botão "Fazer o quiz" na lateral.', 'brian-message');
+        }
+
+        emAndamento = false;
+        bloquearChat(false);
+        userInput.focus();
+        scrollToBottom();
+    }
+
+    btnQuiz.addEventListener('click', iniciarQuiz);
+
+    let pulado = false;
+    try { pulado = sessionStorage.getItem('quizPulado') === '1'; } catch (e) {}
+    if (AUTOMATICO && !pulado) iniciarQuiz();
+})();
 </script>
 {% if not user.is_authenticated %}
 
