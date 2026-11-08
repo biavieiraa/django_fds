@@ -1,0 +1,41 @@
+name: CI/CD Pipeline - Bzu Tech
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar código do repositório
+      uses: actions/checkout@v3
+
+    - name: Configurar ambiente Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Instalar dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Executar suíte de testes (Django & Selenium Headless)
+      env:
+        HEADLESS: 'true'
+      run: |
+        python manage.py test
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Disparar deploy no Render via Webhook
+      run: |
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
