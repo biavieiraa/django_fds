@@ -227,6 +227,7 @@ def ia_chat(request):
         "perfil_titulo": PERFIS_INFO.get(perfil, {}).get("titulo"),
         "perguntas": _perguntas_para_template(),
         "iniciar_quiz": perfil is None and not mensagens,
+        "perguntas_contexto": _contexto_para_template(),
     })
 
 
