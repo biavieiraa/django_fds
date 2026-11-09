@@ -43,6 +43,10 @@ O espaço de trabalho foi configurado no modelo Team-Managed com fluxo personali
 * **Done**
 
 ---
+## Entregas 
+<details>
+  
+<summary> Entrega 1 </summary>
 
 ## Backlog do Produto (Desk Research)
 
@@ -57,12 +61,6 @@ Nesta etapa inicial do projeto, registramos no Backlog as Histórias de Usuário
 
 ### Backlog
 ![Backlog do Jira](./backlog.jpeg)
-
----
-## Entregas 
-<details>
-  
-<summary> Entrega 1 </summary>
 
 ## Sprint 1 — Análise de Concorrentes
 
@@ -201,8 +199,28 @@ https://youtu.be/gOjhCrq0TuE
 </details>
 <details>
   <summary> Entrega 4 </summary>
-  
-  Em andamento...
+
+## Histórias implementadas:
+> ### 4. Salvar e revisualizar histórico de conversas do BrIAn
+> **História de Usuário:**
+> 
+> *Como* usuário logado,
+> *Quero* que meu histórico de conversas com a IA brIAn seja salvo automaticamente,
+> *Para* que eu possa revisitar minhas interações anteriores sempre que estiver autenticado.
+> 
+> **Cenários de Aceite (BDD):**
+> 
+> **Cenário 1: Salvamento e exibição de histórico para usuário logado**
+> **Dado** que realizei uma conversa com a IA brIAn enquanto estava logado
+> **Quando** aceso a seção de histórico de conversas da minha conta
+> **Então** visualizo a lista das conversas anteriores salvas
+> **E** posso selecionar qualquer conversa para carregar e revisitar as mensagens passadas
+> 
+> **Cenário 2: Conversa realizada sem estar autenticado**
+> **Dado** que interagi com a IA brIAn sem estar logado na plataforma
+> **Quando** encerro a sessão ou recarrego a página
+> **Então** a conversa não é armazenada no histórico de contas
+> **E** o sistema não disponibiliza o registro dessa conversa para acessos futuros
 </details>
 
 ## Deployment da Infraestrutura em Produção
