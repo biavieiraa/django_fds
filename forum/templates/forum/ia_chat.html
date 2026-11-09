@@ -45,7 +45,6 @@
             <div class="message-bubble">Olá! Sou o BrIAn, assistente virtual da BZU Tech. Como posso te ajudar hoje?</div>
         </div>
 
-
         {% for m in mensagens %}
         <div class="message {% if m.papel == 'user' %}user-message{% else %}brian-message{% endif %}">
             <div class="message-bubble" style="white-space: pre-wrap;">{{ m.texto }}</div>
@@ -273,17 +272,21 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 </script>
+
 {{ perguntas|json_script:"quiz-perguntas" }}
+{{ perguntas_contexto|json_script:"quiz-contexto" }}
 
 <script>
 (function () {
     const PERGUNTAS = JSON.parse(document.getElementById('quiz-perguntas').textContent);
+    const CONTEXTO = JSON.parse(document.getElementById('quiz-contexto').textContent);
     const QUIZ_URL = "{% url 'quiz_enviar' %}";
     const AUTOMATICO = "{{ iniciar_quiz|yesno:'true,false' }}" === "true";
     const btnQuiz = document.getElementById('btn-quiz');
     const btnEnviar = chatForm.querySelector('.btn-send-icon');
     const placeholderOriginal = userInput.placeholder;
 
+    let etapas = [];
     let respostas = {};
     let indice = 0;
     let emAndamento = false;
@@ -316,7 +319,7 @@
             el.textContent = b.texto;
             el.addEventListener('click', function () {
                 lista.remove();
-                appendMessage(b.texto, 'user-message');
+                if (b.eco !== false) appendMessage(b.texto, 'user-message');
                 b.acao();
             });
             lista.appendChild(el);
@@ -328,37 +331,92 @@
         scrollToBottom();
     }
 
+    // Campo de texto para a opção "Outro"
+    function pedirTexto(etapa) {
+        const msg = document.createElement('div');
+        msg.classList.add('message', 'brian-message');
+
+        const bolha = document.createElement('div');
+        bolha.classList.add('message-bubble');
+        bolha.textContent = 'Pode escrever a sua resposta:';
+
+        const form = document.createElement('form');
+        form.classList.add('quiz-chat-texto');
+
+        const campo = document.createElement('input');
+        campo.type = 'text';
+        campo.maxLength = 80;
+        campo.placeholder = 'Escreva aqui...';
+
+        const enviar = document.createElement('button');
+        enviar.type = 'submit';
+        enviar.textContent = 'Enviar';
+
+        form.appendChild(campo);
+        form.appendChild(enviar);
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const valor = campo.value.trim();
+            if (!valor) return;
+            msg.remove();
+            appendMessage(valor, 'user-message');
+            responder(etapa, valor);
+        });
+
+        bolha.appendChild(form);
+        msg.appendChild(bolha);
+        chatMessages.appendChild(msg);
+        scrollToBottom();
+        campo.focus();
+    }
+
     function iniciarQuiz() {
         if (emAndamento) return;
         emAndamento = true;
         respostas = {};
         indice = 0;
+        etapas = CONTEXTO.map(function (c) {
+            return Object.assign({}, c, { tipo: 'contexto' });
+        }).concat(PERGUNTAS.map(function (p) {
+            return Object.assign({}, p, { tipo: 'pontuada' });
+        }));
         bloquearChat(true);
         mensagemComBotoes(
-            'Antes de começarmos, quero te conhecer melhor. São ' + PERGUNTAS.length +
-            ' perguntas rápidas e, com as respostas, eu adapto minhas explicações ao seu nível em IoT.',
+            'Antes de começarmos, quero te conhecer melhor. São ' + etapas.length +
+            ' perguntas rápidas e, com as respostas, eu adapto minhas explicações à sua empresa e ao seu nível em IoT.',
             [
-                { texto: 'Vamos lá', acao: mostrarPergunta },
+                { texto: 'Vamos lá', acao: mostrarEtapa },
                 { texto: 'Agora não', acao: pularQuiz }
             ]
         );
     }
 
-    function mostrarPergunta() {
-        const p = PERGUNTAS[indice];
-        mensagemComBotoes(
-            'Pergunta ' + (indice + 1) + ' de ' + PERGUNTAS.length + '\n' + p.texto,
-            p.opcoes.map(function (o) {
-                return { texto: o.texto, acao: function () { responder(p, o); } };
-            })
-        );
+    function mostrarEtapa() {
+        const e = etapas[indice];
+        const titulo = 'Pergunta ' + (indice + 1) + ' de ' + etapas.length + '\n' + e.texto;
+        let botoes;
+
+        if (e.tipo === 'contexto') {
+            botoes = e.opcoes.map(function (texto) {
+                return { texto: texto, acao: function () { responder(e, texto); } };
+            });
+            if (e.permite_outro) {
+                botoes.push({ texto: 'Outro', eco: false, acao: function () { pedirTexto(e); } });
+            }
+        } else {
+            botoes = e.opcoes.map(function (o) {
+                return { texto: o.texto, acao: function () { responder(e, o.valor); } };
+            });
+        }
+
+        mensagemComBotoes(titulo, botoes);
     }
 
-    function responder(p, o) {
-        respostas[p.id] = o.valor;
+    function responder(etapa, valor) {
+        respostas[etapa.id] = valor;
         indice += 1;
-        if (indice < PERGUNTAS.length) {
-            mostrarPergunta();
+        if (indice < etapas.length) {
+            mostrarEtapa();
         } else {
             finalizar();
         }
@@ -408,6 +466,7 @@
     if (AUTOMATICO && !pulado) iniciarQuiz();
 })();
 </script>
+
 {% if not user.is_authenticated %}
 
 <div class="bzu-popup-overlay" id="bzu-popup" role="dialog" aria-modal="true" aria-labelledby="bzu-popup-title">

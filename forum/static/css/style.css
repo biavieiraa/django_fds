@@ -1168,3 +1168,29 @@ button.btn-quiz { width: 100%; border: none; cursor: pointer; font-family: inher
 .btn-attach:disabled,
 .btn-send-icon:disabled,
 .gemini-input-form input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ===== QUIZ: CAMPO "OUTRO" ===== */
+.quiz-chat-texto { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.quiz-chat-texto input {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: var(--fs-body-sm);
+}
+.quiz-chat-texto input:focus { outline: none; border-color: var(--brand); }
+.quiz-chat-texto button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 18px;
+    background: var(--brand);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+.quiz-chat-texto button:hover { background: var(--brand-hover); }

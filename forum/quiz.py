@@ -85,3 +85,24 @@ def calcular_perfil(pontos):
     if pontos * 3 <= PONTUACAO_MAXIMA * 2:
         return "curioso"
     return "usuario"
+
+
+PERGUNTAS_CONTEXTO = [
+    {
+        "id": "segmento",
+        "texto": "Em qual área a sua empresa atua?",
+        "rotulo": "Business area",
+        "opcoes": [
+            "Comércio e varejo",
+            "Indústria",
+            "Alimentos e cadeia fria",
+            "Agronegócio",
+        ],
+        "permite_outro": True,
+    },
+]
+
+
+def limpar_texto(valor, limite=80):
+    """Texto digitado pelo cliente: sem quebras de linha, sem aspas duplas, no máximo 80 caracteres."""
+    return " ".join((valor or "").split()).replace('"', "'")[:limite]
