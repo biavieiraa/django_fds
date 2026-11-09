@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 from .models import Feedback, Conversa, Mensagem, QuizResultado
 from .services import chamar_claude, gerar_resposta_brian, ErroBrian
-from .quiz import PERGUNTAS, PERFIS_INFO, calcular_perfil
+from .quiz import PERGUNTAS, PERGUNTAS_CONTEXTO, PERFIS_INFO, calcular_perfil, limpar_texto
 
 
 def register(request):
@@ -88,6 +88,25 @@ def _perfil_atual(request):
             return ultimo.perfil
     return request.session.get("quiz_perfil")
 
+def _contexto_atual(request):
+    """Respostas de contexto (área da empresa etc.): banco (logado) ou sessão (visitante)."""
+    if request.user.is_authenticated:
+        ultimo = QuizResultado.objects.filter(usuario=request.user).first()
+        if ultimo:
+            return ultimo.contexto or {}
+    return request.session.get("quiz_contexto") or {}
+
+
+def _contexto_para_template():
+    return [
+        {
+            "id": c["id"],
+            "texto": c["texto"],
+            "opcoes": c["opcoes"],
+            "permite_outro": c.get("permite_outro", False),
+        }
+        for c in PERGUNTAS_CONTEXTO
+    ]
 
 def _perguntas_para_template():
     return [
@@ -131,10 +150,19 @@ def quiz_enviar(request):
         except (TypeError, ValueError, IndexError):
             return JsonResponse({"erro": "Responda todas as perguntas."}, status=400)
 
+    contexto = {}
+    for c in PERGUNTAS_CONTEXTO:
+        resposta = limpar_texto(request.POST.get(c["id"]))
+        if resposta:
+            contexto[c["id"]] = resposta
+
     perfil = calcular_perfil(total)
     request.session["quiz_perfil"] = perfil
+    request.session["quiz_contexto"] = contexto
     if request.user.is_authenticated:
-        QuizResultado.objects.create(usuario=request.user, pontuacao=total, perfil=perfil)
+        QuizResultado.objects.create(
+            usuario=request.user, pontuacao=total, perfil=perfil, contexto=contexto
+        )
 
     return JsonResponse({"perfil": perfil, **PERFIS_INFO[perfil]})
 
