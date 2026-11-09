@@ -43,6 +43,10 @@ O espaço de trabalho foi configurado no modelo Team-Managed com fluxo personali
 * **Done**
 
 ---
+## Entregas 
+<details>
+  
+<summary> Entrega 1 </summary>
 
 ## Backlog do Produto (Desk Research)
 
@@ -57,12 +61,6 @@ Nesta etapa inicial do projeto, registramos no Backlog as Histórias de Usuário
 
 ### Backlog
 ![Backlog do Jira](./backlog.jpeg)
-
----
-## Entregas 
-<details>
-  
-<summary> Entrega 1 </summary>
 
 ## Sprint 1 — Análise de Concorrentes
 
@@ -201,8 +199,57 @@ https://youtu.be/gOjhCrq0TuE
 </details>
 <details>
   <summary> Entrega 4 </summary>
-  
-  Em andamento...
+
+## Histórias implementadas:
+> ### 4. Salvar e revisualizar histórico de conversas do BrIAn
+> 
+> **História de Usuário:**
+> 
+> *Como* usuário logado,
+> *Quero* que meu histórico de conversas com a IA brIAn seja salvo automaticamente,
+> *Para* que eu possa revisitar minhas interações anteriores sempre que estiver autenticado.
+>
+> ---
+> 
+> **Cenários de Aceite (BDD):**
+> 
+> **Cenário 1: Salvamento e exibição de histórico para usuário logado**
+> - **Dado** que realizei uma conversa com a IA brIAn enquanto estava logado
+> - **Quando** aceso a seção de histórico de conversas da minha conta
+> - **Então** visualizo a lista das conversas anteriores salvas
+> - **E** posso selecionar qualquer conversa para carregar e revisitar as mensagens passadas
+> 
+> **Cenário 2: Conversa realizada sem estar autenticado**
+> - **Dado** que interagi com a IA brIAn sem estar logado na plataforma
+> - **Quando** encerro a sessão ou recarrego a página
+> - **Então** a conversa não é armazenada no histórico de contas
+> - **E** o sistema não disponibiliza o registro dessa conversa para acessos futuros
+
+> ## 5.Quiz de Perfil no Chat com o BrIAn
+> 
+> **História de Usuário:**
+> 
+> *Como* usuário do chatbot,
+> *Quero* responder ao quiz interativo de 6 perguntas no início da conversa com a IA brIAn,
+> *Para* que o sistema identifique meu perfil e adapte o tom das respostas às minhas necessidades.
+>
+> ---
+> 
+> **Cenários de Aceite (BDD):**
+> 
+> **Cenário 1: Realização do quiz e identificação do perfil**
+> - **Dado** que abro a janela do chat com a IA brIAn
+> - **Quando** respondo às 6 perguntas do quiz inicial
+> - **Então** o sistema calcula e define meu perfil como Explorador, Curioso ou Usuário de IoT
+> - **E** a IA brIAn passa a adaptar o tom de suas respostas de acordo com o meu perfil
+> 
+> **Cenário 2: Exibição do convite para o quiz no chat**
+> - **Dado** que acesso o chat pela primeira vez
+> - **Quando** a interface da conversa é carregada
+> - **Então** o sistema exibe o convite para iniciar o quiz de definição de perfil
+> - **E** permite que eu responda às perguntas diretamente no fluxo do chat
+
+
 </details>
 
 ## Deployment da Infraestrutura em Produção
