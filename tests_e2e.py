@@ -13,12 +13,14 @@ class BzuTechE2ETests(StaticLiveServerTestCase):
     def setUp(self):
         options = webdriver.ChromeOptions()
         options.add_argument("--start-maximized")
+        options.add_argument("--window-size=1920,1080")  # Força resolução desktop
         
         # Ativa o modo invisível apenas no GitHub Actions (CI)
         if os.environ.get('HEADLESS') == 'true' or os.environ.get('CI'):
             options.add_argument('--headless=new')
             options.add_argument('--no-sandbox')
             options.add_argument('--disable-dev-shm-usage')
+            options.add_argument('--disable-gpu')
 
         self.driver = webdriver.Chrome(
             service=Service(ChromeDriverManager().install()), 
