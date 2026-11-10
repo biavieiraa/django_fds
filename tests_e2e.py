@@ -65,7 +65,7 @@ class BzuTechE2ETests(StaticLiveServerTestCase):
             time.sleep(1.5)
 
         # 6. Responde consecutivamente às 6 perguntas escolhendo opções aleatórias
-        for _ in range(6):
+        for _ in range(7):
             opcoes = driver.find_elements(By.CLASS_NAME, "quiz-chat-opcao")
             if opcoes:
                 opcao_sorteada = random.choice(opcoes)
@@ -147,7 +147,7 @@ class BzuTechE2ETests(StaticLiveServerTestCase):
         time.sleep(1)
         btn_send = driver.find_element(By.CSS_SELECTOR, ".btn-send-icon")
         btn_send.click()
-        time.sleep(3)
+        time.sleep(5)
 
         # 10. Clica para abrir outra conversa com a IA
         btn_nova = driver.find_element(By.CSS_SELECTOR, ".btn-new-chat")
@@ -162,7 +162,7 @@ class BzuTechE2ETests(StaticLiveServerTestCase):
         time.sleep(1)
         btn_send = driver.find_element(By.CSS_SELECTOR, ".btn-send-icon")
         btn_send.click()
-        time.sleep(3)
+        time.sleep(5)
 
         # 12. Clica em "+ Nova conversa"
         btn_nova = driver.find_element(By.CSS_SELECTOR, ".btn-new-chat")
