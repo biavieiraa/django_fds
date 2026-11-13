@@ -96,6 +96,40 @@ def _contexto_atual(request):
             return ultimo.contexto or {}
     return request.session.get("quiz_contexto") or {}
 
+def _respostas_atual(request):
+    """Respostas das perguntas pontuadas: banco (logado) ou sessão (visitante)."""
+    if request.user.is_authenticated:
+        ultimo = QuizResultado.objects.filter(usuario=request.user).first()
+        if ultimo:
+            return ultimo.respostas or {}
+    return request.session.get("quiz_respostas") or {}
+
+
+def _resumo_quiz(request):
+    """Monta o texto 'Resultado do quiz' que vai para o Brian."""
+    perfil = _perfil_atual(request)
+    if not perfil:
+        return ""
+
+    contexto = _contexto_atual(request)
+    respostas = _respostas_atual(request)
+    linhas = ["Resultado do quiz:"]
+    numero = 1
+
+    for c in PERGUNTAS_CONTEXTO:
+        if c["id"] in contexto:
+            linhas.append(f"{numero}. {c['texto']} Resposta: {contexto[c['id']]}")
+        numero += 1
+
+    for p in PERGUNTAS:
+        if p["id"] in respostas:
+            linhas.append(f"{numero}. {p['texto']} Resposta: {respostas[p['id']]}")
+        numero += 1
+
+    titulo = PERFIS_INFO.get(perfil, {}).get("titulo", perfil)
+    linhas.append(f"Perfil calculado: {titulo}")
+    return "\n".join(linhas)
+
 
 def _contexto_para_template():
     return [
@@ -144,11 +178,14 @@ def quiz(request):
 @require_POST
 def quiz_enviar(request):
     total = 0
+    respostas = {}
     for p in PERGUNTAS:
         try:
-            total += p["opcoes"][int(request.POST.get(p["id"]))][1]
+            texto_opcao, pontos = p["opcoes"][int(request.POST.get(p["id"]))]
         except (TypeError, ValueError, IndexError):
             return JsonResponse({"erro": "Responda todas as perguntas."}, status=400)
+        total += pontos
+        respostas[p["id"]] = texto_opcao
 
     contexto = {}
     for c in PERGUNTAS_CONTEXTO:
@@ -159,10 +196,19 @@ def quiz_enviar(request):
     perfil = calcular_perfil(total)
     request.session["quiz_perfil"] = perfil
     request.session["quiz_contexto"] = contexto
-    if request.user.is_authenticated:
-        QuizResultado.objects.create(
-            usuario=request.user, pontuacao=total, perfil=perfil, contexto=contexto
-        )
+    request.session["quiz_respostas"] = respostas
+
+    if not request.session.session_key:
+        request.session.save()
+
+    QuizResultado.objects.create(
+        usuario=request.user if request.user.is_authenticated else None,
+        sessao=request.session.session_key or "",
+        pontuacao=total,
+        perfil=perfil,
+        contexto=contexto,
+        respostas=respostas,
+    )
 
     return JsonResponse({"perfil": perfil, **PERFIS_INFO[perfil]})
 

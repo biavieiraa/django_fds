@@ -78,15 +78,17 @@ class QuizResultado(models.Model):
         ("usuario", "Já usa IoT"),
     ]
 
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    sessao = models.CharField(max_length=40, blank=True)
     pontuacao = models.PositiveIntegerField()
     perfil = models.CharField(max_length=20, choices=PERFIS)
     criado_em = models.DateTimeField(auto_now_add=True)
     contexto = models.JSONField(default=dict, blank=True)
+    respostas = models.JSONField(default=dict, blank=True)
 
     class Meta:
         ordering = ["-criado_em"]
 
     def __str__(self):
-        return f"{self.usuario.username} - {self.perfil}"
-    
+        dono = self.usuario.username if self.usuario else "visitante"
+        return f"{dono} - {self.perfil}"
