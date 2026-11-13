@@ -203,7 +203,7 @@ https://youtu.be/gOjhCrq0TuE
 #### Quadro da Sprint 4
 ![Quadro 4 do jira em execução](./sprint4.png)
 
-## Screencast BRIAN:https:
+## Screencast BRIAN:
 https://youtu.be/RdMXui3aGJ4?si=VVqOu-SyPFonX6DF
 
 ## Histórias implementadas:
