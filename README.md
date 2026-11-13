@@ -200,6 +200,12 @@ https://youtu.be/gOjhCrq0TuE
 <details>
   <summary> Entrega 4 </summary>
 
+#### Quadro da Sprint 4
+![Quadro 4 do jira em execução](./sprint4.png)
+
+## Screencast BRIAN:https:
+https://youtu.be/RdMXui3aGJ4?si=VVqOu-SyPFonX6DF
+
 ## Histórias implementadas:
 > ### 4. Salvar e revisualizar histórico de conversas do BrIAn
 > 
@@ -279,7 +285,6 @@ A aplicação foi implantada e está em execução no ambiente de produção.
 * **Link do Projeto:** (https://django-fds-zz2o.onrender.com/forum/)
 * **Plataforma de Hospedagem:** Render
 * **Status:** Online
-* **Screencast do BRIAN:** (https://youtu.be/RdMXui3aGJ4?si=VVqOu-SyPFonX6DF)
 
 ---
 
