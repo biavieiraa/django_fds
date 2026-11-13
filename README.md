@@ -200,13 +200,18 @@ https://youtu.be/gOjhCrq0TuE
 <details>
   <summary> Entrega 4 </summary>
 
+#### Quadro da Sprint 4
+![Quadro 4 do jira em execução](./sprint4.png)
+
+## Screencast BRIAN:
+https://youtu.be/RdMXui3aGJ4?si=VVqOu-SyPFonX6DF
+
 ## Histórias implementadas:
 > ### 4. Salvar e revisualizar histórico de conversas do BrIAn
 > 
 > **História de Usuário:**
-> 
 > *Como* usuário logado,
-> *Quero* que meu histórico de conversas com a IA brIAn seja salvo automaticamente,
+> *Quero* que meu histórico de conversas com a IA BrIAn seja salvo automaticamente,
 > *Para* que eu possa revisitar minhas interações anteriores sempre que estiver autenticado.
 >
 > ---
@@ -214,7 +219,7 @@ https://youtu.be/gOjhCrq0TuE
 > **Cenários de Aceite (BDD):**
 > 
 > **Cenário 1: Salvamento e exibição de histórico para usuário logado**
-> - **Dado** que realizei uma conversa com a IA brIAn enquanto estava logado
+> - **Dado** que realizei uma conversa com o BrIAn enquanto estava logado
 > - **Quando** aceso a seção de histórico de conversas da minha conta
 > - **Então** visualizo a lista das conversas anteriores salvas
 > - **E** posso selecionar qualquer conversa para carregar e revisitar as mensagens passadas
@@ -228,9 +233,8 @@ https://youtu.be/gOjhCrq0TuE
 > ## 5.Quiz de Perfil no Chat com o BrIAn
 > 
 > **História de Usuário:**
-> 
 > *Como* usuário do chatbot,
-> *Quero* responder ao quiz interativo de 6 perguntas no início da conversa com a IA brIAn,
+> *Quero* responder ao quiz interativo de 6 perguntas no início da conversa com a IA,
 > *Para* que o sistema identifique meu perfil e adapte o tom das respostas às minhas necessidades.
 >
 > ---
@@ -238,7 +242,7 @@ https://youtu.be/gOjhCrq0TuE
 > **Cenários de Aceite (BDD):**
 > 
 > **Cenário 1: Realização do quiz e identificação do perfil**
-> - **Dado** que abro a janela do chat com a IA brIAn
+> - **Dado** que abro a janela do chat com o BrIAn
 > - **Quando** respondo às 6 perguntas do quiz inicial
 > - **Então** o sistema calcula e define meu perfil como Explorador, Curioso ou Usuário de IoT
 > - **E** a IA brIAn passa a adaptar o tom de suas respostas de acordo com o meu perfil
@@ -248,6 +252,28 @@ https://youtu.be/gOjhCrq0TuE
 > - **Quando** a interface da conversa é carregada
 > - **Então** o sistema exibe o convite para iniciar o quiz de definição de perfil
 > - **E** permite que eu responda às perguntas diretamente no fluxo do chat
+
+> ## 6.Canais de Contato com a Bzu Tech
+> 
+> **História de Usuário:**
+> *Como* potencial cliente,
+> *Quero* ter acesso fácil aos canais de contato com a Bzu Tech pelo chat da IA brIAn e pelo botão no final da página "Sobre a Bzu",
+> *Para* que eu possa falar diretamente com a equipe técnica ou comercial.
+>
+> ---
+> 
+> **Cenários de Aceite (BDD):**
+> 
+> **Cenário 1: Recomendação de contato pelo BrIAn durante a conversa**
+> - **Dado** que estou interagindo com a IA brIAn no chat
+> - **Quando** a IA sugere o atendimento humano ou solicitações de contato
+> - **Então** ela envia na conversa a recomendação com o link direto e o número de telefone/WhatsApp da Bzu Tech
+> - **E** permite que eu clique no link para iniciar a comunicação
+> 
+> **Cenário 2: Redirecionamento para o site através da página "Sobre a Bzu"**
+> - **Dado** que estou navegando na página "Sobre a Bzu"
+> - **Quando** rolo até o final da página e clico no botão de contato/redirecionamento
+> - **Então** sou redirecionado para o site principal da Bzu Tech para entrar em contato com a equipe
 
 
 </details>
