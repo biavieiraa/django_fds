@@ -279,6 +279,7 @@ A aplicação foi implantada e está em execução no ambiente de produção.
 * **Link do Projeto:** (https://django-fds-zz2o.onrender.com/forum/)
 * **Plataforma de Hospedagem:** Render
 * **Status:** Online
+* **Screencast do BRIAN:** (https://youtu.be/RdMXui3aGJ4?si=VVqOu-SyPFonX6DF)
 
 ---
 
