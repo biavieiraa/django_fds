@@ -212,6 +212,9 @@ https://youtu.be/Xu1VCz9-4cs
 ## Screencast Código:
 https://youtu.be/HPyhxmOoww8
 
+## Screencast Testes de sistema:
+https://youtu.be/ACzJCb51lwg
+
 ## Histórias implementadas:
 > ### 4. Salvar e revisualizar histórico de conversas do BrIAn
 > 
