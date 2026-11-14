@@ -206,6 +206,12 @@ https://youtu.be/gOjhCrq0TuE
 ## Screencast BRIAN:
 https://youtu.be/RdMXui3aGJ4?si=VVqOu-SyPFonX6DF
 
+## Screencast CI/CD:
+https://youtu.be/Xu1VCz9-4cs
+
+## Screencast Código:
+https://youtu.be/HPyhxmOoww8
+
 ## Histórias implementadas:
 > ### 4. Salvar e revisualizar histórico de conversas do BrIAn
 > 
