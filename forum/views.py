@@ -8,27 +8,30 @@ from django.views.decorators.http import require_POST
 from .models import Feedback, Conversa, Mensagem, QuizResultado
 from .services import chamar_claude, gerar_resposta_brian, ErroBrian
 from .quiz import PERGUNTAS, PERGUNTAS_CONTEXTO, PERFIS_INFO, calcular_perfil, limpar_texto
+from django.db import IntegrityError
 
 
 def register(request):
     error = None
     if request.method == 'POST':
-        usuario = request.POST.get('username')
+        usuario = (request.POST.get('username') or '').strip()
         senha = request.POST.get('password')
 
-        if User.objects.filter(username=usuario).exists():
-            error = 'Este usuário já existe!'
-        elif not usuario or not senha:
+        if not usuario or not senha:
             error = 'Preencha o usuário e a senha!'
+        elif User.objects.filter(username=usuario).exists():
+            error = 'Este usuário já existe!'
         else:
-            user = User.objects.create_user(username=usuario, password=senha)
-            login(request, user)
-            return redirect('ia_chat')
+            try:
+                user = User.objects.create_user(username=usuario, password=senha)
+            except IntegrityError:
+                error = 'Este usuário já existe!'
+            else:
+                login(request, user)
+                return redirect('ia_chat')
 
     return render(request, 'forum/register.html', {'error': error})
 
-
-# Removido o @login_required para permitir acesso público ao testar e estilizar
 def index(request):
     return render(request, 'forum/index.html')
 
@@ -48,7 +51,6 @@ def sobre_nos(request):
 def sobre_empresa(request):
     return render(request, 'forum/sobre_empresa.html')
 
-
 LIMITE_HISTORICO = 20  
 
 def _conversa_ativa(request):
@@ -56,7 +58,7 @@ def _conversa_ativa(request):
     if "conversa_id" not in request.session:
         if request.user.is_authenticated:
             ultima = (Conversa.objects.filter(usuario=request.user)
-                      .order_by("-atualizada_em").first())
+                .order_by("-atualizada_em").first())
             request.session["conversa_id"] = ultima.id if ultima else None
             return ultima
         return None
@@ -232,7 +234,10 @@ def ia_chat(request):
                 historico.pop(0)  # a API exige começar por "user"
 
         try:
-            resposta = chamar_claude(user_message, arquivo, historico, _perfil_atual(request))
+            resposta = chamar_claude(
+                user_message, arquivo, historico,
+                _perfil_atual(request), _contexto_atual(request), _respostas_atual(request)
+            )
         except ErroBrian as e:
             return JsonResponse({"reply": str(e)})  # erro não vai pro histórico
         except Exception as e:

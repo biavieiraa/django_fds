@@ -1072,7 +1072,9 @@ body:has(.container--chat) { background-color: var(--chat-page-bg); }
         max-width: 220px;
         margin: 0 auto;
     }
-    .caso-bzu__imagem img { max-height: 80px; }
+    .caso-bzu__imagem img { max-height: 80px; 
+    }
+}
 
 
     /* ===== QUIZ ===== */
@@ -1139,7 +1141,6 @@ body:has(.container--chat) { background-color: var(--chat-page-bg); }
     transition: var(--transition);
 }
 .btn-quiz:hover { background: var(--brand-hover); }
-}
 
 /* ===== QUIZ DENTRO DO CHAT ===== */
 button.btn-quiz { width: 100%; border: none; cursor: pointer; font-family: inherit; }
@@ -1194,3 +1195,79 @@ button.btn-quiz { width: 100%; border: none; cursor: pointer; font-family: inher
     cursor: pointer;
 }
 .quiz-chat-texto button:hover { background: var(--brand-hover); }
+
+.brian-hero .brian-hero-intro h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: var(--ls-title);
+}
+
+.brian-hero .brian-chat-animation {
+    width: 100%;
+    max-width: 560px;
+    margin: 40px auto 0;
+    padding: 0;
+}
+
+.brian-hero .floating-bubble {
+    padding: 0 36px;
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+    word-spacing: 0.1em;
+}
+
+@media (max-width: 700px) {
+    .brian-hero .brian-chat-animation { gap: 20px; }
+    .brian-hero .floating-bubble { padding: 0 22px; }
+}
+
+.brian-digitando .message-bubble { display: flex; gap: 5px; padding: 6px 0; }
+.brian-digitando .ponto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brand);
+    animation: pontoPula 1.2s infinite ease-in-out;
+}
+.brian-digitando .ponto:nth-child(2) { animation-delay: 0.15s; }
+.brian-digitando .ponto:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pontoPula {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+    40% { transform: translateY(-6px); opacity: 1; }
+}
+
+.chat-messages .message { animation: msgEntra 0.3s ease; }
+@keyframes msgEntra {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.quiz-chat-opcao {
+    opacity: 0;
+    animation: opcaoEntra 0.35s ease forwards;
+}
+.quiz-chat-opcao:nth-child(1) { animation-delay: 0.05s; }
+.quiz-chat-opcao:nth-child(2) { animation-delay: 0.12s; }
+.quiz-chat-opcao:nth-child(3) { animation-delay: 0.19s; }
+.quiz-chat-opcao:nth-child(4) { animation-delay: 0.26s; }
+.quiz-chat-opcao:nth-child(5) { animation-delay: 0.33s; }
+.quiz-chat-opcao:nth-child(6) { animation-delay: 0.40s; }
+@keyframes opcaoEntra {
+    from { opacity: 0; translate: -10px 0; }
+    to   { opacity: 1; translate: 0 0; }
+}
+.quiz-chat-opcao:hover  { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.quiz-chat-opcao:active { transform: scale(0.97); }
+
+.btn-send-icon,
+.btn-quiz { transition: transform 0.15s ease, background-color 0.2s ease; }
+.btn-send-icon:hover:not(:disabled),
+.btn-quiz:hover { transform: translateY(-2px); }
+.btn-send-icon:active:not(:disabled),
+.btn-quiz:active { transform: scale(0.95); }
+
+@media (prefers-reduced-motion: reduce) {
+    .chat-messages .message,
+    .quiz-chat-opcao,
+    .brian-digitando .ponto { animation: none; opacity: 1; }
+}

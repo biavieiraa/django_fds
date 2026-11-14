@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&family=Courier+Prime:wght@400;700&family=Momo+Trust+Display&family=Momo+Trust+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.2">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.3">
 
     <!-- Aplica o tema salvo antes de renderizar a página (evita tela branca rápida) -->
     <script>
@@ -52,7 +52,7 @@
                 {% else %}
                 <a href="{% url 'login' %}" class="nav-entrar">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 7.13193V6.61204C7 4.46614 7 3.3932 7.6896 2.79511C8.37919 2.19703 9.44136 2.34877 11.5657 2.65224L15.8485 3.26408C18.3047 3.61495 19.5327 3.79039 20.2664 4.63628C21 5.48217 21 6.72271 21 9.20377V14.7962C21 17.2773 21 18.5178 20.2664 19.3637C19.5327 20.2096 18.3047 20.385 15.8485 20.7359L11.5657 21.3478C9.44136 21.6512 8.37919 21.803 7.6896 21.2049C7  twenty-one .6068   seven .5339   seven .388V seventeen .066" stroke-width=" twenty-one " stroke="currentColor"/>
+                        <path d="M7 7.13193V6.61204C7 4.46614 7 3.3932 7.6896 2.79511C8.37919 2.19703 9.44136 2.34877 11.5657 2.65224L15.8485 3.26408C18.3047 3.61495 19.5327 3.79039 20.2664 4.63628C21 5.48217 21 6.72271 21 9.20377V14.7962C21 17.2773 21 18.5178 20.2664 19.3637C19.5327 20.2096 18.3047 20.385 15.8485 20.7359L11.5657 21.3478C9.44136 21.6512 8.37919 21.803 7.6896 21.2049C7 20.6068 7 19.5339 7 17.388V16.868" stroke-width="2" stroke="currentColor"/>
                         <path d="M16 12L16.7809 11.3753L17.2806 12L16.7809 12.6247L16 12ZM4 13C3.44771 13 3 12.5523 3 12C3 11.4477 3.44771 11 4 11V12V13ZM12 7L12.7809 6.3753L16.7809 11.3753L16 12L15.2191 12.6247L11.2191 7.6247L12 7ZM16 12L16.7809 12.6247L12.7809 17.6247L12 17L11.2191 16.3753L15.2191 11.3753L16 12ZM16 12V13H4V12V11H16V12Z" fill="currentColor"/>
                     </svg>
                     <span>Entrar</span>
@@ -75,14 +75,13 @@
     <main class="container {% block container_class %}{% endblock %}">
         {% block content %}{% endblock %}
     </main>
-</body>
 
 <footer class="footer">
   <div class="footer-container">
 
     <!-- Coluna da marca -->
     <div class="footer-brand">
-      <div class="footer-logo"></div> <!-- troque por <img src="{% static 'img/logo.png' %}"> -->
+      <div class="footer-logo"></div> 
       <p>Soluções de IoT para coleta<br>de dados operacionais.</p>
     </div>
 

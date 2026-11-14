@@ -176,6 +176,7 @@
         clearAttachment();
         scrollToBottom();
 
+                const digitando = mostrarDigitando();
         try {
             // Sem Content-Type: o navegador define sozinho para FormData
             const response = await fetch("{% url 'ia_chat' %}", {
@@ -185,17 +186,18 @@
             });
 
             const data = await response.json();
+            digitando.remove();
 
             // 3. Mostra a resposta do Brian à esquerda
             if (data.reply) {
-                appendMessage(data.reply, 'brian-message');
+                digitarMensagem(data.reply);
             } else {
                 appendMessage("Desculpa, ocorreu um erro ao processar a resposta.", 'brian-message');
             }
 
             scrollToBottom();
         } catch (error) {
-            console.error("Erro:", error);
+            digitando.remove();
             appendMessage("Erro de ligação ao servidor.", 'brian-message');
             scrollToBottom();
         }
@@ -270,6 +272,39 @@
 
     function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+        // Três pontinhos enquanto o Brian pensa
+    function mostrarDigitando() {
+        const msg = document.createElement('div');
+        msg.classList.add('message', 'brian-message', 'brian-digitando');
+        const bolha = document.createElement('div');
+        bolha.classList.add('message-bubble');
+        bolha.innerHTML = '<span class="ponto"></span><span class="ponto"></span><span class="ponto"></span>';
+        msg.appendChild(bolha);
+        chatMessages.appendChild(msg);
+        scrollToBottom();
+        return msg;
+    }
+
+    // Escreve a resposta do Brian aos poucos
+    function digitarMensagem(texto) {
+        const msg = document.createElement('div');
+        msg.classList.add('message', 'brian-message');
+        const bolha = document.createElement('div');
+        bolha.classList.add('message-bubble');
+        bolha.style.whiteSpace = 'pre-wrap';
+        msg.appendChild(bolha);
+        chatMessages.appendChild(msg);
+
+        let i = 0;
+        const passo = Math.max(1, Math.ceil(texto.length / 300)); // respostas longas digitam mais rápido
+        const timer = setInterval(function () {
+            i += passo;
+            bolha.textContent = texto.slice(0, i);
+            scrollToBottom();
+            if (i >= texto.length) clearInterval(timer);
+        }, 15);
     }
 </script>
 
